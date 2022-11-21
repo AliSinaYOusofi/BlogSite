@@ -1,4 +1,11 @@
+import HeroSection from "../components/HeroSection/HeroSection";
+import NewsLetter from "../components/NewsLetter/NewsLetter";
 import "./global.css";
 export default function Home() {
-    return <h1></h1>
+    return(
+        <>
+            <HeroSection />
+            <NewsLetter />
+        </>
+    );
 }
