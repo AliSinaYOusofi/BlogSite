@@ -7,7 +7,7 @@ export default function RootLayout({ children }) {
     <html>
       <head />  
       {/* Putting our layout into this direcory */}
-      <body>
+      <body className="">
         <Navbar />
         {children}
         <Footer />

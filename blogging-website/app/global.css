@@ -8,4 +8,7 @@
 .navbar {
     font-family: 'Open Sans', sans-serif;
     font-weight: 800;
+}
+body {
+    background-color: #111827;
 }   
