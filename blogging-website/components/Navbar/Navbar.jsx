@@ -13,10 +13,13 @@ export default  function Navbar() {
 
     // adding box shadow when we react 150px from the top
     useEffect( () => {
-        window.onscroll = () => {
-            setScrollY(window.scrollY);
+        if (typeof window !== "undefined") {
+
+            window.onscroll = () => {
+                setScrollY(window.scrollY);
+            }
         }
-    }, [window.scrollY]);
+    }, [scrollY]);
 
     return ( 
         <nav className="sticky mx-auto top-0 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900" style={{boxShadow: scrollY >= 150 ? "1px 1px 1px 1px black" : ""}}>
