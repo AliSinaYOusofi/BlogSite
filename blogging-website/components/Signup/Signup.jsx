@@ -8,6 +8,8 @@ import { passwordValidator } from '../../functions/validators/passwordValidator'
 
 // for toasts notifications
 import toast, {Toaster} from 'react-hot-toast';
+//
+import axios from 'axios';
 
 export default function Signup() {
     
@@ -17,7 +19,7 @@ export default function Signup() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // prevent the refresh behaviour
         
         // validators are tested and they are working fine
@@ -53,7 +55,18 @@ export default function Signup() {
                 duration: 2000,
             });
         }
-        
+        // next: setup the api paths
+        // inside the app folder
+        try {
+            const response = await axios.post("/api/save_creds", {
+                email,
+                username,
+                password
+            });
+            console.log(response);
+        }catch(error) {
+            console.log(error);
+        }
     }
 
     return (

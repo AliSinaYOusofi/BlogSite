@@ -1,7 +1,12 @@
-import React from 'react'
-import Signup from '../../components/Signup/Signup'
+import React from 'react';
+import Signup from '../../components/Signup/Signup';
 
-export default function page() {
+const getData = async () => {
+
+}
+
+export default async function page() {
+  const data = await getData();
   return (
     <>
         <Signup />
