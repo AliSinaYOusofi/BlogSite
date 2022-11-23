@@ -50,11 +50,11 @@ export default function Signup() {
             });
         }
 
-        else if(password !== confirmPassword) {
-            toast.error("passwords don't match", {
-                duration: 2000,
-            });
-        }
+        // else if(password !== confirmPassword) {
+        //     toast.error("passwords don't match", {
+        //         duration: 2000,
+        //     });
+        // }
         // next: setup the api paths
         // inside the app folder
         try {
