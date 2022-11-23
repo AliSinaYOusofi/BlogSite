@@ -31,6 +31,12 @@ const RegisterationSchema = new mongoose.Schema({
         lowercase: true
     },
 
+    
+    public: {
+        type: Boolean,
+        default: true, // meaning should be indexed when searching
+        required: true,
+    },
     date: {
         type: Date,
         default: function() {
@@ -38,12 +44,6 @@ const RegisterationSchema = new mongoose.Schema({
         },
         required: false,
     },
-
-    public: {
-        type: Boolean,
-        default: true, // meaning should be indexed when searching
-        required: false,
-    }
 });
 
 
@@ -85,5 +85,4 @@ const RegisterationSchema = new mongoose.Schema({
 
 // TODO: 1 learn about models in mongodb and then save data tot he user
 //  
-
-module.exports = mongoose.model("model", RegisterationSchema);
+module.exports = mongoose.model("user", RegisterationSchema, "User");
