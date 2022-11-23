@@ -18,6 +18,12 @@ export default function Signup() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    // for public or private chceckbox
+    const [visibility, setVisibility] = useState(null);
+
+    // our refs for our checkboxed
+    let publicRef = React.useRef(null);
+    let privateRef = React.useRef(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // prevent the refresh behaviour
@@ -61,12 +67,30 @@ export default function Signup() {
             const response = await axios.post("/api/save_creds", {
                 email,
                 username,
-                password
+                password,
+                visibility
             });
             console.log(response);
         }catch(error) {
             console.log(error);
         }
+    }
+
+    // handling the checkbox
+    function selectOnlyOneCheckbox(whichOne) {
+        let visibiltyIsPublic = true;
+        if (publicRef.current && privateRef.current) {
+            if(whichOne === "public") {
+                privateRef.current.checked = false;
+                publicRef.current.checked = true;
+            }
+            else {
+                privateRef.current.checked = !false;
+                publicRef.current.checked = !true;
+                visibiltyIsPublic = false;
+            }
+        }
+        setVisibility(visibiltyIsPublic);
     }
     return (
         <section className=" dark:bg-gray-900 mt-20">
@@ -99,7 +123,23 @@ export default function Signup() {
                                 <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" name="confirm" id="confirm" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                             </div>
                             
+                            <div class="flex items-center mr-4 gap-x-10">
+                                <p className="text-white">Set account visibilty: </p>
+                                <div>
+                                    <input ref={publicRef}  onClick={() => selectOnlyOneCheckbox("public")}id="public"  type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="check"/>
+                                    <label  for="public" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Public</label>
+                                </div>
+                                
+                                <div>
+
+                                    <input ref={privateRef} onClick={() => selectOnlyOneCheckbox("private")} id="private"  type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="check"/>
+                                    <label for="private" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Private</label>
+                                
+                                </div>
+                            </div>
+                            
                             <div className="flex items-start">
+                                
                                 <div className="flex items-center h-5">
                                     <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required />
                                 </div>
