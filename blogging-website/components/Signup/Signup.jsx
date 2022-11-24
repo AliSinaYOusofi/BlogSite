@@ -64,7 +64,9 @@ export default function Signup() {
                 password,
                 visibility
             });
-            console.log(response);
+            if (response.data.message === "created") toast.success("sign up success.");
+            else if (response.data.message === "duplicate") toast.error("email already registred.");
+            else if(response.data.message === "server") toast.error("503 internal server error.");
         }catch(error) {
             console.log(error);
         }
@@ -117,17 +119,17 @@ export default function Signup() {
                                 <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" name="confirm" id="confirm" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                             </div>
                             
-                            <div class="flex items-center mr-4 gap-x-10">
+                            <div className="flex items-center mr-4 gap-x-10">
                                 <p className="text-white">Set account visibilty: </p>
                                 <div>
                                     <input ref={publicRef}  onClick={() => selectOnlyOneCheckbox("public")}id="public"  type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="check"/>
-                                    <label  for="public" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Public</label>
+                                    <label  htmlFor="public" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Public</label>
                                 </div>
                                 
                                 <div>
 
                                     <input ref={privateRef} onClick={() => selectOnlyOneCheckbox("private")} id="private"  type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="check"/>
-                                    <label for="private" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Private</label>
+                                    <label htmlFor="private" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Private</label>
                                 
                                 </div>
                             </div>

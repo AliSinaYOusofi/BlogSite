@@ -17,26 +17,24 @@ const sleepFor = async(time) => { return new Promise(resolved => setTimeout(reso
 async function findEmailDuplicates(field) {
     
     // checking if email already exists
-
+    let exists;
     try {
-        RegisterationSchema.exists({email: field}, function(error, doc) {
-            if (error) {
-
-            }
-            else
-                console.log(doc);
-        })
+        exists = await RegisterationSchema.exists({email: field});
     } catch (error) { console.log(error, "error on findEmailDups function()")}
+    console.log(exists, "fucking exists or not");
+    return await exists;
 }
 export default async function handler(req, res) {  
     
     let isSaved = true;
+    let isDuplicate = false;
     // connection to database
     const {email, password, username, visibility} = req.body; 
     // insertin the dat
     const conn = connection();
 
     try {
+
         const passwordHash = hashPassword(password);
         
         const dataToBeInserted = {
@@ -45,16 +43,23 @@ export default async function handler(req, res) {
             password: passwordHash,
             public: visibility
         }
-        // making a delay before saving to database
 
-        findEmailDuplicates(email);
-        // await sleepFor(1000);
-        // console.log("time")
-        // // before saving:
-        // // 1: check for dups email
-        // const result = await users.insertMany(dataToBeInserted);
-        // console.log(result);
-    } catch (error) { isSent = false; console.log(error);}
+        // making a delay before saving to database
+        await sleepFor(1000);
+        // before saving:
+        // 1: check for dups email
+
+        const isDuplicateFunc = await findEmailDuplicates(email)
+
+        if (isDuplicateFunc === null) await RegisterationSchema.insertMany(dataToBeInserted);
+           
+        else {
+            isDuplicate = true;
+            isSaved = false;
+        }
+    } catch (error) { isSaved = false; console.log(error, 'error saving');}
     
-    isSaved ? res.status(200).json({message: "got you"}) : res.status(500).json({message: "failed"});
+    if (isSaved) res.status(200).json({message: "created"})
+    else if (isDuplicate) res.status(200).json({message: "duplicate"});
+    else res.status(200).json({message: "server"});
 }
