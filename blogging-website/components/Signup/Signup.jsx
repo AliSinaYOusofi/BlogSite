@@ -56,8 +56,6 @@ export default function Signup() {
         
         // next: setup the api paths
         // inside the app folder
-
-        if (! isValid) return;
         
         try {
             const response = await axios.post("/api/save_creds", {
