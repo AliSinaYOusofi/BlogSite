@@ -1,7 +1,12 @@
-const mongoose = require("mongoose");
+import { connect as _connect } from "mongoose";
 
-async function mongooseConnectDB(uri) {
- 
+async function connection() {
+    let connect = _connect(process.env.MONGO_AUTH)
+        .then( () => console.log("Connected"))
+        .catch(error => console.log("Error: %s", String(error)));
+    
+    return connect;
 };
 
-module.exports = mongooseConnectDB;
+
+export default connection;

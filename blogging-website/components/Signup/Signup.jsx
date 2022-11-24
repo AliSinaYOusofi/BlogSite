@@ -26,34 +26,26 @@ export default function Signup() {
     let privateRef = React.useRef(null);
 
     const handleSubmit = async (e) => {
+        
         e.preventDefault(); // prevent the refresh behaviour
         
+        let isValid = false;
         // validators are tested and they are working fine
         if (!emailValidator(email)) {
-            toast.error("email is invalid", {
-                duration: 2000,
-                style: {
-                    backgroundColor: ""
-                },
-                icon:"",
-
-            });
+            toast.error("email is invalid", { duration: 2000,});
+            isValid = false;
         }
-        
         else if (!usernameValidator(username)) {
-            toast.error("user name can't have spaces", {
-                duration: 2000,
-                style: {
-                    backgroundColor: "darkslategrey"
-                },
-            });
+            toast.error("user name can't have spaces", {duration: 2000});
+            isValid = false;
         }
-
         else if (!passwordValidator(password)) {
-            toast.error("valid password example: asdfasD3", {
-                
-                duration: 2000,
-            });
+            toast.error("valid password example: asdfasD3", { duration: 2000,});
+            isValid = false;
+        }
+        else if (visibility === null) {
+            toast.error("Account visibility not selected.", {duration: 2000});
+            isValid = false;
         }
 
         // else if(password !== confirmPassword) {
@@ -61,8 +53,12 @@ export default function Signup() {
         //         duration: 2000,
         //     });
         // }
+        
         // next: setup the api paths
         // inside the app folder
+
+        if (! isValid) return;
+        
         try {
             const response = await axios.post("/api/save_creds", {
                 email,
