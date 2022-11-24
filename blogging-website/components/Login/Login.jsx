@@ -2,14 +2,10 @@
 
 import Link from 'next/link'
 import React from 'react'
-import { useRouter } from 'next/router';
+
 export default function Login() {
 
-    // getting data pushing it inside the inputs
-    const router = useRouter();
-    const {email, password} = router.query;
-    console.log(email, password);
-
+    // checking the creds
     return (
     
         <div className="w-full mt-20 mx-auto max-w-sm p-4  border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">

@@ -6,7 +6,7 @@ import { emailValidator } from '../../functions/validators/emailValidator';
 import { usernameValidator } from '../../functions/validators/usernameValidator';
 import { passwordValidator } from '../../functions/validators/passwordValidator';
 // our router to redirect to /signup with data as query
-import Router from 'next/router';
+import {useRouter} from 'next/navigation';
 
 // for toasts notifications
 import toast, {Toaster} from 'react-hot-toast';
@@ -15,6 +15,8 @@ import axios from 'axios';
 
 export default function Signup() {
 
+    // router
+    const router = useRouter();
     // for controlled inputs
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -25,7 +27,6 @@ export default function Signup() {
 
     // for routing
     
-
     // our refs for our checkboxed
     let publicRef = React.useRef(null);
     let privateRef = React.useRef(null);
@@ -74,7 +75,8 @@ export default function Signup() {
             if (response.data.message === "created") {
                 toast.success("sign up success.");
                 sleepFor(2000);
-                Router.push("/signup", {query: {email, password}});
+                router.push(`/login`);
+                
             }
             else if (response.data.message === "duplicate") toast.error("email already registred.");
             else if(response.data.message === "server") toast.error("503 internal server error.");
