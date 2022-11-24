@@ -29,7 +29,7 @@ export default function Signup() {
         
         e.preventDefault(); // prevent the refresh behaviour
         
-        let isValid = false;
+        let isValid = true;
         // validators are tested and they are working fine
         if (!emailValidator(email)) {
             toast.error("email is invalid", { duration: 2000,});
@@ -40,7 +40,7 @@ export default function Signup() {
             isValid = false;
         }
         else if (!passwordValidator(password)) {
-            toast.error("valid password example: asdfasD3", { duration: 2000,});
+            toast.error("valid password example: 1 lowercase && 1 number && length > 6.", { duration: 2000,});
             isValid = false;
         }
         else if (visibility === null) {
@@ -48,15 +48,16 @@ export default function Signup() {
             isValid = false;
         }
 
-        // else if(password !== confirmPassword) {
-        //     toast.error("passwords don't match", {
-        //         duration: 2000,
-        //     });
-        // }
+        else if(password !== confirmPassword) {
+            toast.error("passwords don't match", {
+                duration: 2000,
+            });
+        }
         
         // next: setup the api paths
         // inside the app folder
-        
+        if (! isValid) return;
+
         try {
             const response = await axios.post("/api/save_creds", {
                 email,
