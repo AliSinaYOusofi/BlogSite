@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import { emailValidator } from '../../functions/validators/emailValidator';
 import { usernameValidator } from '../../functions/validators/usernameValidator';
 import { passwordValidator } from '../../functions/validators/passwordValidator';
+// our router to redirect to /signup with data as query
+import Router from 'next/router';
 
 // for toasts notifications
 import toast, {Toaster} from 'react-hot-toast';
@@ -12,7 +14,7 @@ import toast, {Toaster} from 'react-hot-toast';
 import axios from 'axios';
 
 export default function Signup() {
-    
+
     // for controlled inputs
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -21,9 +23,13 @@ export default function Signup() {
     // for public or private chceckbox
     const [visibility, setVisibility] = useState(null);
 
+    // for routing
+    
+
     // our refs for our checkboxed
     let publicRef = React.useRef(null);
     let privateRef = React.useRef(null);
+    const sleepFor = async(time) => { return new Promise(resolved => setTimeout(resolved, time));}
 
     const handleSubmit = async (e) => {
         
@@ -65,7 +71,11 @@ export default function Signup() {
                 password,
                 visibility
             });
-            if (response.data.message === "created") toast.success("sign up success.");
+            if (response.data.message === "created") {
+                toast.success("sign up success.");
+                sleepFor(2000);
+                Router.push("/signup", {query: {email, password}});
+            }
             else if (response.data.message === "duplicate") toast.error("email already registred.");
             else if(response.data.message === "server") toast.error("503 internal server error.");
         }catch(error) {
