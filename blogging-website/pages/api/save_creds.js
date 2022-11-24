@@ -1,7 +1,7 @@
 require('dotenv').config();
 import bcrypt from 'bcrypt';
 // import RegisterationSchema from '../../db_models/RegisterationSchema';
-import users from '../../db_models/RegisterationSchema';
+import RegisterationSchema from '../../db_models/RegisterationSchema';
 import connection from '../../db_connection/mongoose.db.config';
 
 
@@ -14,6 +14,20 @@ function comparePasswordHash(password, hash) { return bcrypt.compareSync(passwor
 
 const sleepFor = async(time) => { return new Promise(resolved => setTimeout(resolved, time));}
 
+async function findEmailDuplicates(field) {
+    
+    // checking if email already exists
+
+    try {
+        RegisterationSchema.exists({email: field}, function(error, doc) {
+            if (error) {
+
+            }
+            else
+                console.log(doc);
+        })
+    } catch (error) { console.log(error, "error on findEmailDups function()")}
+}
 export default async function handler(req, res) {  
     
     let isSaved = true;
@@ -32,11 +46,15 @@ export default async function handler(req, res) {
             public: visibility
         }
         // making a delay before saving to database
-        await sleepFor(1000);
-        console.log("time")
-        const result = await users.insertMany(dataToBeInserted);
-        console.log(result);
+
+        findEmailDuplicates(email);
+        // await sleepFor(1000);
+        // console.log("time")
+        // // before saving:
+        // // 1: check for dups email
+        // const result = await users.insertMany(dataToBeInserted);
+        // console.log(result);
     } catch (error) { isSent = false; console.log(error);}
     
-    isSent ? res.status(200).json({message: "got you"}) : res.status(500).json({message: "failed"});
+    isSaved ? res.status(200).json({message: "got you"}) : res.status(500).json({message: "failed"});
 }

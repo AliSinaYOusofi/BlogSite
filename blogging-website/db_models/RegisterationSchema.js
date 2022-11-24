@@ -85,5 +85,4 @@ const RegisterationSchema = new mongoose.Schema({
 
 // TODO: 1 learn about models in mongodb and then save data tot he user
 //  
-const users = mongoose.model("d_ser", RegisterationSchema);
-module.exports = users;
+module.exports =  mongoose.models.RegdUser || mongoose.model("RgedUser", RegisterationSchema);
