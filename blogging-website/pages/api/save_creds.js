@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt';
 import RegisterationSchema from '../../db_models/RegisterationSchema';
 import connection from '../../db_connection/mongoose.db.config';
 
-
 function hashPassword(password) { return bcrypt.hashSync(password, bcrypt.genSaltSync(10)); }
 function comparePasswordHash(password, hash) { return bcrypt.compareSync(password, hash);}
 
@@ -24,6 +23,7 @@ async function findEmailDuplicates(field) {
     console.log(exists, "fucking exists or not");
     return await exists;
 }
+
 export default async function handler(req, res) {  
     
     let isSaved = true;
