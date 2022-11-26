@@ -1,14 +1,16 @@
-import { useContext, createContext, Children} from "react";
-import InitialState from "./InitialState";
+import { useContext, createContext, useState} from "react";
 
-export const blogContext = createContext(InitialState);
+export const blogContext = createContext({});
 
-export const Spacex = () => {
+export const Spacex = ({children}) => {
+    const [token, setToken] = useState("");
 
-
+    const setAccessToken = (token) => {setToken(token)}
     return (
-        <blogContext.Provider>
-            {Children}
+        <blogContext.Provider value={{setAccessToken, token}}>
+            {children}
         </blogContext.Provider>
     )
-}
+};
+
+export const useSpacexProvider = () => useContext(blogContext);

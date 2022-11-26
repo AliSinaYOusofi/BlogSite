@@ -10,7 +10,6 @@ require('dotenv').config();
 // for password checking
 function comparePasswordHash(password, hash) { return bcrypt.compareSync(password, hash);}
 // for delaying before querying
-const sleepFor = async(time) => { return new Promise(resolved => setTimeout(resolved, time));}
 
 async function findEmailDuplicates(field) {
     // checking if email already exists
@@ -41,14 +40,14 @@ export default async function handler(req, res) {
     if (emailExists) {
         // email is valid. check the password
         const user = await RegisterationSchema.find({'email': email});
-      
+        console.log(password);
         if (comparePasswordHash(password, user[0].password)) {
             // signing using only email
             const signData = {email, username: user[0]?.username};
             const accessToken = jwt.sign(signData, process.env.JWT_SECRET); // is unsafe
             return res.status(200).json({message: "success", accessToken});
         }
-        else return res.status(200).json({message: "not you"});
+        else return res.status(200).json({message: "notyou"});
     } else return res.status(200).json({message: "unreged"});
     
 }

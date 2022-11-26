@@ -9,7 +9,8 @@ import { passwordValidator } from '../../functions/validators/passwordValidator'
 import {useRouter} from 'next/navigation';
 
 // for toasts notifications
-import toast, {Toaster} from 'react-hot-toast';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //
 import axios from 'axios';
 
@@ -166,7 +167,7 @@ export default function Signup() {
                     </div>
                 </div>
             </div>
-            <Toaster />
+            <ToastContainer />
         </section>
   );
 }

@@ -3,8 +3,11 @@
 import axios from 'axios';
 import Link from 'next/link'
 import React, { useState } from 'react'
-// toast
-import toast, {Toaster} from 'react-hot-toast';
+// changed from react-host-toast to react-toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useSpacexProvider } from '../../context/appContext';
 
 
 export default function Login() {
@@ -12,8 +15,42 @@ export default function Login() {
     // creds
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    
+    // our context provider
+    const {setAccessToken, token} = useSpacexProvider();
 
-    // checking the creds.
+    // for delaying 
+    const sleepFor = () => new Promise((resolve) => setTimeout(resolve, 2000))
+
+    const sendToastMessage = (message) => {
+        
+        if (message === "success") {
+            toast.promise(
+                sleepFor,
+                {
+                  pending: {
+                    render() {
+                      return <h1>checking ... </h1>;
+                    },
+                  },
+                  success: {
+                    render() {
+                      return <h1>login success</h1>;
+                    },
+                  },
+                  error: {
+                    render() {
+                      return <h1>failed to check credentials</h1>;
+                    },
+                  },
+                }
+              );
+        }
+
+        else if (message === "notyou") toast.error("invalid credentials");
+        else if (message === "unreged") toast.dismiss("invalid credentials");
+    }
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -28,7 +65,9 @@ export default function Login() {
 
         try {
             const response = await axios.post("/api/auth/check_creds", {email, password});
-            console.log(response.data);
+            const {accessToken, message} = await response.data;
+            setAccessToken(accessToken); // that's good. access token is set.
+            sendToastMessage(message);
         } catch (error) { console.log(error); }
     }
     return (
@@ -43,21 +82,24 @@ export default function Login() {
                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
                     <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg border-none outline-none block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
                 </div>
-                <div className="flex items-start">
-                    <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                            <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
-                        </div>
-                        <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-                    </div>
-                    <a href="#" className="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
+                <div className="flex items-end">
+                    
+                    <a href="#" className="mr-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
                 </div>
                 <button type="submit" className="w-full text-white bg-blue-800  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 ">Login to your account</button>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                     Not registered? <Link href="/signup" className="text-blue-700 hover:underline dark:text-blue-500">Create account</Link>
                 </div>
             </form>
-            <Toaster/>
+            <ToastContainer
+                position='top-center'
+                autoClose={"2000"}
+                newestOnTop
+                pauseOnHover
+                theme="light"
+                draggable={false}
+                closeOnClick={true}
+            />
         </div>
   );
 }
