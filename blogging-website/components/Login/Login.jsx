@@ -27,8 +27,8 @@ export default function Login() {
         // we are good to make the rq
 
         try {
-            const response = await axios.post("/api/check_creds", {email, password});
-
+            const response = await axios.post("/api/auth/check_creds", {email, password});
+            console.log(response.data);
         } catch (error) { console.log(error); }
     }
     return (
