@@ -11,8 +11,10 @@ import {useRouter} from 'next/navigation';
 // for toasts notifications
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//
+// sleep
+import { sleep } from '../global/sleep';
 import axios from 'axios';
+import { sendToastMessage } from '../global/Toats';
 
 export default function Signup() {
 
@@ -32,8 +34,6 @@ export default function Signup() {
     let publicRef = React.useRef(null);
     let privateRef = React.useRef(null);
     
-    const sleepFor = async(time) => { return new Promise(resolved => setTimeout(resolved, time));}
-
     const handleSubmit = async (e) => {
         
         e.preventDefault(); // prevent the refresh behaviour
@@ -74,14 +74,13 @@ export default function Signup() {
                 password,
                 visibility
             });
-            if (response.data.message === "created") {
-                toast.success("sign up success.");
-                sleepFor(2000);
-                router.push(`/login`);
-                
+            const {message} = await response.data
+            if (message === "created") {
+                await sendToastMessage("checking you credentials", "you are now a member", "failed! try gain later");
+                router.push("/login");
             }
-            else if (response.data.message === "duplicate") toast.error("email already registred.");
-            else if(response.data.message === "server") toast.error("503 internal server error.");
+            else if (message === "duplicate") toast.error("email already registred.");
+            else if(message === "server") toast.error("503 internal server error.");
         }catch(error) {
             console.log(error);
         }
@@ -166,8 +165,16 @@ export default function Signup() {
                         </form>
                     </div>
                 </div>
+            <ToastContainer 
+                position='top-center'
+                autoClose={"2000"}
+                newestOnTop
+                pauseOnHover
+                theme="light"
+                draggable={false}
+                closeOnClick={true}
+            />
             </div>
-            <ToastContainer />
         </section>
   );
 }

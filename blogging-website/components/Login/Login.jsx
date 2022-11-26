@@ -6,8 +6,9 @@ import React, { useState } from 'react'
 // changed from react-host-toast to react-toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { sleep } from '../global/sleep';
 import { useSpacexProvider } from '../../context/appContext';
+import { sendToastMessage } from '../global/Toats';
 
 
 export default function Login() {
@@ -20,37 +21,6 @@ export default function Login() {
     const {setAccessToken, token} = useSpacexProvider();
 
     // for delaying 
-    const sleepFor = () => new Promise((resolve) => setTimeout(resolve, 2000))
-
-    const sendToastMessage = (message) => {
-        
-        if (message === "success") {
-            toast.promise(
-                sleepFor,
-                {
-                  pending: {
-                    render() {
-                      return <h1>checking ... </h1>;
-                    },
-                  },
-                  success: {
-                    render() {
-                      return <h1>login success</h1>;
-                    },
-                  },
-                  error: {
-                    render() {
-                      return <h1>failed to check credentials</h1>;
-                    },
-                  },
-                }
-              );
-        }
-
-        else if (message === "notyou") toast.error("invalid credentials");
-        else if (message === "unreged") toast.dismiss("invalid credentials");
-    }
-
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -67,7 +37,10 @@ export default function Login() {
             const response = await axios.post("/api/auth/check_creds", {email, password});
             const {accessToken, message} = await response.data;
             setAccessToken(accessToken); // that's good. access token is set.
-            sendToastMessage(message);
+            
+            if (message === "success") sendToastMessage("checking your credentials", "login success", "failed! try again later");
+            else if (message === "notyou") toast.error("invalid credentials");
+            else if (message === "unreged") toast.dismiss("invalid credentials");
         } catch (error) { console.log(error); }
     }
     return (
