@@ -4,9 +4,6 @@ import bcrypt, { genSaltSync } from 'bcrypt';
 import RegisterationSchema from '../../../db_models/RegisterationSchema';
 import connection from '../../../db_connection/mongoose.db.config';
 
-function hashPassword(password) { return bcrypt.hashSync(password, 10); }
-
-
 // sleep funciton
 // since connecting to our cluster takes about 30-40 seconds
 
@@ -39,7 +36,7 @@ export default async function handler(req, res) {
             public: visibility
         }
         
-        await sleepFor(1000);
+        await sleepFor(2000);
         // before saving:
         // 1: check for dups email
 

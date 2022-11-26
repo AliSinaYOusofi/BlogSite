@@ -3,6 +3,9 @@ import connection from '../../../db_connection/mongoose.db.config';
 import RegisterationSchema from '../../../db_models/RegisterationSchema';
 // for hashing password
 import bcrypt, { genSalt, genSaltSync } from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+require('dotenv').config();
 
 // for password checking
 function comparePasswordHash(password, hash) { return bcrypt.compareSync(password, hash);}
@@ -27,6 +30,11 @@ export default async function handler(req, res) {
     // start the connection
     connection();
 
+    
+    // what to sign data with: username, email is enough
+    // then check these things against the website. since we
+    // have the secret that makes it safe enough.
+
     // check emails exists in database. if (true) then check login functionlity
     let emailExists = await findEmailDuplicates(email);
     
@@ -34,8 +42,12 @@ export default async function handler(req, res) {
         // email is valid. check the password
         const user = await RegisterationSchema.find({'email': email});
       
-        if (comparePasswordHash(password, user[0].password)) return res.status(200).json({message: "success"});
-        
+        if (comparePasswordHash(password, user[0].password)) {
+            // signing using only email
+            const signData = {email, username: user[0]?.username};
+            const accessToken = jwt.sign(signData, process.env.JWT_SECRET); // is unsafe
+            return res.status(200).json({message: "success", accessToken});
+        }
         else return res.status(200).json({message: "not you"});
     } else return res.status(200).json({message: "unreged"});
     
