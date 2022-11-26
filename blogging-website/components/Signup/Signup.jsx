@@ -30,6 +30,7 @@ export default function Signup() {
     // our refs for our checkboxed
     let publicRef = React.useRef(null);
     let privateRef = React.useRef(null);
+    
     const sleepFor = async(time) => { return new Promise(resolved => setTimeout(resolved, time));}
 
     const handleSubmit = async (e) => {
@@ -66,7 +67,7 @@ export default function Signup() {
         if (! isValid) return;
 
         try {
-            const response = await axios.post("/api/save_creds", {
+            const response = await axios.post("/api/auth/save_creds", {
                 email,
                 username,
                 password,

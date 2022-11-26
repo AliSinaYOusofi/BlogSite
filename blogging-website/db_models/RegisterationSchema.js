@@ -28,7 +28,6 @@ const RegisterationSchema = new mongoose.Schema({
         required: true,
         minLength: 1,
         maxLength: 70,
-        lowercase: true
     },
 
     
@@ -46,43 +45,4 @@ const RegisterationSchema = new mongoose.Schema({
     },
 });
 
-
-// should work a lot on the backend
-
-// our pre middle-ware
-// 1: document middle-ware
-
-// RegisterationSchema.pre("save", function(next) {
-//     let err;
-
-//     try {
-//         console.log("dummy hook");    
-//     } catch (error) {
-//         err = error;
-//         console.log(err);
-//     }
-//     // calling next with argument is assumed to be an error
-//     next(); // on to the next middle-ware
-// });
-
-// validate hook will be called before anything else
-// RegisterationSchema.pre("validate", function(next) {
-
-//     // if (error.name === "MongoServerError" && error.code === 11000) // middle ware error
-//     //     next(new Error("Mongo Server occurred code: 11000")); // catching specific errors
-    
-//     this.email = String(this.email).trim();
-//     this.username = String(this.username).trim();
-//     this.password = String(this.password).trim();
-
-//     if (!(this.email && this.password && this.username)) {
-//         return;
-//     }
-//     next(); // back to post or pre
-// })
-
-// post middle-ware is called when pre is done
-
-// TODO: 1 learn about models in mongodb and then save data tot he user
-//  
-module.exports =  mongoose.models.RegedUser || mongoose.model("RegedUser", RegisterationSchema);
+module.exports =  mongoose.models.RegedUsers || mongoose.model("RegedUsers", RegisterationSchema);
