@@ -1,3 +1,5 @@
+"use client";
+
 import HeroSection from "../components/HeroSection/HeroSection";
 import NewsLetter from "../components/NewsLetter/NewsLetter";
 import { useSpacexProvider } from "../context/appContext";
