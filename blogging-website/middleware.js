@@ -19,5 +19,5 @@ export default async function middleware(req){
             }
         } 
     }
-    return NextResponse.next();
+    return NextResponse.next(); // redirect to login. pending ... .
 }
