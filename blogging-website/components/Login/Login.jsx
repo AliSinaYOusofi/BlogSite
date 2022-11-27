@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 // changed from react-host-toast to react-toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,12 +16,15 @@ export default function Login() {
     // creds
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+
+    // toast to dismiss
     
     // our context provider
     const {setAccessToken, token} = useSpacexProvider();
 
     // for delaying 
     const handleLogin = async (e) => {
+        toast.loading("checking your credentials");
         e.preventDefault();
 
         let isFilled = password && email;
@@ -37,8 +40,11 @@ export default function Login() {
             const response = await axios.post("/api/auth/check_creds", {email, password});
             const {accessToken, message} = await response.data;
             setAccessToken(accessToken); // that's good. access token is set.
-            
-            if (message === "success") sendToastMessage("checking your credentials", "login success", "failed! try again later");
+            console.log(accessToken);
+            toast.dismiss();
+            await sleep(1000);
+
+            if (message === "success") toast.success("success! credentials are correct");
             else if (message === "notyou") toast.error("invalid credentials");
             else if (message === "unreged") toast.dismiss("invalid credentials");
         } catch (error) { console.log(error); }

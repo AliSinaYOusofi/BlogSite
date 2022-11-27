@@ -7,7 +7,7 @@ import connection from '../../../db_connection/mongoose.db.config';
 // sleep funciton
 // since connecting to our cluster takes about 30-40 seconds
 
-const sleepFor = async(time) => { return new Promise(resolved => setTimeout(resolved, time));}
+const sleepFor = async(time) => new Promise(resolved => setTimeout(resolved, time))
 
 async function findEmailDuplicates(field) {
     // checking if email already exists
