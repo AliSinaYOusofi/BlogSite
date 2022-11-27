@@ -35,7 +35,7 @@ export default function Signup() {
     let privateRef = React.useRef(null);
     
     const handleSubmit = async (e) => {
-        
+        toast.loading("saving your credentials");
         e.preventDefault(); // prevent the refresh behaviour
         
         let isValid = true;
@@ -75,8 +75,12 @@ export default function Signup() {
                 visibility
             });
             const {message} = await response.data
+            toast.dismiss();
+
             if (message === "created") {
-                await sendToastMessage("checking you credentials", "you are now a member", "failed! try gain later");
+                
+                toast.success("you are now a member");
+                await sleep(1000);
                 router.push("/login");
             }
             else if (message === "duplicate") toast.error("email already registred.");
