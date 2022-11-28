@@ -3,8 +3,8 @@ import * as jose from 'jose'
 export default async function middleware(req){
    
     const pathname = req.nextUrl.clone().pathname;
-    
-    if ((pathname.startsWith("/api") && pathname.startsWith("/login") && pathname.startsWith("/signup"))) {
+ 
+    if (!(pathname.startsWith("/api") && pathname.startsWith("/login") && pathname.startsWith("/signup"))) {
         const accessToken = req.headers.get("authorization")?.split(" ")[1];
         
         if (accessToken) {
