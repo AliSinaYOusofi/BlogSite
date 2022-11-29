@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { sleep } from '../global/sleep';
 import { useSpacexProvider } from '../../context/appContext';
 import { sendToastMessage } from '../global/Toats';
+import { useRouter } from 'next/navigation';
 
 
 export default function Login() {
@@ -16,7 +17,7 @@ export default function Login() {
     // creds
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-
+    const router = useRouter();
     // toast to dismiss
     
     // our context provider
@@ -24,6 +25,7 @@ export default function Login() {
 
     // for delaying 
     const handleLogin = async (e) => {
+        
         toast.loading("checking your credentials");
         e.preventDefault();
 
@@ -34,19 +36,24 @@ export default function Login() {
 
         if (! isFilled) return;
         
-        // we are good to make the rq
-
         try {
+            
             const response = await axios.post("/api/auth/check_creds", {email, password});
             const {accessToken, message} = await response.data;
+        
             setAccessToken(accessToken); // that's good. access token is set.
-            console.log(accessToken);
+        
             toast.dismiss();
             await sleep(1000);
 
-            if (message === "success") toast.success("success! credentials are correct");
+            if (message === "success") {
+                toast.success("success! credentials are correct");
+                await sleep(1000);
+                // router.push("/make_post") i should re route the user to somewhere else
+            }
             else if (message === "notyou") toast.error("invalid credentials");
             else if (message === "unreged") toast.dismiss("invalid credentials");
+        
         } catch (error) { console.log(error); }
     }
     return (
