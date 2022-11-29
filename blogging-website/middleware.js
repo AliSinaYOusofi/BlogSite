@@ -21,6 +21,5 @@ export default async function middleware(req){
         }
         return NextResponse.redirect(url.href);
     }
-    console.log("going to make", req.nextUrl.clone().href)
     return NextResponse.next(); // redirect to login. pending ... .
 }
