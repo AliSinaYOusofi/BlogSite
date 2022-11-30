@@ -14,7 +14,6 @@ import 'react-toastify/dist/ReactToastify.css';
 // sleep
 import { sleep } from '../global/sleep';
 import axios from 'axios';
-import { sendToastMessage } from '../global/Toats';
 
 export default function Signup() {
 
