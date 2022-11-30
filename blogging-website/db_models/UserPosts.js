@@ -7,6 +7,14 @@ const postSchema = new mongoose.Schema( {
         type: String,
         required: true,
         minLength: 1,
+        immutable: false,
+        unique: true
+    },
+
+    poster: {
+        type: String,
+        required: true,
+        minLength: 1,
         validate: {
             validator: value => String(value).length >= 1,
             message: props => `${props} should be more than 1(length)`
@@ -27,7 +35,7 @@ const postSchema = new mongoose.Schema( {
     },
     imageUrls: {
         type: Array,
-        required: true,
+        required: false,
         immutable: true,
     },
     
@@ -35,17 +43,18 @@ const postSchema = new mongoose.Schema( {
         {
             who: {
                 type: String,
-                required: true,
+                required: false,
+                immutable: false
             },
             when: {
                 type: Date,
                 default: () => Date.now(),
                 required: false,
-                immutable: true,
+                immutable: false,
             },
             content: {
                 type: String,
-                required: true,
+                required: false,
                 minLength: 1,
                 immutable: true,
             }
@@ -56,3 +65,5 @@ const postSchema = new mongoose.Schema( {
 // how can i undrestand that this these comments are assocaited with
 // should answer this before moving on. since we have different ids
 // finding out which comment is no problem.
+
+module.exports = mongoose.models.UserPosts || mongoose.model("UserPosts", postSchema);

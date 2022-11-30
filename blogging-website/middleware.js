@@ -4,22 +4,22 @@ export default async function middleware(req){
    
     const pathname = req.nextUrl.clone().pathname;
  
-    if (pathname.startsWith("/make_post")) { // adding more paths which requires atuh
+    // if (pathname.startsWith("/make_post")) { // adding more paths which requires atuh
 
-        const accessToken = req.headers.get("authorization")?.split(" ")[1];
+    //     const accessToken = req.headers.get("authorization")?.split(" ")[1];
       
-        let url = req.nextUrl.clone();
-        url.pathname = "/login";
+    //     let url = req.nextUrl.clone();
+    //     url.pathname = "/login";
         
-        if (accessToken) {
-            try {
-                const secretEncoded = new TextEncoder().encode(process.env.JWT_SECRET);
-                await jose.jwtVerify(accessToken, secretEncoded);
-                return NextResponse.next();
-            } catch(error) { return NextResponse.redirect(url.href)
-            }
-        }
-        return NextResponse.redirect(url.href);
-    }
+    //     if (accessToken) {
+    //         try {
+    //             const secretEncoded = new TextEncoder().encode(process.env.JWT_SECRET);
+    //             await jose.jwtVerify(accessToken, secretEncoded);
+    //             return NextResponse.next();
+    //         } catch(error) { return NextResponse.redirect(url.href)
+    //         }
+    //     }
+    //     return NextResponse.redirect(url.href);
+    // }
     return NextResponse.next(); // redirect to login. pending ... .
 }
