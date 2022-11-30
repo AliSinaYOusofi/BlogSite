@@ -9,7 +9,7 @@ export default function UserMainPage() {
         <>
         <main className="mt-[22rem] ">
            
-            <section clasName="relative py-16">
+            <section className="relative py-16">
                 <div className="container mx-auto px-4">
                     <div className="relative flex flex-col min-w-0 break-words bg-[#1F2937] w-full mb-6 shadow-xl rounded-lg -mt-64">
                         <div className="px-6">
@@ -28,13 +28,13 @@ export default function UserMainPage() {
                                             <span className="text-xl font-bold block uppercase tracking-wide text-white">10</span><span className="text-sm text-white">Photos</span>
                                         </div>
                                         <div className="lg:mr-4 p-3 text-center">
-                                            <span className="text-xl font-bold block uppercase tracking-wide text-white">89</span><span class="text-sm text-white">Comments</span>
+                                            <span className="text-xl font-bold block uppercase tracking-wide text-white">89</span><span className="text-sm text-white">Comments</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="mt-3">
-                                    <button type="button" class="text-white transition-all duration-300 hover:-translate-y-1 bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit Profile</button>
+                                    <button type="button" className="text-white transition-all duration-300 hover:-translate-y-1 bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit Profile</button>
                                 </div>
 
                             </div>
@@ -47,7 +47,7 @@ export default function UserMainPage() {
                                     Los Angeles, California
                                 </div>
                                 <div className="mb-2 text-white mt-10">
-                                    <i classNNameame="fas fa-briefcase mr-2 text-lg text-white"></i>Solution Manager - Creative Tim Officer
+                                    <i className="fas fa-briefcase mr-2 text-lg text-white"></i>Solution Manager - Creative Tim Officer
                                 </div>
                                 <div className="mb-2 text-white">
                                     <i className="fas fa-university mr-2 text-lg text-white"></i>University of Computer Science

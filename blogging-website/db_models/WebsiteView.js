@@ -25,4 +25,4 @@ const viewSchema = mongoose.Schema( {
     }
 });
 
-module.exports = mongoose.models.websiteCount || mongoose.model("websiteCount", viewSchema);
+// module.exports = mongoose.models.websiteCount || mongoose.model("websiteCount", viewSchema);
