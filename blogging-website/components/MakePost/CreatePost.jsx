@@ -13,7 +13,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 let initialState = {content: ""}
-let url = [];
+let imageUrls = [];
+let delay = 1000;
+let count = 0;
 
 export default function CreatePost() {
     // styling the mde
@@ -22,8 +24,7 @@ export default function CreatePost() {
     // for restricting the image
     const style = { backgroundColor: "aliceblue"}
     
-    let delay = 1000;
-    let count = 0;
+    
 
     const handleImagePreview = () => {}
  
@@ -44,11 +45,10 @@ export default function CreatePost() {
             const res = await axios.post('https://api.cloudinary.com/v1_1/dudhf0avt/image/upload', formData);
             const {secure_url} = await res.data;
             
-            url.push(secure_url);
+            imageUrls.push(secure_url);
             await onSuccess(secure_url);
         } 
         catch (error) { toast.error("failed to upload image"); console.log(error)}
-        console.log(url);
     }
 
     const anOptions = useMemo(() => {
@@ -85,7 +85,35 @@ export default function CreatePost() {
         
         setPostMyStory(!postMyStory); // start the loading button
     
-        if(!text.content) return toast.error("please provide some text!")
+        if(text.content.length <=2) {
+            setPostMyStory("");
+            return toast.error("please provide some text!");
+        }
+        
+        if (count > 1) return;
+
+        removeImageLinksFromText();
+        
+        try {
+            const response = await axios.post("/api/save_post", {
+                imageUrls,
+                content: text.content,
+            });
+            response.data.message === "saved" ? toast.success("posted") : toast.error("failed to post");
+            setPostMyStory(0);
+        } catch (error) { toast.error("failed! make sure you have a good internet connection!")}
+    }
+
+    // remove redundant links from the text
+    const removeImageLinksFromText = () => {
+        
+        let copyContent = ''
+        
+        text.content.split(" ").forEach(line => {
+            if (! line.includes("![]"))
+                copyContent = copyContent + " " + line
+        });
+        text.content = copyContent
     }
 
     return (
