@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react'
+import ReRegister from '../UserFormReReg/ReRegister';
 import UserImage from './UserImage';
 
 export default function UserMainPage() {
@@ -70,6 +71,7 @@ export default function UserMainPage() {
                 </div>
             </section>
         </main>
+        <ReRegister />
         </>
     );
 }
