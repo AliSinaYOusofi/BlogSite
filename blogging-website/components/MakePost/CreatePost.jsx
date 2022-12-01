@@ -105,16 +105,19 @@ export default function CreatePost() {
     }
 
     // remove redundant links from the text
-    const removeImageLinksFromText = () => {
+    // for now content is commented becuase of the links
+    // and the post must be displayed is the order they
+    // were created
+    // const removeImageLinksFromText = () => {
         
-        let copyContent = ''
+    //     let copyContent = ''
         
-        text.content.split(" ").forEach(line => {
-            if (! line.includes("![]"))
-                copyContent = copyContent + " " + line
-        });
-        text.content = copyContent
-    }
+    //     text.content.split(" ").forEach(line => {
+    //         if (! line.includes("![]"))
+    //             copyContent = copyContent + " " + line
+    //     });
+    //     text.content = copyContent
+    // }
 
     return (
         <div className="w-[90%] mx-auto mt-20">
