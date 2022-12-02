@@ -34,7 +34,7 @@ export default function ReRegister() {
     const [place, setPlace] = useState("");
     const [jobTitle, setJobTitle] = useState("");
     const [bio, setBio] = useState("");
-    const [profile, setProfile] = useState("");
+    const [imageClicked, setImageClicked] = useState(false);
     const [university, setUniversity] = useState("");
     // image file
     let imageFileRef = useRef(null);
@@ -49,36 +49,38 @@ export default function ReRegister() {
     
     const handleSubmit = async (e) => {
         
-        toast.loading("saving your credentials"); // show be dismissed when validation is success
+        toast.loading("updating your credentials"); // show be dismissed when validation is success
         
         e.preventDefault(); // prevent the refresh behaviour
         
         let isValid = false;
         
         // validators are tested and they are working fine
-           
+        
+
+        await sleep(2000);
+        toast.dismiss();
+
         if (!usernameValidator(username) && username) toast.error("user name can't have spaces", {duration: 2000});
         
-    
         else if (password && confirmPassword) {
             if (! passwordValidator(password) || ! passwordValidator(confirmPassword)) toast.error("invalid password, 1 uppercase, one number and length >= 8");
             else if(password !== confirmPassword && password && confirmPassword) toast.error("passwords don't match", { duration: 2000});
         }
-        else if(password && ! confirmPassword) toast.error("please provide a confirm password.");
+        else if(password && ! confirmPassword)  toast.error("please provide a confirm password.");
         
-        else if(!password && confirmPassword) toast.error("please provide a password.");
-
-        else if(!checkImageDetailsBeforSubmit()) toast.error("check your image. Try again later");
+        else if(!password && confirmPassword)  toast.error("please provide a password.");
         
-        else if(!bio.length) toast.error("Bio can't be empty");
+        else if(! confirmPassword && ! password && !username && ! bio && ! place && ! university && ! jobTitle && ! imageClicked) return toast.error("firt make some changes then click");
+        
+        else if(! checkImageDetailsBeforSubmit())  toast.error("image invalid. try different image")
+        
+        else if(bio.length >= 200 && bio)  toast.error("Bio can't be more than 200 characters.");
         
         else isValid = true;
 
-        if(!isValid) {
-            await sleep(3000);
-            return toast.dismiss();
-        }
-
+        if(!isValid) return;
+        
         // uploading our image and getting the secure url to it.
         let profileUrl = isValid ? await saveImageReturnSecureURL() : null;
 
@@ -106,13 +108,12 @@ export default function ReRegister() {
                dataToSend
             });
             const {message} = await response.data
-            toast.dismiss();
 
             if (message === "updated") {
                 
                 toast.success("you profile has been updated");
                 await sleep(1000);
-                // router.push("");
+                router.refresh();
             }
             else if(message === "queryError") toast.error("503 internal server error.");
         }catch(error) {
@@ -139,20 +140,26 @@ export default function ReRegister() {
         
         // check image type and size before submission
         setImageDetails(imageFileRef.current?.files[0]);
+        setImageClicked(true);
         let flag = false;
         let allowedTypes = [ 'jpeg', 'jpg', 'svg', 'gif', 'png'];
         
         // cheching image type and size
 
-        if (!imageFileRef.current?.files[0]) return toast.error("please provide an image");
+        // now another check. which should check that at least one of the
+        // fields is changed then we show that the must changed something
+        // to be able to submit the form
 
-        else if (imageFileRef.current?.files[0].type.split("/")[0].toLowerCase() !== "image") toast.error("please selecte an image only. here")
+        if (imageFileRef.current?.files[0] && imageClicked) {
 
-        else if (!allowedTypes.includes(imageFileRef?.current?.files[0]?.type.split("/")[1].toLowerCase())) toast.error("Allowed image types: png, jepg, jpg, gif, svg");
-        
-        else if (imageFileRef.current?.files[0].size / 1000000 >= 6) toast.error("image size can't more than 8 MBs");
-        
-        else flag = true;
+            if (imageFileRef.current?.files[0].type.split("/")[0].toLowerCase() !== "image" && imageClicked) toast.error("please selecte an image only. here")
+    
+            else if (!allowedTypes.includes(imageFileRef?.current?.files[0]?.type.split("/")[1].toLowerCase()) && imageClicked) toast.error("Allowed image types: png, jepg, jpg, gif, svg");
+            
+            else if (imageFileRef.current?.files[0].size / 1000000 >= 6 && imageClicked) toast.error("image size can't more than 8 MBs");
+            
+            else flag = true;
+        }
         return flag;
     }
     
@@ -190,16 +197,16 @@ export default function ReRegister() {
                     
                     <div className="w-full">
                         <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Userame(optional)</label>
-                        <input onChange={(e) => setUsername(e.target.value)} type="text" name="username" id="username" placeholder="username e g jhon" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        <input onChange={(e) => setUsername(e.target.value)} type="text" name="username" id="username" placeholder="username e g jhon" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
                     </div>
                     
                     <div className="w-full">
                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password (optional)</label>
-                        <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
                     </div>
                     <div className="w-full">
                         <label htmlFor="confirm" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                        <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" name="confirm" id="confirm" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" name="confirm" id="confirm" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
                     </div>
                     <div className="flex items-center mr-4 gap-x-6">
                         <p className="text-white">Set account visibilty(optional): </p>
@@ -230,8 +237,8 @@ export default function ReRegister() {
                     </div>
                     
                     <div className="w-full">
-                        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Bio(required)</label>
-                        <textarea id="message" onChange={(e) => setBio(e.target.value)} rows="4" className="border-none outline-none p-2.5 w-full text-sm text-white                                                                                                      rounded-lg  bg-gray-700  " placeholder="Write you bio ..." required></textarea>
+                        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Bio(optional)</label>
+                        <textarea id="message" onChange={(e) => setBio(e.target.value)} rows="4" className="border-none outline-none p-2.5 w-full text-sm text-white                                                                                                      rounded-lg  bg-gray-700  " placeholder="Write you bio ..." ></textarea>
                     </div>
                     <div className="w-full">
                         <label htmlFor="uni" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">University/Company Name (optional)</label>
@@ -240,7 +247,7 @@ export default function ReRegister() {
                 </div>
                 
                 
-                <div onChange={checkImageDetailsBeforSubmit} className="flex items-center justify-center w-[70%] mx-auto mt-4 group">
+                <div  className="flex items-center justify-center w-[70%] mx-auto mt-4 group">
                     <label  htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-gray-300  rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400 transition-all duration-300
@@ -252,7 +259,7 @@ export default function ReRegister() {
                             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                             <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF, JPEG are allowed</p>
                         </div>
-                        <input  ref={imageFileRef} id="dropzone-file" type="file" className="hidden" required/>
+                        <input onChange={checkImageDetailsBeforSubmit}  ref={imageFileRef} id="dropzone-file" type="file" className="hidden" />
                     </label>
                 </div>
                 <div className="w-full text-center mt-5 flex items-center justify-center">

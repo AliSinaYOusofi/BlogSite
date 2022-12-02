@@ -20,9 +20,9 @@ export default  function Navbar() {
             }
         }
     }, [scrollY]);
-
+    // style={{boxShadow: scrollY >= 150 ? "1px 1px 1px 1px black" : ""}}
     return ( 
-        <nav className="sticky mx-auto top-0 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900" style={{boxShadow: scrollY >= 150 ? "1px 1px 1px 1px black" : ""}}>
+        <nav className="sticky mx-auto top-0 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900" >
             <div className="container  flex flex-wrap items-center justify-between mx-auto">
                 <a href="https://flowbite.com/" className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-8 text-white">

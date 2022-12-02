@@ -13,7 +13,7 @@ const UpdateProfileSchema = new mongoose.Schema( {
             message: props => `${props} should be more than 1(length)`
         },
         immutable: true,
-        unique: true,
+        
     },
 
     username: {
