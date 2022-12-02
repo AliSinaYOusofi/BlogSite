@@ -12,6 +12,27 @@ async function getDetailsGivenEmail(email) {
     } catch (error) { return }
 }
 
+
+
+// so now i'm having an error
+    // bcuase when updating the db we actually insert
+    // for we first will check if users exists if exists update the db
+    // otherwise insert into the db
+
+// and that's why we have this function
+
+
+async function findEmailDuplicates(field) {
+    // checking if email already exists
+    let exists;
+    try {
+        exists = await UpdateProfileSchema.exists({email: field});
+    } catch (error) { console.log(error, "error on findEmailDups function()")}
+    console.log(exists, "fucking exists or not");
+    return await exists;
+}
+
+
 export default async function handler(req, res) {
     
     let {
@@ -25,16 +46,24 @@ export default async function handler(req, res) {
         profileUrl,
         jobTitle
     } = req.body.dataToSend; // got the data
-    
-    let sampleToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhvbWVwYWdlQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiaGVsbG8iLCJpYXQiOjE2Njk5MTg1ODV9.y80GRX1Gsw9ymHvUhsPN3MpmYg9_beHyV9t9EFtkEjQ";
 
+    console.log(token,
+        username,
+        password,
+        visibility,
+        place,
+        bio,
+        university,
+        profileUrl,
+        jobTitle);
+    
     await connection();
     // verify the key, take the email part, request the preiouse database.
     // now according to the token search database from the previous database
     // get all creds from that database, and for the values that are null
     // instead of null insert the ones from the previous database
 
-    let {email: previouseDBEmail} =  jwt.decode(sampleToken);
+    let {email: previouseDBEmail} =  jwt.decode(token);
     let queryResult = await getDetailsGivenEmail(previouseDBEmail);
    
     if(!queryResult) return res.status(200).json({message: "not found"}); // if the token is inavlid
@@ -52,8 +81,8 @@ export default async function handler(req, res) {
     // if not null take the values and save it to db.
 
     // we only need to check these values.
-    username = username || previousUsername;
-    password = password || previousPassword;
+    username = previousUsername || username;
+    password = previousPassword || password;
     visibility = visibility !== null ? visibility : previousPublic;
     
 
@@ -74,9 +103,69 @@ export default async function handler(req, res) {
     // so basically data is saved to updatedProfiles collection now
     // back to front-end and actually show it
 
+
+    // i have to make some changes for the password
+    // they might change it they might not
+    // if changed hash it then save if not changed
+    // store the preious one
+
     try {
-        await dataToBeInserted.save();
-        res.status(200).json({message: "updated"});
+        let isEmailDuplicate = await findEmailDuplicates(previouseDBEmail); // based on this we update or insert into db
+
+        if (isEmailDuplicate) {
+            // if email is duplicate then update the db
+            // data to be updated is different than inserting one
+            let filter = { 'email': previouseDBEmail}; // based on email
+            
+            // another bug here. how to insert optioanlly i mean like if the bio
+            // is not empty only then change the values
+            // since optional params is not working we shoudl get the results from
+            // this database first, compare and insert the non empty one
+
+            // previouse values from the db
+            let [{
+                username : oldUsername,
+                password : oldPassword,
+                public:  oldPublic,
+                place : oldPlace,
+                bio: oldBio,
+                profileUrl : oldProfileUrl,
+                title: oldJobTitle,
+                university: oldUniversity
+            }] = await UpdateProfileSchema.find({"email": previouseDBEmail});
+
+            // now checking the values. picking the from the query if not empty
+            username = username || oldUsername;
+            password = password || oldPassword;
+            visibility = visibility || oldUniversity;
+            place = place || oldPlace;
+            bio = bio || oldBio;
+            profileUrl = profileUrl || oldProfileUrl;
+            jobTitle = jobTitle || oldJobTitle;
+            university = university || oldUniversity;
+
+            let updateDoc = {
+                $set: {
+                    username,
+                    password,
+                    public: visibility,
+                    place,
+                    bio,
+                    profileUrl,
+                    title: jobTitle ,
+                    university
+                }
+                // now base on this update
+                // in front-end everything should be set to optionl. remove requreid
+            };
+            await UpdateProfileSchema.updateOne(filter, updateDoc);
+            res.status(200).json({message: "updated"});
+        } else {
+            // if email ain't duplicate then insert it
+            await dataToBeInserted.save();
+            res.status(200).json({message: "updated"});
+        }
+        
     } catch (error) {
         console.log(error, "*******************");
         res.status(200).json({message: "queryError"});
