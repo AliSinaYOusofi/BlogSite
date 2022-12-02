@@ -1,9 +1,36 @@
-import Image from 'next/image';
-import React from 'react'
+"use client";
+
+import axios from 'axios';
+import React, { useState } from 'react'
+import { useEffect } from 'react';
 import ReRegister from '../UserFormReReg/ReRegister';
 import UserImage from './UserImage';
 
 export default function UserMainPage() {
+    
+    const [profile, setProfile] = useState([{
+        emal: "",
+        username: "",
+        place: "",
+        visibilty: false,
+        bio: "",
+        university: "",
+        title: "",
+        profileUrl: ""
+    }]);
+
+    useEffect( () => {
+        
+        const getUserProfile = async () => {
+            const profileResponse = await  axios.get("/api/my_profile");
+            setProfile(await profileResponse.data.profile);
+        }
+
+        getUserProfile();
+    }, [])
+
+    console.log(profile);
+
     return (
         // <!-- component -->
         <>

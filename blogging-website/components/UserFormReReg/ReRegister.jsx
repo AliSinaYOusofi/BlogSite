@@ -16,7 +16,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { sleep } from '../global/sleep';
 import axios from 'axios';
 import { useSpacexProvider } from '../../context/appContext';
+
+
 export default function ReRegister() {
+
+    
 
     const {token} = useSpacexProvider();
      // router
@@ -45,8 +49,6 @@ export default function ReRegister() {
     
     const handleSubmit = async (e) => {
         
-        console.log("fucking not working");
-
         toast.loading("saving your credentials"); // show be dismissed when validation is success
         
         e.preventDefault(); // prevent the refresh behaviour
@@ -89,7 +91,8 @@ export default function ReRegister() {
             place: place || null,
             bio,
             university: university || null,
-            profileUrl
+            profileUrl,
+            jobTitle
         }
         
         // todo: upload image to cloudinary and then take the
@@ -111,8 +114,7 @@ export default function ReRegister() {
                 await sleep(1000);
                 // router.push("");
             }
-            else if (message === "duplicate") toast.error("email already registred.");
-            else if(message === "server") toast.error("503 internal server error.");
+            else if(message === "queryError") toast.error("503 internal server error.");
         }catch(error) {
             console.log(error);
         }
