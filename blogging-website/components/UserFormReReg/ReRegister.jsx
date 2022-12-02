@@ -15,9 +15,10 @@ import 'react-toastify/dist/ReactToastify.css';
 // sleep
 import { sleep } from '../global/sleep';
 import axios from 'axios';
-
+import { useSpacexProvider } from '../../context/appContext';
 export default function ReRegister() {
 
+    const {token} = useSpacexProvider();
      // router
     const router = useRouter();
     // for controlled inputs
@@ -54,14 +55,17 @@ export default function ReRegister() {
         
         // validators are tested and they are working fine
            
-        if (!usernameValidator(username)) toast.error("user name can't have spaces", {duration: 2000});
+        if (!usernameValidator(username) && username) toast.error("user name can't have spaces", {duration: 2000});
         
-        else if (!passwordValidator(password)) toast.error("valid password example: 1 lowercase && 1 number && length > 6.", { duration: 2000,});
     
-        else if (visibility === null) toast.error("Account visibility not selected.", {duration: 2000});
-    
-        else if(password !== confirmPassword) toast.error("passwords don't match", { duration: 2000});
+        else if (password && confirmPassword) {
+            if (! passwordValidator(password) || ! passwordValidator(confirmPassword)) toast.error("invalid password, 1 uppercase, one number and length >= 8");
+            else if(password !== confirmPassword && password && confirmPassword) toast.error("passwords don't match", { duration: 2000});
+        }
+        else if(password && ! confirmPassword) toast.error("please provide a confirm password.");
         
+        else if(!password && confirmPassword) toast.error("please provide a password.");
+
         else if(!checkImageDetailsBeforSubmit()) toast.error("check your image. Try again later");
         
         else if(!bio.length) toast.error("Bio can't be empty");
@@ -69,17 +73,25 @@ export default function ReRegister() {
         else isValid = true;
 
         if(!isValid) {
-            await sleep(5000);
-            toast.dismiss();
+            await sleep(3000);
+            return toast.dismiss();
         }
 
         // uploading our image and getting the secure url to it.
-        let profileUrl = await saveImageReturnSecureURL();
+        let profileUrl = isValid ? await saveImageReturnSecureURL() : null;
 
+        // this data will be sent to back-end
         const dataToSend = {
-            
+            token,
+            username: username || null,
+            password: password || null,
+            visibility: visibility || null,
+            place: place || null,
+            bio,
+            university: university || null,
+            profileUrl
         }
-        return ;
+        
         // todo: upload image to cloudinary and then take the
         // secure url and post set it as state var of image link
         // and finally when that is resolved
@@ -87,19 +99,17 @@ export default function ReRegister() {
         
         // now bundling data to send to back-end
         try {
-            const response = await axios.post("/api/auth/save_creds", {
-                username,
-                password,
-                visibility
+            const response = await axios.post("/api/update_profile", {
+               dataToSend
             });
             const {message} = await response.data
             toast.dismiss();
 
-            if (message === "created") {
+            if (message === "updated") {
                 
-                toast.success("you are now a member");
+                toast.success("you profile has been updated");
                 await sleep(1000);
-                router.push("/login");
+                // router.push("");
             }
             else if (message === "duplicate") toast.error("email already registred.");
             else if(message === "server") toast.error("503 internal server error.");
@@ -132,7 +142,9 @@ export default function ReRegister() {
         
         // cheching image type and size
 
-        if (imageFileRef.current?.files[0].type.split("/")[0].toLowerCase() !== "image") toast.error("please selecte an image only. here")
+        if (!imageFileRef.current?.files[0]) return toast.error("please provide an image");
+
+        else if (imageFileRef.current?.files[0].type.split("/")[0].toLowerCase() !== "image") toast.error("please selecte an image only. here")
 
         else if (!allowedTypes.includes(imageFileRef?.current?.files[0]?.type.split("/")[1].toLowerCase())) toast.error("Allowed image types: png, jepg, jpg, gif, svg");
         
@@ -157,6 +169,8 @@ export default function ReRegister() {
         }
         setVisibility(visibiltyIsPublic);
     }
+
+    console.log(token);
 
     return (
         <>

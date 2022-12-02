@@ -1,6 +1,3 @@
-const data = [234, 234, 234, 45];
-for(let i = 0; i < data.length; i++) {
-    console.log("element: " + i + " " + data[0]);
-    console.log("element %d: %d", i, data[i]);
-}
-console.log(data.length);
+let data = { email: 'homepage@gmail.com', username: 'hello', iat: 1669918585 }
+const {email: dbEmail} = data
+console.log(dbEmail)
