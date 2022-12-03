@@ -2,6 +2,7 @@ import connection from "../../db_connection/mongoose.db.config";
 import jwt from 'jsonwebtoken';
 import RegisterationSchema from '../../db_models/RegisterationSchema';
 import UpdateProfileSchema from '../../db_models/UpdateProfile';
+import bcrypt, { genSaltSync } from 'bcrypt';
 
 // function to return the details of the given email
 
@@ -46,18 +47,9 @@ export default async function handler(req, res) {
         profileUrl,
         jobTitle
     } = req.body.dataToSend; // got the data
-
-    console.log(token,
-        username,
-        password,
-        visibility,
-        place,
-        bio,
-        university,
-        profileUrl,
-        jobTitle);
     
     await connection();
+    console.log("fucking not working", password);
     // verify the key, take the email part, request the preiouse database.
     // now according to the token search database from the previous database
     // get all creds from that database, and for the values that are null
@@ -82,10 +74,11 @@ export default async function handler(req, res) {
 
     // we only need to check these values.
     username = previousUsername || username;
-    password = previousPassword || password;
+    password = password ? bcrypt.hashSync(password, genSaltSync(10)) : previousPassword;
     visibility = visibility !== null ? visibility : previousPublic;
     
-
+    console.log("new password: %s", password)
+    console.log("old password: %s", previousPassword)
     // the data to be inserted
     
     let dataToBeInserted = new UpdateProfileSchema({
@@ -136,7 +129,13 @@ export default async function handler(req, res) {
 
             // now checking the values. picking the from the query if not empty
             username = username || oldUsername;
-            password = password || oldPassword;
+            password = password = bcrypt.hashSync(password, genSaltSync(10)) || oldPassword;
+            /*
+
+            IF PASSWORD DOES NOT WORK ON WITH ALREADY UPDATED PROFILS
+            CHECK THESE TWO LINES
+
+            */
             visibility = visibility || oldUniversity;
             place = place || oldPlace;
             bio = bio || oldBio;
@@ -144,6 +143,7 @@ export default async function handler(req, res) {
             jobTitle = jobTitle || oldJobTitle;
             university = university || oldUniversity;
 
+            await RegisterationSchema.updateOne(filter, { $set: {'password': password}})
             let updateDoc = {
                 $set: {
                     username,
@@ -158,10 +158,12 @@ export default async function handler(req, res) {
                 // now base on this update
                 // in front-end everything should be set to optionl. remove requreid
             };
+            await RegisterationSchema.updateOne({"email": previouseDBEmail}, { $set: {'password': password}})
             await UpdateProfileSchema.updateOne(filter, updateDoc);
             res.status(200).json({message: "updated"});
         } else {
             // if email ain't duplicate then insert it
+            await RegisterationSchema.updateOne({"email": previouseDBEmail}, { $set: {'password': password}})
             await dataToBeInserted.save();
             res.status(200).json({message: "updated"});
         }

@@ -65,7 +65,8 @@ export default function ReRegister() {
         
         else if (password && confirmPassword) {
             if (! passwordValidator(password) || ! passwordValidator(confirmPassword)) toast.error("invalid password, 1 uppercase, one number and length >= 8");
-            else if(password !== confirmPassword && password && confirmPassword) toast.error("passwords don't match", { duration: 2000});
+            else if(password !== confirmPassword) toast.error("passwords don't match", { duration: 2000});
+            else isValid = true;
         }
         else if(password && ! confirmPassword)  toast.error("please provide a confirm password.");
         
@@ -73,16 +74,18 @@ export default function ReRegister() {
         
         else if(! confirmPassword && ! password && !username && ! bio && ! place && ! university && ! jobTitle && ! imageClicked) return toast.error("firt make some changes then click");
         
-        else if(! checkImageDetailsBeforSubmit())  toast.error("image invalid. try different image")
+        else if(! checkImageDetailsBeforSubmit() && imageClicked)  toast.error("image invalid. try different image")
         
         else if(bio.length >= 200 && bio)  toast.error("Bio can't be more than 200 characters.");
         
         else isValid = true;
 
         if(!isValid) return;
-        
+
+        console.log(isValid, '*************************************************')
+
         // uploading our image and getting the secure url to it.
-        let profileUrl = isValid ? await saveImageReturnSecureURL() : null;
+        let profileUrl = isValid && imageClicked && imageDetails ? await saveImageReturnSecureURL() : null;
 
         // this data will be sent to back-end
         const dataToSend = {
@@ -160,6 +163,8 @@ export default function ReRegister() {
             
             else flag = true;
         }
+
+        console.log(flag, '*********************************');
         return flag;
     }
     
@@ -178,8 +183,6 @@ export default function ReRegister() {
         }
         setVisibility(visibiltyIsPublic);
     }
-
-    console.log(token);
 
     return (
         <>
