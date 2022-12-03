@@ -4,9 +4,16 @@ import React from 'react'
 
 export default function UserNavbar() {
 
+    // todo: 1: get the token
+    // send to to backend
+    // the backend will send all posts a user posted 
+    // so just take the data,
+    // map through the data and display them
+    // use some key so that when clicked show the details of that user only.
+
     return (
         
-        <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+        <nav className="bg-white sticky top-0 z-[999] border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
             <div className="container flex flex-wrap items-center justify-between mx-auto">
                 <Link href="https://flowbite.com/" className="flex items-center">
                     <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
