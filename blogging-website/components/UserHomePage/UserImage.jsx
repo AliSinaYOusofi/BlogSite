@@ -21,7 +21,7 @@ export default function UserImage({profileUrl}) {
     }
     return (
       <div onClick={getFullScreen} id="image" className="cursor-pointer">
-        <img className="rounded-full w-[250px] h-[250px]"   src={profileUrl || "https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png"} alt="hey"/>
+        <img className="rounded-full w-[250px] h-[250px] ob object-cover"   src={profileUrl || "https://www.pngmart.com/files/22/User-Avatar-Profile-Background-Isolated-PNG.png"} alt="hey"/>
       </div>
     )
 }

@@ -50,7 +50,7 @@ export default function UserMainPage() {
                             <div className="flex flex-wrap justify-center items-center mt-3 flex-col">
                                 
                                 <div className=" lg:w-[25%] w-[50%] px-4  flex justify-center">
-                                    <UserImage profileUrl={profile[0].profileUrl}/>    
+                                    <UserImage profileUrl={ profile ? profile[0]?.profileUrl : ""}/>    
                                 </div>
 
                                 <div className="w-full -mt-2">
@@ -74,24 +74,24 @@ export default function UserMainPage() {
                             </div>
                             <div className="text-center mt-12">
                                 <h3 className="text-4xl font-semibold leading-normal mb-2 text-white">
-                                {profile[0]?.username}
+                                {profile ? profile[0]?.username : ""}
                                 </h3>
                                 <div className="text-sm leading-normal mt-0 mb-2 text-white font-bold uppercase">
                                     <i className="fas fa-map-marker-alt mr-2 text-lg text-white"></i>
-                                    {profile[0]?.place}
+                                    {profile ? profile[0]?.place : ""}
                                 </div>
                                 <div className="mb-2 text-white mt-10">
-                                    <i className="fas fa-briefcase mr-2 text-lg text-white"></i>{profile[0]?.title}
+                                    <i className="fas fa-briefcase mr-2 text-lg text-white"></i>{profile ? profile[0]?.title : ""}
                                 </div>
                                 <div className="mb-2 text-white">
-                                    <i className="fas fa-university mr-2 text-lg text-white"></i>{profile[0]?.university}
+                                    <i className="fas fa-university mr-2 text-lg text-white"></i>{profile ? profile[0]?.university : ""}
                                 </div>
                             </div>
                             <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                                 <div className="flex flex-wrap justify-center">
                                     <div className="w-full lg:w-9/12 px-4">
                                         <p className="mb-4 text-lg leading-relaxed text-white">
-                                        {profile[0]?.bio}
+                                        { profile ? profile[0]?.bio : ""}
                                         </p>
                                     </div>
                                 </div>
