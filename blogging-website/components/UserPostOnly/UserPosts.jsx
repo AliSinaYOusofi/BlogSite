@@ -14,8 +14,8 @@ export default function UserPosts() {
             <div className="flex items-center justify-between mt-4">
                 <Link href="#LinkToUserPost" className="text-blue-300 transition-all duration-300 hover:underline">Read more ⟶</Link> 
                 <div className="flex items-center">
-                <img src="https://stackdiary.com/140x100.png" alt="Author Photo" className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" /> 
-                <Link href="#linkToUserProfile" className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">John Doe</Link>
+                    <img src="https://stackdiary.com/140x100.png" alt="Author Photo" className=" object-cover w-10 h-10 mx-4 rounded-full sm:block" /> 
+                    <Link href="#linkToUserProfile" className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">John Doe</Link>
                 </div>
             </div>
         </div>

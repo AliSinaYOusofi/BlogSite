@@ -1,21 +1,19 @@
-let userProfilePrevious = [  
-    {
-      email: 'homepage@gmail.com',
-      username: 'hello',
-      password: '$2b$10$eeVGwNjj8r8DckOC/cG06.R8r63HFdW43EsAUxUjX/j.3u8Sgz9u6',
-      public: true,
-      __v: 0
-    }
-];
+let aboutJS = {
+    creator: "Brendan Eich",
+  	year: 1995,
+}
 
+// you can't access keys this way
+console.log(aboutJS[creator]) // error: creator is undefined
+// because js interprets creator as a variable since we have not
+// defined it we get error.
 
-const [ 
-    { 
-        email: previousEmail, 
-        username: previousUsername,
-        password: previousPassword,
-        public: previousPublic
-    }
-] = userProfilePrevious;
+console.log(aboutJS["creator"]); // this will work fine
 
-console.log(previouseEmail, previouseUsername);
+// if you have a variable that stores the key name in string,
+// only then you can use that while accessing properties of an object
+
+// this will work fine since creator is stored in the variable
+// and the value of it is used as a key in the object
+let jsCreator = "creator";
+console.log(aboutJS[jsCreator]);
