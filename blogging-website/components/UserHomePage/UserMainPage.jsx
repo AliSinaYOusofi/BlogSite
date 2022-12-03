@@ -36,13 +36,14 @@ export default function UserMainPage() {
             } catch(error) { console.log(error); }  
         }
         getUserProfile();
-    }, [])
+    }, []);
+
+    // now show the posts that are created by the user aftter the profile section
+    // solv then code
 
     return (
-        // <!-- component -->
         <>
         <main className="mt-[22rem] ">
-           
             <section className="relative py-16">
                 <div className="container mx-auto px-4">
                     <div className="relative flex flex-col min-w-0 break-words bg-[#1F2937] w-full mb-6 shadow-xl rounded-lg -mt-64">
