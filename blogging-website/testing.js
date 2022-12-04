@@ -1,19 +1,19 @@
-let aboutJS = {
-    creator: "Brendan Eich",
-  	year: 1995,
-}
+let data = [{text: "hello world \n![]https \nsecond    hello world \n![]https third one", imageUrls: []}, {text: "object in fire \n![] secon dobject in fire"}]
+// remove 
+const removeImageLinksFromText = (text) => {
+        
+  let copyContent = ''
+  
+  text.forEach( posts => {
+    posts.text.split("\n").forEach(lines => {
+      
+      if (!lines.startsWith("![]")) {
+        copyContent += lines;
+        posts.text = copyContent;
+      }
+    });
+  });
+};
 
-// you can't access keys this way
-console.log(aboutJS[creator]) // error: creator is undefined
-// because js interprets creator as a variable since we have not
-// defined it we get error.
-
-console.log(aboutJS["creator"]); // this will work fine
-
-// if you have a variable that stores the key name in string,
-// only then you can use that while accessing properties of an object
-
-// this will work fine since creator is stored in the variable
-// and the value of it is used as a key in the object
-let jsCreator = "creator";
-console.log(aboutJS[jsCreator]);
+console.log(removeImageLinksFromText(data));
+console.log(data);
