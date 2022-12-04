@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-export default function UserNavbar() {
+export default function UserNavbar({profileUrl, username, email}) {
 
     // todo: 1: get the token
     // send to to backend
@@ -11,20 +11,29 @@ export default function UserNavbar() {
     // map through the data and display them
     // use some key so that when clicked show the details of that user only.
 
+    // show the username email and picture of the logged in user
+    // passing them from the layout page.
+
+    console.log(email, profileUrl);
     return (
         
         <nav className="bg-white sticky top-0 z-[999] border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
             <div className="container flex flex-wrap items-center justify-between mx-auto">
                 <Link href="https://flowbite.com/" className="flex items-center">
-                    <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
+                    <img src={ "https://flowbite.com/docs/images/logo.svg"} className="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
                     <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
                 </Link>
                 <div className="flex items-center md:order-2 group relative">
-                        <svg aria-hidden="true" className="mr-2 w-10 h-10 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
+                    {
+                        profileUrl 
+                            ? <img src={profileUrl} alt="profile image" className="h-10 object-cover w-10 rounded-full"/>
+                            : <svg aria-hidden="true" className="mr-2 w-10 h-10 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
+
+                    }
                     <div className="z-50 hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                         <div className="px-4 py-3">
-                            <span className="block text-sm text-gray-900 dark:text-white">User Name</span>
-                            <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">user@email.com</span>
+                            <span className="block text-sm text-gray-900 dark:text-white">{username || "username"}</span>
+                            <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{email || "email"}</span>
                         </div>
                         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                             <li className="mr-2">
