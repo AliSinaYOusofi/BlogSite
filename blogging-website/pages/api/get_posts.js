@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
     console.log(token, '****************TOKEN');
 
-    if (req.method !== "GET") res.status(200).json({message: "onyl get reqs"});
+    if (req.method !== "GET" || ! token) res.status(200).json({message: "onyl get reqs || invalid token"});
 
     const {email: profileEmail} = jwt.decode(token);
 
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
         
     
         // now i must compare them and return the resulst that match the email
-        return res.status(200).json({posts: userPostsArray, username, profileUrl});
+        return res.status(200).json({posts: userPostsArray, username, profileUrl, profileEmail});
     } catch (error) {
         console.log(error, 'while fetching posts from cluster');
         return res.status(200).json({message: "queryError"});    
