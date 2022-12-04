@@ -7,14 +7,17 @@ export const Spacex = ({children}) => {
 
     // for the navbar details
     const [dataUsername, setDataUsername] = useState("");
-    const [dataProfileUrl, dataSetProfileUrl] = useState(""); 
+    const [dataProfileUrl, setDataSetProfileUrl] = useState(""); 
     const [dataEmail, setDataEmail] = useState("");
 
     const setAccessToken = (token) => {setToken(token)}
-    setLoggedInUserEmail = (email) => setDataEmail(email);
+    const setLoggedInUserEmail = (email) => setDataEmail(email);
 
     return (
-        <blogContext.Provider value={{setAccessToken, token, setDataEmail}}>
+        <blogContext.Provider value={{
+            setAccessToken, token, setDataEmail, dataEmail,
+            setDataUsername, dataUsername, setDataSetProfileUrl, dataProfileUrl
+            }}>
             {children}
         </blogContext.Provider>
     )
