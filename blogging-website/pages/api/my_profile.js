@@ -17,8 +17,6 @@ export default async function handler(req, res) {
 
     const {token} = req.query;
 
-    console.log(token, '*******************************************');
-
     await connection();
     
     if(! token) return res.status(200).json({message: "invalid key"});

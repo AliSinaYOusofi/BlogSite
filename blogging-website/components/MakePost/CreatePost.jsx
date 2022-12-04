@@ -9,6 +9,7 @@ import "easymde/dist/easymde.min.css";
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSpacexProvider } from '../../context/appContext';
 
 
 
@@ -18,7 +19,9 @@ let delay = 1000;
 let count = 0;
 
 export default function CreatePost() {
-    // styling the mde
+    // styling the mde 
+    const {token} = useSpacexProvider(); // token provider
+
     const [text, setText] = useState(initialState);
     const [postMyStory, setPostMyStory] = useState(false);
     // for restricting the image
@@ -91,13 +94,17 @@ export default function CreatePost() {
         }
         
         if (count > 1) return;
-
-        removeImageLinksFromText();
         
         try {
+            console.log(text.content, '************COntent front-end', imageUrls);
             const response = await axios.post("/api/save_post", {
                 imageUrls,
                 content: text.content,
+                }, 
+                {
+                headers: {
+                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9uZUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6Im9uZSIsImlhdCI6MTY3MDE1NDM5NX0.-hyv_lGlAQqgfy3YJEYMlcIfmRNJl15kI9k76iep2DA`
+                },
             });
             response.data.message === "saved" ? toast.success("posted") : toast.error("failed to post");
             setPostMyStory(0);
