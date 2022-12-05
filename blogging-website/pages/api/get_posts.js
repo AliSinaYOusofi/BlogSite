@@ -22,11 +22,11 @@ export default async function handler(req, res) {
         // now getting the imageURL and the username for that email
         // imageURL and user is inside the profile database
 
-        const [{username, profileUrl}] = await updateProfileSchema.find({'email': profileEmail});
+        const [{username, profileUrl, bio, title}] = await updateProfileSchema.find({'email': profileEmail});
         
     
         // now i must compare them and return the resulst that match the email
-        return res.status(200).json({posts: userPostsArray, username, profileUrl, profileEmail});
+        return res.status(200).json({posts: userPostsArray, username, profileUrl, profileEmail, bio, title});
     } catch (error) {
         console.log(error, 'while fetching posts from cluster');
         return res.status(200).json({message: "queryError"});    

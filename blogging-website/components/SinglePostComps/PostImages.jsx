@@ -2,7 +2,6 @@ import React from 'react'
 
 export default function PostImages({postImageUrl}) {
 
-    console.log(postImageUrl);
     return (
         <div className="w-full mt-5 mb-5 rounded-md">
             <img src={postImageUrl.split("(")[1].split(")")[0] || ""} alt="post image" 
