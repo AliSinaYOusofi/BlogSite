@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function PostText() {
+export default function PostText({text}) {
     return (
-        <div>PostText</div>
+        <div className="text-white ml-8 text-xl">
+            <p> {text}</p>
+        </div>
     )
 }
