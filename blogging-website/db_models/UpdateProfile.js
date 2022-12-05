@@ -69,7 +69,7 @@ const UpdateProfileSchema = new mongoose.Schema( {
         type: String,
         maxLength: 30,
         requried: false,
-        default: "NA"
+        default: null
     },
 
     date: {
