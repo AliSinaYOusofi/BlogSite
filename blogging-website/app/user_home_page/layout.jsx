@@ -48,7 +48,7 @@ export default function Layout () {
   
   return (
     <>
-      <UserNavbar username={dataUsername} email={dataEmail} profileUrl={dataProfileUrl}/>
+      <UserNavbar />
       <UserMainPage />
       <div className="md:grid md:place-items-center  md:grid-rows-1  grid-cols-3 gap-x-2
       flex items-center flex-col
@@ -57,7 +57,7 @@ export default function Layout () {
         posts.map( item => <UserPosts date={item.date} 
           username={dataUsername} profileUrl={dataProfileUrl}
           content={item.content} title={item.content?.split("\n")[0]}
-          id={item?.id} 
+          key={item?.id} id={item?.id}
           />)
        }
       </div>

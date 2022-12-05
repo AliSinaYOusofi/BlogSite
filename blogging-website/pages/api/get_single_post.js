@@ -18,9 +18,12 @@ export default async function handler(req, res) {
 
     try {
         const queryResult = await postSchema.find({'id': postId});
-        console.log(queryResult);
+        
         // now should i remove the image urls from the text
         // or no. this is the hard one to decide.
+        return res.status(200).json({message: 'done', posts: queryResult})
+
+        
     } catch (error) {
         console.log("Failed to get post given the post %s", postId);
         return res.status(200).json({message: "queryError"})
