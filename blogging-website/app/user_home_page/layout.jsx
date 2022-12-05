@@ -17,7 +17,8 @@ export default function Layout () {
     token, 
     setDataEmail, dataEmail,
     setDataUsername, dataUsername,
-    setDataSetProfileUrl, dataProfileUrl
+    setDataSetProfileUrl, dataProfileUrl,
+    setDataTitle, setDataBio
   } = useSpacexProvider();
   
   // user posts data
@@ -34,18 +35,21 @@ export default function Layout () {
         const response = await axios.get("/api/get_posts", {
           params: { 
             token
-          }
+          } 
         });
         // this should do it.
         setPosts(response.data.posts || [{}]);
         setDataUsername(response.data.username);
         setDataSetProfileUrl(response.data.profileUrl);
         setDataEmail(response.data.profileEmail);
+        setDataBio(response.data.bio || "NA Bio");
+        setDataTitle(response.data.title || "NA Title");
+        console.log(response.data.bio, response.data.title);
       } catch (error) { console.log(error)}
     }
     getPosts();
   }, []) // run once when comp mounts
-  
+  console.log()
   return (
     <>
       <UserNavbar />
