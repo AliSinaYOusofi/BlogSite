@@ -53,9 +53,9 @@ export default function page() {
         }
         getPostGivenId();
         getSameUserPosts();
-    }, []);
+    }, [postId]);
 
-    console.log(sameUserPosts);
+    
     return (
         <>
             <div className="w-[100%] mx-auto  mt-10 py-4
@@ -75,17 +75,36 @@ export default function page() {
                 </div>
                 <div className="w-[25%] relative bg-[#1F2937] mr-3 rounded-lg h-fit">
                     {/* posts from the same user should come after this 
-                    make another compoenent thats shows the posts of the same poster if any*/}
+                    make another compoenent thats shows the posts of the same poster if any
+                    
+                    so posts from the same user is working fine
+                    */}
                     <PosterCard postId={postId}/>
+                    <h1 className="text-xl font-bold text-center text-white mt-5"> Some Posts from the same user</h1>
                     {
-                        sameUserPosts.map( item => <PostsFromSameUser id={item?.id} 
+                        sameUserPosts ? sameUserPosts.map( item => <PostsFromSameUser id={item?.id} 
                             title={item.content.split("\n")[0]} 
                             content={item.content} 
                             date={item?.date} />
-                        )
+                        ): ""
                     }
+                    
+                    <h1 className="text-xl font-bold text-center text-white mt-5"> Most Recent Posts</h1>
+
+                    {/*
+                        now show some posts from other users as well.
+                        like 3-5 posts from random people.
+                        use the same compoenent.
+                        sort them by latest date
+                    */}
                 </div>
             </div>
         </>
     )
 }
+
+/*
+    make a loader compoenent work
+    just work on it Ali.
+    front-end is depressing but you should make the loader component
+*/

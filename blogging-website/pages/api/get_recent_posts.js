@@ -8,20 +8,16 @@ export default async function handler(req, res) {
     // postDate, title, content, id
 
     // use the id to get the jwtToken, and return three of the posts
-    const postId = req.headers.referer.split("=")[1];
-
-    if (! postId) return res.status(200).json({message: "invalid post id"});
     
     if (req.method !== "GET") return res.status(200).json({message: "only Reqs"})
 
     try {
-        const queryResult = await postSchema.findOne({'id': postId});
-        const posterId = queryResult.poster; // ok thats the id of the poster
+        // search an find recent posts and send it
+        // check the dates
         
-        const userPosts = await postSchema.find({"poster": posterId}, {"imageUrls": 0, "comments": 0});
-        
-        if(userPosts.length > 10) userPosts.length = 7; // sevent posts
 
+        // how 2 get those data with latest dates
+        // using aggeragation 
         return res.status(200).json({message: 'done', samePosts: userPosts}); // thats a good boy      
     } catch (error) {
         console.log("Failed to get post given the post %s", postId);
