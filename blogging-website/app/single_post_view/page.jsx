@@ -8,6 +8,7 @@ import PostImages from '../../components/SinglePostComps/PostImages';
 import PostText from '../../components/SinglePostComps/PostText';
 import PostIneraction from '../../components/SinglePostComps/PostIneraction';
 import PosterCard from '../../components/SinglePostComps/PosterCard';
+import PostsFromSameUser from '../../components/SinglePostComps/PostsFromSameUser';
 
 export default function page() {
 
@@ -49,10 +50,12 @@ export default function page() {
                         posts[0].content.split("\n").map( line => line.startsWith("![]") ? <PostImages postImageUrl={line} /> : <PostText text={line}/>)
                     }
                 </div>
-                <div className="w-[25%]">
+                <div className="w-[25%] relative">
                     {/* posts from the same user should come after this 
                     make another compoenent thats shows the posts of the same poster if any*/}
                     <PosterCard postId={postId}/>
+                    
+                    <PostsFromSameUser />
                 </div>
             </div>
         </>
