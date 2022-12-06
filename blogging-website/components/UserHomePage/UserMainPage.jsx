@@ -31,7 +31,6 @@ export default function UserMainPage() {
                         token
                     }
                 });
-                console.log(profileResponse);
                 setProfile(await profileResponse.data.profileData);
             } catch(error) { console.log(error); }  
         }
