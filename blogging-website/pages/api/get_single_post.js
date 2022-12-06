@@ -28,6 +28,4 @@ export default async function handler(req, res) {
         console.log("Failed to get post given the post %s", postId);
         return res.status(200).json({message: "queryError"})
     }
-    
-    res.status(200).json({message: "hello get_single"})
 }

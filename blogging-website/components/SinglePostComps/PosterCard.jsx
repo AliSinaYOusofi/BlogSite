@@ -41,7 +41,7 @@ export default function PosterCard({postId}) { // from the postId we can get pos
 
     
     return (
-        <div className="rounded-lg text-white">
+        <div className="rounded-lg text-white mt-10">
             <div className="flex flex-col justify-center items-center ">
                 <img className="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" src={posterData ? posterData[0]?.profileUrl : ""} alt="profile image"/>
                 <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{posterData ? posterData[0]?.username: "NA"}</h5>

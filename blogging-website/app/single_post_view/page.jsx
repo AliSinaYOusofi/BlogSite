@@ -16,6 +16,13 @@ export default function page() {
         content: ""
     }]);
 
+    const [sameUserPosts, setSameUserPosts] = useState([{
+        id: "",
+        title: "",
+        date: "",
+        content: ""
+    }]);
+
     const postId = useSearchParams().get("post");
 
     useEffect( () => {
@@ -31,15 +38,31 @@ export default function page() {
                 console.log(error, 'error! while getting post using id');    
             }
         }
+        // now another function to take the posts of the same user returned. at least three of them. ok 3
+        const getSameUserPosts = async () => {
+            try {
+                const response = await axios.get("/api/get_same_user_post", {
+                    headers: { 
+                        'PostId': postId
+                    } 
+                });
+                setSameUserPosts(response.data.samePosts);
+            } catch (error) {
+                console.log("failed to get posts of the same user, useEffect(): ", error);
+            }
+        }
         getPostGivenId();
-    });
+        getSameUserPosts();
+    }, []);
+
+    console.log(sameUserPosts);
     return (
         <>
-            <div className="w-[100%] mx-auto bg-gray-800 mt-10 py-4
+            <div className="w-[100%] mx-auto  mt-10 py-4
                 flex flex-row justify-center relative">
                     
                 <PostIneraction />
-                <div className="w-[70%]">
+                <div className="w-[70%] bg-[#1F2937] mx-2 rounded-lg">
                     <UserCard postDate={posts ? posts[0]?.date : "NA"}/>
                     {/* so now for showing the real post content
                     to components one for the image and one for the content of the 
@@ -50,12 +73,17 @@ export default function page() {
                         posts[0].content.split("\n").map( line => line.startsWith("![]") ? <PostImages postImageUrl={line} /> : <PostText text={line}/>)
                     }
                 </div>
-                <div className="w-[25%] relative">
+                <div className="w-[25%] relative bg-[#1F2937] mr-3 rounded-lg h-fit">
                     {/* posts from the same user should come after this 
                     make another compoenent thats shows the posts of the same poster if any*/}
                     <PosterCard postId={postId}/>
-                    
-                    <PostsFromSameUser />
+                    {
+                        sameUserPosts.map( item => <PostsFromSameUser id={item?.id} 
+                            title={item.content.split("\n")[0]} 
+                            content={item.content} 
+                            date={item?.date} />
+                        )
+                    }
                 </div>
             </div>
         </>
