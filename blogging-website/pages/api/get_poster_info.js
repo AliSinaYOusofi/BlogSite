@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     if (!postId || req.method !== "GET") return res.status(200).json({message: "invalid post id"});
 
     // now that we have the postId
-    // we can get the creds
+    // we can get the cred
 
     try {
         const [{poster: jwtKey}] = await postSchema.find({"id": postId});

@@ -37,7 +37,8 @@ export default function PosterCard({postId}) { // from the postId we can get pos
             }
         }
         getPosterDetails();
-    }, []);
+    }, [postId]);
+
 
     
     return (

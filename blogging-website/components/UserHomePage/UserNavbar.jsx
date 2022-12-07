@@ -1,10 +1,17 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { useSpacexProvider } from '../../context/appContext';
+import axios from 'axios';
 
 export default function UserNavbar() {
 
+    const [loggedInData, setLoggedInData] = useState([{
+        inUsername: "",
+        inEmail : "",
+        inProfile: ""
+    }]);
     // todo: 1: get the token
     // send to to backend
     // the backend will send all posts a user posted 
@@ -15,8 +22,29 @@ export default function UserNavbar() {
     // show the username email and picture of the logged in user
     // passing them from the layout page.
 
-    const {dataEmail, dataUsername, dataProfileUrl} = useSpacexProvider();
+    const {token} = useSpacexProvider();
+
+    // make a req using jwt token
+    // and decode it and send it back to here and show it
+
+    useEffect( () => {
+        const getProfile = async () => {
+            try {
+                const response = await axios.get("/api/get_logged_in_user",{
+                    params: {
+                       token
+                    }
+                });
+            console.log(response.data); 
+            setLoggedInData(response.data.logged);
+            } catch (error) {
+                console.log("failed to get posts of the same user, useEffect(): ", error);
+            }
+        }
+        getProfile();
+    }, [])
     
+    console.log(loggedInData, '**********************88');
     return (
         
         <nav className="bg-white sticky top-0 z-[999] border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900
@@ -28,15 +56,15 @@ export default function UserNavbar() {
                 </Link>
                 <div className="flex items-center md:order-2 group relative">
                     {
-                        dataProfileUrl 
-                            ? <img src={dataProfileUrl} alt="profile image" className="h-10 object-cover w-10 rounded-full"/>
+                        loggedInData
+                            ? <img src={loggedInData[0].inProfile} alt="profile image" className="h-10 object-cover w-10 rounded-full"/>
                             : <svg aria-hidden="true" className="mr-2 w-10 h-10 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
 
                     }
                     <div className="z-50 hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                         <div className="px-4 py-3">
-                            <span className="block text-sm text-gray-900 dark:text-white">{dataUsername || "username"}</span>
-                            <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{dataEmail || "email"}</span>
+                            <span className="block text-sm text-gray-900 dark:text-white">{loggedInData ? loggedInData[0]?.inUsername : "username"}</span>
+                            <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{loggedInData ? loggedInData[0]?.inEmail : "email"}</span>
                         </div>
                         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                             <li className="mr-2">

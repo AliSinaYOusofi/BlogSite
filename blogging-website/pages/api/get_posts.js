@@ -2,9 +2,8 @@ import jwt from 'jsonwebtoken';
 import postSchema from '../../db_models/UserPosts';
 import updateProfileSchema from '../../db_models/UpdateProfile';
 export default async function handler(req, res) {
+    
     const {token} = req.query;
-
-    console.log(token, '****************TOKEN');
 
     if (req.method !== "GET" || ! token) res.status(200).json({message: "onyl get reqs || invalid token"});
 
@@ -24,9 +23,8 @@ export default async function handler(req, res) {
 
         const [{username, profileUrl, bio, title}] = await updateProfileSchema.find({'email': profileEmail});
         
-        console.log(userPostsArray, 'GOTOIJSLKDF:JLKSDJF:KLSDJFL');
         // now i must compare them and return the resulst that match the email
-        return res.status(200).json({posts: userPostsArray, username, profileUrl, profileEmail, bio, title});
+        return res.status(200).json({posts: userPostsArray, userData: [{username, profileUrl, profileEmail, bio, title}]});
     } catch (error) {
         console.log(error, 'while fetching posts from cluster');
         return res.status(200).json({message: "queryError"});    
