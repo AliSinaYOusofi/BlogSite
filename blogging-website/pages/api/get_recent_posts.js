@@ -1,5 +1,6 @@
-import PosterCard from "../../components/SinglePostComps/PosterCard";
 import postSchema from "../../db_models/UserPosts";
+import connection from '../../db_connection/mongoose.db.config';
+import jwt from 'jsonwebtoken'
 export default async function handler(req, res) {
 
     // this function will take the postId from params and return 3x posts
@@ -9,18 +10,40 @@ export default async function handler(req, res) {
 
     // use the id to get the jwtToken, and return three of the posts
     
-    if (req.method !== "GET") return res.status(200).json({message: "only Reqs"})
-
+    if (req.method !== "GET") return res.status(200).json({message: "only get Reqs"})
+    
+    await connection();
+   
     try {
         // search an find recent posts and send it
         // check the dates
         
 
         // how 2 get those data with latest dates
-        // using aggeragation 
-        return res.status(200).json({message: 'done', samePosts: userPosts}); // thats a good boy      
+        // using aggeragation
+
+        // getting posts from 2-weeks before now
+        let twoWeeksBefore = new Date();
+        twoWeeksBefore.setDate(twoWeeksBefore.getDate() - 14);
+        
+        // my cluster is not working. IDK why it is down.
+        let queryResult = await postSchema.find({'date': { $gte: new Date(twoWeeksBefore) } });
+        
+        console.log(queryResult);
+        
+        queryResult.map( item => {
+            if (item.poster.length >= 40) {
+                const {email} = jwt.decode(item.poster);
+                item.poster = email;
+            }
+          });
+        
+          console.log(queryResult, 'here');
+
+        return res.status(200).json({message: 'done', latestPosts: queryResult}); // thats a good boy      
+    
     } catch (error) {
-        console.log("Failed to get post given the post %s", postId);
+        console.log("Failed to get post given the post %s", error);
         return res.status(200).json({message: "queryError"})
     }
 }

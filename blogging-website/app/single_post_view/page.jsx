@@ -9,7 +9,7 @@ import PostText from '../../components/SinglePostComps/PostText';
 import PostIneraction from '../../components/SinglePostComps/PostIneraction';
 import PosterCard from '../../components/SinglePostComps/PosterCard';
 import PostsFromSameUser from '../../components/SinglePostComps/PostsFromSameUser';
-
+    
 export default function page() {
 
     const [posts, setPosts] = useState([{
@@ -22,9 +22,18 @@ export default function page() {
         date: "",
         content: ""
     }]);
+    
+    const [recentPosts, setRecentPosts] = useState([{
+        id: "",
+        title: "",
+        date: "",
+        content: "",
+        username: "",
+
+    }]);
 
     const postId = useSearchParams().get("post");
-
+   
     useEffect( () => {
         const getPostGivenId = async () => {
             try {
@@ -37,7 +46,7 @@ export default function page() {
             } catch (error) {
                 console.log(error, 'error! while getting post using id');    
             }
-        }
+        }    
         // now another function to take the posts of the same user returned. at least three of them. ok 3
         const getSameUserPosts = async () => {
             try {
@@ -51,8 +60,17 @@ export default function page() {
                 console.log("failed to get posts of the same user, useEffect(): ", error);
             }
         }
+        const getRecentPosts = async () => {
+            try {
+                const response = await axios.get("/api/get_recent_posts" );
+                setRecentPosts(response.data.latestPosts);
+            } catch (error) {
+                console.log("failed to get posts of the same user, useEffect(): ", error);
+            }
+        }
         getPostGivenId();
         getSameUserPosts();
+        getRecentPosts();
     }, [postId]);
 
     
@@ -62,7 +80,7 @@ export default function page() {
                 flex flex-row justify-center relative">
                     
                 <PostIneraction />
-                <div className="w-[70%] bg-[#1F2937] mx-2 rounded-lg">
+                <div className="w-[70%] bg-[#1F2937] mx-2 rounded-lg h-fit">
                     <UserCard postDate={posts ? posts[0]?.date : "NA"}/>
                     {/* so now for showing the real post content
                     to components one for the image and one for the content of the 
@@ -97,6 +115,16 @@ export default function page() {
                         use the same compoenent.
                         sort them by latest date
                     */}
+
+                    {
+                        recentPosts ? recentPosts.map( item => <PostsFromSameUser id={item?.id} 
+                            title={item.content.split("\n")[0]} 
+                            content={item.content} 
+                            date={item?.date}
+                            username={item?.poster} 
+                            />
+                        ): ""
+                    }
                 </div>
             </div>
         </>
