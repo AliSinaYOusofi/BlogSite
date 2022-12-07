@@ -29,13 +29,12 @@ export default function PostContent({postId}) {
         getPostGivenId();
     }, [postId])
 
-    console.log(posts);
 
     return (
         <>
             <h1 className="mb-4 ml-6 text-xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-2xl dark:text-white">{posts && posts[0]?.content ? posts[0]?.content.split("\n")[0] : ""}</h1>
             {
-                posts[0].content.split("\n").map( line => line.startsWith("![]") ? <PostImages postImageUrl={line} /> : <PostText text={line}/>)
+                posts ? posts[0].content.split("\n").map( line => line.startsWith("![]") ? <PostImages postImageUrl={line} /> : <PostText text={line}/>) : ""
             }
         </>
     )

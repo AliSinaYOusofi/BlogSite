@@ -8,7 +8,7 @@ import UserCard from '../../components/SinglePostComps/UserCard';
 import PostIneraction from '../../components/SinglePostComps/PostIneraction';
 
 import PostContent from '../../components/PostContent/PostContent';
-import SameUserPosts from '../../components/PostContent/SameUserPosts';
+import RecentPosts from '../../components/PostContent/RecentPosts';
     
 export default function page() {
     
@@ -19,7 +19,7 @@ export default function page() {
             <div className="w-[100%] mx-auto  mt-10 py-4
                 flex flex-row justify-center relative">
                 <PostIneraction />
-                <div className="w-[70%] bg-[#1F2937] mx-2 rounded-lg h-fit">
+                <div className="w-[70%] bg-[#1F2937] mx-2 rounded-lg h-fit pb-4 blogText">
                     <UserCard postId={postId}/>
                     
                     {/* so now for showing the real post content
@@ -31,7 +31,7 @@ export default function page() {
                     <PostContent postId={postId}/>
                 </div>
                 <div className="w-[25%] relative bg-[#1F2937] mr-3 rounded-lg h-fit">
-                    <SameUserPosts postId={postId}/>
+                    <RecentPosts postId={postId}/>
                 </div>
             </div>
         </>

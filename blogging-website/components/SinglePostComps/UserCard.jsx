@@ -34,11 +34,10 @@ export default function UserCard({postId}) {
         getPosterInfo();
     }, [postId])
 
-    console.log(profile, postId);
     return (
         <address className="flex items-center mb-6 not-italic rounded-md">
             <div className="inline-flex justify-center  p-4 items-center mr-3 text-sm text-gray-900 dark:text-white">
-                <img className="mr-4 w-16 h-16 rounded-full object-cover" src={profile[0]?.profileUrl ? profile[0]?.profileUrl : "https://flowbite.com/docs/images/people/profile-picture-2.jpg"} alt="User profile picture" />
+                <img className="mr-4 w-16 h-16 rounded-full object-cover" src={profile ? profile[0]?.profileUrl : "https://stackdiary.com/140x100.png"} alt="User profile picture" />
                 <div>
                     <p className="text-xl font-bold text-gray-900 dark:text-white">{profile ? profile[0]?.username : "username"}</p>
                     <p className="text-base font-light text-gray-500 dark:text-gray-400">{profile ? profile[0]?.email : "email@domain.com"}</p>
