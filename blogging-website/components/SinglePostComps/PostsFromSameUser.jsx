@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 
 
-export default function PostsFromSameUser({id, date, content, title}) { // from the postId we can get poster
+export default function PostsFromSameUser({id, date, content, title, username}) { // from the postId we can get poster
 
     // this should take the email and return some of the posts of this user
     // sort by latest first and have the id so they can view the full post.
@@ -13,9 +13,10 @@ export default function PostsFromSameUser({id, date, content, title}) { // from 
     // token
 
     return (
-        <div className="w-fit p-4 mx-auto " key={id}>
-            <div className="flex items-center justify-between">
-                <span className="text-sm font-light text-gray-600 dark:text-gray-400 ">{date ? date.split("T")[0] : "2022-12-4"}</span> 
+        <div className="w-fit p-4 " key={id}>
+            <div className="flex items-start justify-between">
+                <span className="text-sm font-light text-gray-600 dark:text-gray-400 ">{date ? date.split("T")[0] : "2022-12-4"}</span>
+                <span className="text-sm font-light text-gray-600 dark:text-gray-400 "> {username || ""} </span> 
             </div> 
             <div className="mt-2">
                 <Link href={{ pathname:"/single_post_view", query: {post: id} }} className="overflow-ellipsis line-clamp-1 text-xl font-bold text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline">{title || "some blog title"}</Link> 

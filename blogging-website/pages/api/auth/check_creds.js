@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     const {email, password} = req.body; // got it.
 
     // start the connection
-    connection();
+    await connection();
 
     
     // what to sign data with: username, email is enough
