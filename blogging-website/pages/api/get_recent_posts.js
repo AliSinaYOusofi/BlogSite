@@ -29,8 +29,6 @@ export default async function handler(req, res) {
         // my cluster is not working. IDK why it is down.
         let queryResult = await postSchema.find({'date': { $gte: new Date(twoWeeksBefore) } });
         
-        console.log(queryResult);
-        
         queryResult.map( item => {
             if (item.poster.length >= 40) {
                 const {email} = jwt.decode(item.poster);
@@ -38,7 +36,7 @@ export default async function handler(req, res) {
             }
           });
         
-          console.log(queryResult, 'here');
+        queryResult = queryResult.reverse();
 
         return res.status(200).json({message: 'done', latestPosts: queryResult}); // thats a good boy      
     

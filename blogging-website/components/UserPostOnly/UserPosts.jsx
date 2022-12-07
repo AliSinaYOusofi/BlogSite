@@ -11,7 +11,7 @@ export default function UserPosts({content, title, username, profileUrl, date, i
     return (
         <div className="max-w-2xl px-8 py-4 mx-auto  rounded-lg shadow-md bg-gray-800 mt-10" key={id}>
             <div className="flex items-center justify-between">
-                <span className="text-sm font-light text-gray-600 dark:text-gray-400">{date}</span> 
+                <span className="text-sm font-light text-gray-600 dark:text-gray-400">{date ? date.split("T")[0] : ""}</span> 
             </div> 
             <div className="mt-2">
                 <Link href={{ pathname:"/single_post_view", query: {post: id} }} className="overflow-ellipsis line-clamp-1 text-2xl font-bold text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline">{title}</Link> 
