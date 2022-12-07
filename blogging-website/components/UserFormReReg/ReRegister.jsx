@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 // validator funcs
-import { emailValidator } from '../../functions/validators/emailValidator';
+
 import { usernameValidator } from '../../functions/validators/usernameValidator';
 import { passwordValidator } from '../../functions/validators/passwordValidator';
 // our router to redirect to /signup with data as query
@@ -16,7 +16,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { sleep } from '../global/sleep';
 import axios from 'axios';
 import { useSpacexProvider } from '../../context/appContext';
-
 
 export default function ReRegister() {
 

@@ -103,7 +103,7 @@ export default function CreatePost() {
                 }, 
                 {
                 headers: {
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9uZUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6Im9uZSIsImlhdCI6MTY3MDE1NDM5NX0.-hyv_lGlAQqgfy3YJEYMlcIfmRNJl15kI9k76iep2DA`
+                    'Authorization': `Bearer ${token}`
                 },
             });
             response.data.message === "saved" ? toast.success("posted") : toast.error("failed to post");
