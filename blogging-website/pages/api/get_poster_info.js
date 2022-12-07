@@ -12,6 +12,9 @@ export default async function handler(req, res) {
 
     try {
         const [{poster: jwtKey}] = await postSchema.find({"id": postId});
+
+        if(jwtKey.length < 30) return res.status(200).json({message: "invalid key"}); // cause i generated some dummy tokens when testing
+        
         const {username, email} =  jwt.decode(jwtKey);
         
         // now from the username we can get other info

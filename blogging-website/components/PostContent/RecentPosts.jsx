@@ -2,15 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import PosterCard from '../SinglePostComps/PosterCard';
 import PostsFromSameUser from '../SinglePostComps/PostsFromSameUser';
+import SamePostrPosts from './SamePostrPosts';
 
-export default function SameUserPosts({postId}) {
+export default function RecentPosts({postId}) {
 
-    const [sameUserPosts, setSameUserPosts] = useState([{
-        id: "",
-        title: "",
-        date: "",
-        content: ""
-    }]);
+    
     
     const [recentPosts, setRecentPosts] = useState([{
         id: "",
@@ -24,18 +20,7 @@ export default function SameUserPosts({postId}) {
     useEffect( () => {
         
         // now another function to take the posts of the same user returned. at least three of them. ok 3
-        const getSameUserPosts = async () => {
-            try {
-                const response = await axios.get("/api/get_same_user_post", {
-                    headers: { 
-                        'PostId': postId
-                    } 
-                });
-                setSameUserPosts(response.data.samePosts);
-            } catch (error) {
-                console.log("failed to get posts of the same user, useEffect(): ", error);
-            }
-        }
+        
         const getRecentPosts = async () => {
             try {
                 const response = await axios.get("/api/get_recent_posts" );
@@ -45,7 +30,6 @@ export default function SameUserPosts({postId}) {
             }
         }
         
-        getSameUserPosts();
         getRecentPosts();
     }, [postId]);
     return (
@@ -57,13 +41,7 @@ export default function SameUserPosts({postId}) {
                 */}
                 <PosterCard postId={postId}/>
                 <h1 className="text-xl font-bold text-center text-white mt-5"> Some Posts from the same user</h1>
-                {
-                    sameUserPosts ? sameUserPosts.map( item => <PostsFromSameUser id={item?.id} 
-                        title={item.content.split("\n")[0]} 
-                        content={item.content} 
-                        date={item?.date} />
-                    ): ""
-                }
+                <SamePostrPosts postId={postId}/>
                 
                 <h1 className="text-xl font-bold text-center text-white mt-5"> Most Recent Posts</h1>
 
