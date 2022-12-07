@@ -43,12 +43,9 @@ export default function Login() {
         
             setAccessToken(accessToken); // that's good. access token is set.
         
-            toast.dismiss();
-            await sleep(2000);
+           
 
             if (message === "success") {
-                toast.success("success! credentials are correct");
-                await sleep(1000);
                 router.push("/user_home_page")
             }
             else if (message === "notyou") toast.error("invalid credentials");

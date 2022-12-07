@@ -19,7 +19,7 @@ export default function page() {
             <div className="w-[100%] mx-auto  mt-10 py-4
                 flex flex-row justify-center relative">
                 <PostIneraction />
-                <div className="w-[70%] bg-[#1F2937] mx-2 rounded-lg h-fit pb-4 blogText">
+                <div className="w-[70%] shadow-sm mx-2 rounded-lg h-fit pb-4 blogText shadow-current">
                     <UserCard postId={postId}/>
                     
                     {/* so now for showing the real post content
@@ -30,7 +30,7 @@ export default function page() {
                     
                     <PostContent postId={postId}/>
                 </div>
-                <div className="w-[25%] relative bg-[#1F2937] mr-3 rounded-lg h-fit">
+                <div className="w-[25%] relative shadow-sm mr-3 rounded-lg h-fit shadow-current">
                     <RecentPosts postId={postId}/>
                 </div>
             </div>
