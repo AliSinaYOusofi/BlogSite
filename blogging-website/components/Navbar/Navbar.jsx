@@ -23,7 +23,7 @@ export default  function Navbar() {
     // style={{boxShadow: scrollY >= 150 ? "1px 1px 1px 1px black" : ""}}
     return ( 
         <nav className="sticky mx-auto top-0  px-2 sm:px-4 py-2.5" >
-            <div className="container  flex flex-wrap items-center justify-between mx-auto bg-[#d1d3ce] p-2 rounded-md">
+            <div className="container  flex flex-wrap items-center justify-between mx-auto backdrop-blur-sm p-2 rounded-md">
                 <a href="" className="flex items-center gap-x-1">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"

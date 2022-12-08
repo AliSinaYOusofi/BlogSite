@@ -17,13 +17,13 @@ export default function page() {
     return (
         <>
             <div className="w-[100%] mx-auto  mt-10 py-4
-                flex flex-row justify-center relative bg-[#d1d3ce]">
+                flex flex-row justify-center relative">
                 <PostIneraction />
-                <div className="w-[70%] h-fit pb-4 blogText shadow-current">
+                <div className="w-[70%] h-fit pb-4 blogText shadow-current bg-[whitesmoke] rounded-lg">
                     <UserCard postId={postId}/>
                     <PostContent postId={postId}/>
                 </div>
-                <div className="w-[25%] relative shadow-sm mr-3 rounded-lg h-fit shadow-current">
+                <div className="w-[25%] relative mr-3 rounded-md h-fit">
                     <RecentPosts postId={postId}/>
                 </div>
             </div>

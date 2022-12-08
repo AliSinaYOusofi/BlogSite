@@ -13,13 +13,13 @@ export default function Loading() {
             <div className="w-[5%]">
                 <PostIneractionLoading />
             </div>
-            <div className="w-[70%] flex flex-col gap-y-10">
-                <CardLoading />
-                <TextLoading />
+            <div className="w-[70%] flex items-center justify-center ml-8 bg-[#F5F5F5] p-4 rounded-lg">
                 <TextLoading />
             </div>
-            <div className="w-[25%] relative shadow-sm mr-3 rounded-lg h-fit shadow-current">
+            <div className="w-[25%] relative flex flex-col px-2 py-4 items-center justify-center ml-2">
                 <ColumnCardLoading />
+                <SingleLoading />
+                <SingleLoading />
                 <SingleLoading />
                 <SingleLoading />
                 <SingleLoading />
