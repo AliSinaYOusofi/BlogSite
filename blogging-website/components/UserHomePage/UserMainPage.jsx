@@ -56,41 +56,43 @@ export default function UserMainPage() {
                                 <div className="w-full -mt-2">
                                     <div className="flex justify-center">
                                         <div className="mr-4 p-3 text-center">
-                                            <span className="text-xl font-bold block uppercase tracking-wide text-white">22</span><span className="text-sm text-white">Friends</span>
+                                            <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">22</span><span className="text-sm text-gray-800">Friends</span>
                                         </div>
                                         <div className="mr-4 p-3 text-center">
-                                            <span className="text-xl font-bold block uppercase tracking-wide text-white">10</span><span className="text-sm text-white">Photos</span>
+                                            <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">10</span><span className="text-sm text-gray-800">Photos</span>
                                         </div>
                                         <div className="lg:mr-4 p-3 text-center">
-                                            <span className="text-xl font-bold block uppercase tracking-wide text-white">89</span><span className="text-sm text-white">Comments</span>
+                                            <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">89</span><span className="text-sm text-gray-800">Comments</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="mt-3">
-                                    <button type="button" className="text-white transition-all duration-300 hover:-translate-y-1 bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit Profile</button>
+                                    <button type="button" className="text-white transition-all duration-300 hover:-translate-y-1 bg-[#29B6F6] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Edit Profile</button>
                                 </div>
 
                             </div>
                             <div className="text-center mt-12">
-                                <h3 className="text-4xl font-semibold leading-normal mb-2 text-white">
-                                {profile ? profile[0]?.username : ""}
+                                
+                                <h3 className="text-xl leading-normal mb-2 text-gray-900">
+                                    Username: {profile ? profile[0]?.username : ""}
                                 </h3>
-                                <div className="text-sm leading-normal mt-0 mb-2 text-white font-bold uppercase">
-                                    <i className="fas fa-map-marker-alt mr-2 text-lg text-white"></i>
-                                    {profile ? profile[0]?.place : ""}
+                                <div className="text-sm leading-normal mt-0 mb-2 ">
+
+                                    <i className="mr-2 text-xl text-gray-900"></i>
+                                        Location: {profile ? profile[0]?.place : ""}
                                 </div>
-                                <div className="mb-2 text-white mt-10">
-                                    <i className="fas fa-briefcase mr-2 text-lg text-white"></i>{profile ? profile[0]?.title : ""}
+                                <div className="mb-2 ">
+                                    Title: <i className="fas fa-briefcase mr-2 text-lg text-gray-900"></i>{profile ? profile[0]?.title : ""}
                                 </div>
-                                <div className="mb-2 text-white">
-                                    <i className="fas fa-university mr-2 text-lg text-white"></i>{profile ? profile[0]?.university : ""}
+                                <div className="mb-2 ">
+                                    University: <i className="fas fa-university mr-2 text-lg text-gray-900"></i>{profile ? profile[0]?.university : ""}
                                 </div>
                             </div>
                             <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                                 <div className="flex flex-wrap justify-center">
                                     <div className="w-full lg:w-9/12 px-4">
-                                        <p className="mb-4 text-lg leading-relaxed text-white">
+                                        <p className="mb-4 text-lg leading-relaxed text-gray-900">
                                         { profile ? profile[0]?.bio : ""}
                                         </p>
                                     </div>

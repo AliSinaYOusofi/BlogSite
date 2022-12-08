@@ -46,12 +46,16 @@ export default function UserNavbar() {
     
     return (
         
-        <nav className="sticky top-0 z-[999]  px-2 sm:px-4 py-2.5 rounded-lg w-[92%] mx-auto mt-2 bg-[#d1d3ce]
+        <nav className="sticky top-3 z-[999]  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  bg-[#d1d3ce]
         ">
             <div className="container flex flex-wrap items-center justify-between mx-auto text-xl">
                 <Link href="https://flowbite.com/" className="flex items-center">
-                    <img src={ "https://flowbite.com/docs/images/logo.svg"} className="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
-                    <span className="self-center text-xl font-semibold whitespace-nowrap text-white">Flowbite</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                        width="48" height="48"
+                        viewBox="0 0 48 48">
+                        <path fill="#29b6f6" fill-rule="evenodd" d="M24,4C12.96,4,4.01,12.954,4.01,24	c0,10.141,7.545,18.519,17.325,19.823v-4.03c0-1.136-0.716-2.158-1.793-2.519c-5.643-1.897-9.68-7.293-9.531-13.611	c0.181-7.692,6.444-13.74,14.133-13.662c7.662,0.078,13.849,6.316,13.849,14c0,0.72-0.056,1.44-0.164,2.151	c-1.713,11.291-16.412,17.637-16.492,17.672C22.208,43.939,23.097,44,24,44c11.04,0,19.99-8.954,19.99-20S35.04,4,24,4" clip-rule="evenodd"></path>
+                    </svg>
+                    <span className="self-center text-xl font-semibold whitespace-nowrap text-white">Bloggy</span>
                 </Link>
                 <div className="flex items-center md:order-2 group relative">
                     {
@@ -98,23 +102,23 @@ export default function UserNavbar() {
                 </div>
                 
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-                    <ul className="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-xl md:font-medium text-white">
+                    <ul className="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 text-sm md:font-medium">
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-white" aria-current="page">
+                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md" aria-current="page">
                             Home
                         </Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 ">About</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md">About</Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4">Services</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md">Services</Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4">Pricing</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md">Pricing</Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 ">Contact</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4  text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md">Contact</Link>
                     </li>
                     </ul>
                 </div>
