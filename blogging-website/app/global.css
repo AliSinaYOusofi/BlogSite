@@ -5,7 +5,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400&display=swap');
 
+
 body {
     font-family: 'Source Serif Pro', serif;
-    background-color: #111827;
+    background-color:aliceblue;
+
 }   
