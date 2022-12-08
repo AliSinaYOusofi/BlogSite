@@ -17,7 +17,7 @@ export default function page() {
     return (
         <>
             <div className="w-[100%] mx-auto  mt-10 py-4
-                flex flex-row justify-center relative">
+                flex flex-row justify-center relative bg-[#d1d3ce]">
                 <PostIneraction />
                 <div className="w-[70%] h-fit pb-4 blogText shadow-current">
                     <UserCard postId={postId}/>

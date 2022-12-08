@@ -54,7 +54,7 @@ export default function Login() {
         } catch (error) { console.log(error); }
     }
     return (
-        <div className="w-full mt-20 mx-auto max-w-sm p-4 my-auto rounded-lg bg-[#d1d3ce]">
+        <div className="w-full mt-20 mx-auto max-w-sm p-4 my-auto rounded-lg bg-[#d1d3ce] md:py-10">
             <form className="space-y-6" onSubmit={handleLogin}>
                 <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h5>
                 <div>
@@ -69,7 +69,7 @@ export default function Login() {
                     
                     <a href="#" className="mr-auto text-sm">Lost Password?</a>
                 </div>
-                <button type="submit" className="w-full text-white bg-blue-800  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 ">Login to your account</button>
+                <button type="submit" className="w-full text-white bg-[#29B6F6] font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login to your account</button>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                     Not registered? <Link href="/signup" className="text-blue-700 hover:underline dark:text-blue-500">Create account</Link>
                 </div>
