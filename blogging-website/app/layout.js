@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
       <body>
         <Spacex>
           {children}
-          <Footer />
+         
         </Spacex>
       </body>
     </html>

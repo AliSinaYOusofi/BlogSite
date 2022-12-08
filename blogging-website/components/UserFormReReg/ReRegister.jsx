@@ -162,8 +162,6 @@ export default function ReRegister() {
             
             else flag = true;
         }
-
-        console.log(flag, '*********************************');
         return flag;
     }
     
@@ -189,7 +187,7 @@ export default function ReRegister() {
                 Update You Account
             </h1>
                 
-            <form className="flex md:flex-row flex-col flex-wrap justify-center items-center bg-gray-800 
+            <form className="flex md:flex-row flex-col flex-wrap justify-center items-center bg-[#d1d3ce]
             h-full w-[92%] mt-3 rounded-md mx-auto gap-x-14 p-4
             transition-all duration-300 blur-[1px] hover:blur-none" >
                 
@@ -199,29 +197,27 @@ export default function ReRegister() {
                     
                     <div className="w-full">
                         <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Userame(optional)</label>
-                        <input onChange={(e) => setUsername(e.target.value)} type="text" name="username" id="username" placeholder="username e g jhon" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                        <input onChange={(e) => setUsername(e.target.value)} type="text" name="username" id="username" placeholder="username e g jhon" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  />
                     </div>
                     
                     <div className="w-full">
                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password (optional)</label>
-                        <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                        <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  />
                     </div>
                     <div className="w-full">
                         <label htmlFor="confirm" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                        <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" name="confirm" id="confirm" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                        <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" name="confirm" id="confirm" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "  />
                     </div>
                     <div className="flex items-center mr-4 gap-x-6">
                         <p className="text-white">Set account visibilty(optional): </p>
                         <div>
-                            <input ref={publicRef}  onClick={() => selectOnlyOneCheckbox("public")}id="public"  type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="check"/>
+                            <input ref={publicRef}  onClick={() => selectOnlyOneCheckbox("public")}id="public"  type="checkbox" value="" className="w-4 h-4 " name="check"/>
                             <label  htmlFor="public" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Public</label>
                         </div>
                         
                         <div>
-
-                            <input ref={privateRef} onClick={() => selectOnlyOneCheckbox("private")} id="private"  type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="check"/>
+                            <input ref={privateRef} onClick={() => selectOnlyOneCheckbox("private")} id="private"  type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100" name="check"/>
                             <label htmlFor="private" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Private</label>
-                        
                         </div>
                     </div>
                 </div>
@@ -230,29 +226,29 @@ export default function ReRegister() {
                 ">
                     <div className="w-full">
                         <label htmlFor="place" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place (optional)</label>
-                        <input onChange={(e) => setPlace(e.target.value)} type="text" name="place" id="place" className="bg-gray-50  border-none outline-none  text-gray-900 sm:text-sm rounded-lg  block  p-2.5 dark:bg-gray-700 w-full  dark:placeholder-gray-400 dark:text-white" placeholder="USA, California"  />
+                        <input onChange={(e) => setPlace(e.target.value)} type="text" name="place" id="place" className="bg-gray-50  border-none outline-none  text-gray-900 sm:text-sm rounded-lg  block  p-2.5 w-full" placeholder="USA, California"  />
                     </div>
                     
                     <div className="w-full">
                         <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job Title (optional)</label>
-                        <input onChange={(e) => setJobTitle(e.target.value)} type="text" name="title" id="title" className="bg-gray-50  border-none outline-none  text-gray-900 sm:text-sm rounded-lg  block  p-2.5 dark:bg-gray-700 w-full  dark:placeholder-gray-400 dark:text-white" placeholder="front-end developer, photographer" />
+                        <input onChange={(e) => setJobTitle(e.target.value)} type="text" name="title" id="title" className="bg-gray-50  border-none outline-none  text-gray-900 sm:text-sm rounded-lg  block  p-2.5 w-full" placeholder="front-end developer, photographer" />
                     </div>
                     
                     <div className="w-full">
                         <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Bio(optional)</label>
-                        <textarea id="message" onChange={(e) => setBio(e.target.value)} rows="4" className="border-none outline-none p-2.5 w-full text-sm text-white                                                                                                      rounded-lg  bg-gray-700  " placeholder="Write you bio ..." ></textarea>
+                        <textarea id="message" onChange={(e) => setBio(e.target.value)} rows="4" className="border-none outline-none p-2.5 w-full text-sm text-white rounded-md" placeholder="Write you bio ..." ></textarea>
                     </div>
                     <div className="w-full">
                         <label htmlFor="uni" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">University/Company Name (optional)</label>
-                        <input onChange={(e) => setUniversity(e.target.value)} type="text" name="uni" id="uni" className="bg-gray-50  border-none outline-none  text-gray-900 sm:text-sm rounded-lg  block  p-2.5 dark:bg-gray-700 w-full  dark:placeholder-gray-400 dark:text-white" placeholder="You university name, or compnay ..."  />
+                        <input onChange={(e) => setUniversity(e.target.value)} type="text" name="uni" id="uni" className="bg-gray-50  border-none outline-none  text-gray-900 sm:text-sm rounded-lg  block  p-2.5 w-full" placeholder="You university name, or compnay ..."  />
                     </div>
                 </div>
                 
                 
                 <div  className="flex items-center justify-center w-[70%] mx-auto mt-4 group">
-                    <label  htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-gray-300  rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <label  htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 bg-[#f0f1ed]  rounded-lg cursor-pointer">
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                            <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400 transition-all duration-300
+                            <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400 transition-all duration-300 
                             group-hover:-translate-y-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                             <p className="text-sm text-gray-400">File name: {imageDetails?.name || "NA"} </p>
                             <p className="text-sm text-gray-400">File Size: {imageDetails?.size / 1000000 || "NA"} MB(s)  </p>

@@ -5,6 +5,8 @@ export default async function handler(req, res) {
     
     const {token} = req.query;
 
+    if (!token) return res.status(200).json({message: "invali token"});
+
     if (req.method !== "GET" || ! token) res.status(200).json({message: "onyl get reqs || invalid token"});
 
     const {email: profileEmail} = jwt.decode(token);

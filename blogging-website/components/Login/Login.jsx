@@ -54,20 +54,20 @@ export default function Login() {
         } catch (error) { console.log(error); }
     }
     return (
-        <div className="w-full mt-20 mx-auto max-w-sm p-4  border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full mt-20 mx-auto max-w-sm p-4 my-auto rounded-lg bg-[#d1d3ce]">
             <form className="space-y-6" onSubmit={handleLogin}>
                 <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h5>
                 <div>
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                    <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className=" text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-600 border-none outline-none dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" />
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Your email</label>
+                    <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className=" text-gray-900 text-sm rounded-lg  block w-full p-2.5 border-none outline-none" placeholder="name@company.com" />
                 </div>
                 <div>
-                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                    <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg border-none outline-none block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
+                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Your password</label>
+                    <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg border-none outline-none block w-full p-2.5" />
                 </div>
                 <div className="flex items-end">
                     
-                    <a href="#" className="mr-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
+                    <a href="#" className="mr-auto text-sm">Lost Password?</a>
                 </div>
                 <button type="submit" className="w-full text-white bg-blue-800  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 ">Login to your account</button>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
