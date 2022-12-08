@@ -10,10 +10,10 @@ export default function Home() {
     console.log(token, "page");
 
     return(
-        <>
+        <div className="total">
             <Navbar />
             <HeroSection />
             <NewsLetter />
-        </>
+        </div>
     );
 }

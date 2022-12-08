@@ -46,19 +46,18 @@ export default function UserNavbar() {
     
     return (
         
-        <nav className="bg-white sticky top-0 z-[999]  px-2 sm:px-4 py-2.5 rounded-md dark:bg-gray-900 
-        shadow-current shadow-sm w-[92%] mx-auto mt-2
+        <nav className="sticky top-0 z-[999]  px-2 sm:px-4 py-2.5 rounded-lg w-[92%] mx-auto mt-2 backdrop-blur-md
         ">
             <div className="container flex flex-wrap items-center justify-between mx-auto text-xl">
                 <Link href="https://flowbite.com/" className="flex items-center">
                     <img src={ "https://flowbite.com/docs/images/logo.svg"} className="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
-                    <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+                    <span className="self-center text-xl font-semibold whitespace-nowrap text-white">Flowbite</span>
                 </Link>
                 <div className="flex items-center md:order-2 group relative">
                     {
                         loggedInData
                             ? <img src={loggedInData[0].inProfile} alt="profile image" className="h-10 object-cover w-10 rounded-full"/>
-                            : <svg aria-hidden="true" className="mr-2 w-10 h-10 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
+                            : <svg aria-hidden="true" className="mr-2 w-10 h-10   dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
 
                     }
                     <div className="z-50 hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
@@ -66,7 +65,7 @@ export default function UserNavbar() {
                             <span className="block text-sm text-gray-900 dark:text-white">{loggedInData ? loggedInData[0]?.inUsername : "username"}</span>
                             <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{loggedInData ? loggedInData[0]?.inEmail : "email"}</span>
                         </div>
-                        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center ">
                             <li className="mr-2">
                                 <Link href="#" className="inline-flex p-4 rounded-t-lg group transition-all duration-300 hover:translate-x-1">
                                     <svg aria-hidden="true" className="mr-2 w-5 h-5 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>Profile
@@ -99,7 +98,7 @@ export default function UserNavbar() {
                 </div>
                 
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-                    <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-xl md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <ul className="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-xl md:font-medium md:border-0">
                     <li>
                         <Link href="#" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">
                             Home

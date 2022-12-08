@@ -19,15 +19,8 @@ export default function page() {
             <div className="w-[100%] mx-auto  mt-10 py-4
                 flex flex-row justify-center relative">
                 <PostIneraction />
-                <div className="w-[70%] shadow-sm mx-2 rounded-lg h-fit pb-4 blogText shadow-current">
+                <div className="w-[70%] h-fit pb-4 blogText shadow-current">
                     <UserCard postId={postId}/>
-                    
-                    {/* so now for showing the real post content
-                    to components one for the image and one for the content of the 
-                    page 
-                    */}
-                    
-                    
                     <PostContent postId={postId}/>
                 </div>
                 <div className="w-[25%] relative shadow-sm mr-3 rounded-lg h-fit shadow-current">
