@@ -42,7 +42,7 @@ export default function PosterCard({postId}) { // from the postId we can get pos
 
     
     return (
-        <div className="rounded-lg text-white mt-10 bg-[#f5f5f5] ml-2 py-4 flex items-between justify-center">
+        <div className="rounded-lg text-white  bg-[#f5f5f5] ml-2 py-4 flex items-between justify-center">
             <div className="flex flex-row  justify-around gap-x-4  items-center">
                 <img className="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" src={posterData ? posterData[0]?.profileUrl : "https://stackdiary.com/140x100.png"} alt="profile image"/>
                 <div className="flex flex-col items-center justify-center">
