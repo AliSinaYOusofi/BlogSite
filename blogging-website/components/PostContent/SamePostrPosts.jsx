@@ -44,17 +44,17 @@ export default function SamePostrPosts({postId}) {
             {
                 sameUserPosts ? sameUserPosts.map( item => {
                     return (
-                        <div className="w-fit p-4 " key={item?.id}>
+                        <div className="w-fit p-4 bg-[#f5f5f5] rounded-lg ml-2 mt-2 " key={item?.id}>
                             <div className="flex items-start justify-between">
-                                <span className="text-sm font-light text-gray-600 dark:text-gray-400 ">{item?.date.split("T")[0] || "2022-12-4"}</span>
-                                <span className="text-sm font-light text-gray-600 dark:text-gray-400 "> {item?.username || ""} </span> 
+                                <span className="text-sm font-light text-black">{item?.date.split("T")[0] || "2022-12-4"}</span>
+                                <span className="text-sm font-light text-black"> {item?.username || ""} </span> 
                             </div> 
                             <div className="mt-2">
-                                <Link onClick={moveToTopOfDocument} href={{ pathname:"/single_post_view", query: {post: item?.id} }} className="overflow-ellipsis line-clamp-1 text-xl font-bold text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline">{item.content.split("\n")[0] || ""}</Link> 
-                                <p className="line-clamp-3 overflow-ellipsis mt-2 text-gray-600 dark:text-gray-300 text-sm ">{item?.content || ""}</p>
+                                <Link onClick={moveToTopOfDocument} href={{ pathname:"/single_post_view", query: {post: item?.id} }} className="overflow-ellipsis line-clamp-1 text-xl font-bold text-black hover:underline">{item.content.split("\n")[0] || ""}</Link> 
+                                <p className="line-clamp-3 overflow-ellipsis mt-2 text-black/80 text-sm mb-4">{item?.content || ""}</p>
                             </div> 
                         
-                            <Link onClick={moveToTopOfDocument} href={{ pathname:"/single_post_view", query: {post: item?.id} }} className="text-blue-300 transition-all duration-300 hover:underline text-sm" id={item?.id}>Read more ⟶</Link> 
+                            <Link onClick={moveToTopOfDocument} href={{ pathname:"/single_post_view", query: {post: item?.id} }} className="text-black/70 transition-all duration-300 hover:underline text-sm " id={item?.id}>Read more ⟶</Link> 
                         </div>
                     )
                 }) : ""

@@ -183,41 +183,41 @@ export default function ReRegister() {
 
     return (
         <>
-            <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Update You Account
             </h1>
                 
             <form className="flex md:flex-row flex-col flex-wrap justify-center items-center bg-[#d1d3ce]
             h-full w-[92%] mt-3 rounded-md mx-auto gap-x-14 p-4
-            transition-all duration-300 blur-[1px] hover:blur-none" >
+            transition-all duration-300 " >
                 
                 <div className="md:gap-y-10 gap-y-7 flex flex-col w-full md:w-[40%] items-start justify-start
                 md:px-0">
                     
                     
                     <div className="w-full">
-                        <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Userame(optional)</label>
+                        <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 ">Userame(optional)</label>
                         <input onChange={(e) => setUsername(e.target.value)} type="text" name="username" id="username" placeholder="username e g jhon" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  />
                     </div>
                     
                     <div className="w-full">
-                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password (optional)</label>
+                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Password (optional)</label>
                         <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  />
                     </div>
                     <div className="w-full">
-                        <label htmlFor="confirm" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+                        <label htmlFor="confirm" className="block mb-2 text-sm font-medium text-gray-900">Confirm password</label>
                         <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" name="confirm" id="confirm" placeholder="••••••••" className="bg-gray-50 border-none outline-none border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "  />
                     </div>
                     <div className="flex items-center mr-4 gap-x-6">
-                        <p className="text-white">Set account visibilty(optional): </p>
+                        <p className="text-gray-800">Set account visibilty(optional): </p>
                         <div>
                             <input ref={publicRef}  onClick={() => selectOnlyOneCheckbox("public")}id="public"  type="checkbox" value="" className="w-4 h-4 " name="check"/>
-                            <label  htmlFor="public" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Public</label>
+                            <label  htmlFor="public" className="ml-2 text-sm font-medium text-gray-900">Public</label>
                         </div>
                         
                         <div>
                             <input ref={privateRef} onClick={() => selectOnlyOneCheckbox("private")} id="private"  type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100" name="check"/>
-                            <label htmlFor="private" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Private</label>
+                            <label htmlFor="private" className="ml-2 text-sm font-medium text-gray-900">Private</label>
                         </div>
                     </div>
                 </div>
@@ -225,21 +225,21 @@ export default function ReRegister() {
                 <div className="flex-col flex flex-wrap md:w-[30%] w-full  md:gap-y-10 gap-y-7 mt-4 justify-center items-center
                 ">
                     <div className="w-full">
-                        <label htmlFor="place" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Place (optional)</label>
+                        <label htmlFor="place" className="block mb-2 text-sm font-medium text-gray-900">Place (optional)</label>
                         <input onChange={(e) => setPlace(e.target.value)} type="text" name="place" id="place" className="bg-gray-50  border-none outline-none  text-gray-900 sm:text-sm rounded-lg  block  p-2.5 w-full" placeholder="USA, California"  />
                     </div>
                     
                     <div className="w-full">
-                        <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job Title (optional)</label>
+                        <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900">Job Title (optional)</label>
                         <input onChange={(e) => setJobTitle(e.target.value)} type="text" name="title" id="title" className="bg-gray-50  border-none outline-none  text-gray-900 sm:text-sm rounded-lg  block  p-2.5 w-full" placeholder="front-end developer, photographer" />
                     </div>
                     
                     <div className="w-full">
-                        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Bio(optional)</label>
-                        <textarea id="message" onChange={(e) => setBio(e.target.value)} rows="4" className="border-none outline-none p-2.5 w-full text-sm text-white rounded-md" placeholder="Write you bio ..." ></textarea>
+                        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Your Bio(optional)</label>
+                        <textarea id="message" onChange={(e) => setBio(e.target.value)} rows="4" className="border-none outline-none p-2.5 w-full text-sm text-gray-900 rounded-md" placeholder="Write you bio ..." ></textarea>
                     </div>
                     <div className="w-full">
-                        <label htmlFor="uni" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">University/Company Name (optional)</label>
+                        <label htmlFor="uni" className="block mb-2 text-sm font-medium text-gray-900">University/Company Name (optional)</label>
                         <input onChange={(e) => setUniversity(e.target.value)} type="text" name="uni" id="uni" className="bg-gray-50  border-none outline-none  text-gray-900 sm:text-sm rounded-lg  block  p-2.5 w-full" placeholder="You university name, or compnay ..."  />
                     </div>
                 </div>
@@ -261,7 +261,7 @@ export default function ReRegister() {
                     </label>
                 </div>
                 <div className="w-full text-center mt-5 flex items-center justify-center">
-                    <button onClick={handleSubmit}  type="button" className="w-fit flex items-center justify-center text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center  gap-x-2 group">
+                    <button onClick={handleSubmit}  type="button" className="w-fit flex items-center justify-center text-white bg-[#29B6F6] font-medium rounded-lg text-sm px-5 py-2.5 text-center  gap-x-2 group">
                     Update Account
                     <svg className="transition-all duration-150 group-hover:-translate-y-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                     </button> 
