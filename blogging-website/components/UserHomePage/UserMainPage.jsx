@@ -45,7 +45,7 @@ export default function UserMainPage() {
         <main className="mt-[22rem] ">
             <section className="relative py-16">
                 <div className="container mx-auto px-4">
-                    <div className="relative flex flex-col min-w-0 break-words bg-[#1F2937] w-full mb-6 shadow-xl rounded-lg -mt-64">
+                    <div className="relative flex flex-col min-w-0 break-words bg-[#d1d3ce] w-full mb-6 shadow-xl rounded-lg -mt-64">
                         <div className="px-6">
                             <div className="flex flex-wrap justify-center items-center mt-3 flex-col">
                                 

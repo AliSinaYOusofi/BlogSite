@@ -3,17 +3,16 @@
 import HeroSection from "../components/HeroSection/HeroSection";
 import Navbar from "../components/Navbar/Navbar";
 import NewsLetter from "../components/NewsLetter/NewsLetter";
-import { useSpacexProvider } from "../context/appContext";
+import Footer from '../components/Footer/Footer';
 import "./global.css";
 export default function Home() {
-    const {token} = useSpacexProvider();
-    console.log(token, "page");
-
+    
     return(
         <div className="total">
             <Navbar />
             <HeroSection />
             <NewsLetter />
+            <Footer />
         </div>
     );
 }

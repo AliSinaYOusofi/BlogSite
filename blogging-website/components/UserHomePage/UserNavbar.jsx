@@ -46,7 +46,7 @@ export default function UserNavbar() {
     
     return (
         
-        <nav className="sticky top-0 z-[999]  px-2 sm:px-4 py-2.5 rounded-lg w-[92%] mx-auto mt-2 backdrop-blur-md
+        <nav className="sticky top-0 z-[999]  px-2 sm:px-4 py-2.5 rounded-lg w-[92%] mx-auto mt-2 bg-[#d1d3ce]
         ">
             <div className="container flex flex-wrap items-center justify-between mx-auto text-xl">
                 <Link href="https://flowbite.com/" className="flex items-center">
@@ -60,12 +60,12 @@ export default function UserNavbar() {
                             : <svg aria-hidden="true" className="mr-2 w-10 h-10   dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
 
                     }
-                    <div className="z-50 hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+                    <div className="z-50 hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-[#FDF8F5]" id="user-dropdown">
                         <div className="px-4 py-3">
-                            <span className="block text-sm text-gray-900 dark:text-white">{loggedInData ? loggedInData[0]?.inUsername : "username"}</span>
+                            <span className="block text-sm text-gray-300">{loggedInData ? loggedInData[0]?.inUsername : "username"}</span>
                             <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{loggedInData ? loggedInData[0]?.inEmail : "email"}</span>
                         </div>
-                        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center ">
+                        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                             <li className="mr-2">
                                 <Link href="#" className="inline-flex p-4 rounded-t-lg group transition-all duration-300 hover:translate-x-1">
                                     <svg aria-hidden="true" className="mr-2 w-5 h-5 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>Profile
@@ -98,23 +98,23 @@ export default function UserNavbar() {
                 </div>
                 
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-                    <ul className="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-xl md:font-medium md:border-0">
+                    <ul className="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-xl md:font-medium text-white">
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white" aria-current="page">
+                        <Link href="#" className="block py-2 pl-3 pr-4 text-white" aria-current="page">
                             Home
                         </Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4 ">About</Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4">Services</Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4">Pricing</Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4 ">Contact</Link>
                     </li>
                     </ul>
                 </div>
