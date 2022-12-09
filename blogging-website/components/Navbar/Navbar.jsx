@@ -5,22 +5,12 @@ import React, { useEffect, useState } from 'react'
 export default  function Navbar() {
     
     const [dropdown, setDropdown] = useState(false);
-    const [scrollY, setScrollY] = useState(0);
-
     // for sticky position to work you must specify the bounds that
     // it should stick to. like: top-0;
 
 
     // adding box shadow when we react 150px from the top
-    useEffect( () => {
-        if (typeof window !== "undefined") {
-
-            window.onscroll = () => {
-                setScrollY(window.scrollY);
-            }
-        }
-    }, [scrollY]);
-    // style={{boxShadow: scrollY >= 150 ? "1px 1px 1px 1px black" : ""}}
+    
     return ( 
         <nav className="sticky mx-auto top-0  px-2 sm:px-4 py-2.5" >
             <div className="container  flex flex-wrap items-center justify-between mx-auto backdrop-blur-sm p-2 rounded-md">
