@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useSpacexProvider } from '../../context/appContext';
+import UserComments from './UserComments';
 
 
 export default function CommentSection({postId}) {
@@ -40,24 +41,27 @@ export default function CommentSection({postId}) {
         }
     }
     return (
-        <div className="mt-10 w-[80%] mx-auto bg-inherit flex flex-col items-start justify-start
-        gap-y-4">
+        <>
+            <div className="mt-10 w-[80%] mx-auto bg-inherit flex flex-col items-start justify-start
+            gap-y-4">
 
-            <textarea id="message" 
-                onChange={(e) => setComment(e.target.value)} 
-                rows="4" className="bg-neutral-200 border-none outline-none p-2.5 w-full text-xl text-gray-900 rounded-md" 
-                placeholder="your comment..." >
-            </textarea>
-                    
-            <button onClick={submitComment} className="bg-neutral-200 px-6 py-3  hover:text-white hover:shadow-[inset_13rem_0_0_0] rounded-md hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow]
-            flex items-center justify-center">
-                Comment
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                </svg>
-            </button>
-
-        </div>
+                <textarea id="message" 
+                    onChange={(e) => setComment(e.target.value)} 
+                    rows="4" className="bg-neutral-200 border-none outline-none p-2.5 w-full text-xl text-gray-900 rounded-md" 
+                    placeholder="your comment..." >
+                </textarea>
+                        
+                <button onClick={submitComment} className="bg-neutral-200 px-6 py-3  hover:text-white hover:shadow-[inset_13rem_0_0_0] rounded-md hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow]
+                flex items-center justify-center">
+                    Comment
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                </button>
+                
+            </div>
+            <UserComments />
+        </>
     );
 }
 
