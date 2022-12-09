@@ -1,13 +1,10 @@
-import mongoose from 'mongoose';
-
-const mongoose = mongoose();
+import mongoose from 'mongoose';    
 
 const commentSchema = new mongoose.Schema( { 
     postId: {
         type: String,
         required: true,
         minLength: 1,
-        maxLength: 70,
     },
     comments: [
         {
@@ -16,6 +13,12 @@ const commentSchema = new mongoose.Schema( {
                 required: true,
                 minLength: 1,
                 immutable: false,
+            },
+            data: {
+                type: String,
+                required: true,
+                minLength: 1,
+                immutable: true,
             },
             date: {
                 type: Date,
@@ -60,3 +63,5 @@ const commentSchema = new mongoose.Schema( {
 } );
 
 // that's it for now
+
+module.exports = mongoose.models.Comment ||  mongoose.model("Comment", commentSchema);

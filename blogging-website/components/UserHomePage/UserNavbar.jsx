@@ -46,7 +46,7 @@ export default function UserNavbar() {
     
     return (
         
-        <nav className="sticky top-3 z-[999]  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  backdrop-blur-sm
+        <nav className="sticky top-3 z-[999]  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  backdrop-blur-lg
         ">
             <div className="container flex flex-wrap items-center justify-between mx-auto text-xl">
                 <Link href="https://flowbite.com/" className="flex items-center">
