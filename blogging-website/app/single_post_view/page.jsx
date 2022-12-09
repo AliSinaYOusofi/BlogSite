@@ -9,6 +9,7 @@ import PostIneraction from '../../components/SinglePostComps/PostIneraction';
 
 import PostContent from '../../components/PostContent/PostContent';
 import RecentPosts from '../../components/PostContent/RecentPosts';
+import CommentSection from '../../components/Comments/CommentSection';
     
 export default function page() {
     
@@ -22,6 +23,9 @@ export default function page() {
                 <div className="w-[70%] h-fit pb-4 blogText shadow-current bg-[whitesmoke] rounded-lg">
                     <UserCard postId={postId}/>
                     <PostContent postId={postId}/>
+                    <hr className="mt-10"/>
+                    <h1 className="text-3xl ml-20 mt-10 text-black font-extrabold tracking-wide"> Comments</h1>
+                    <CommentSection postId={postId}/>
                 </div>
                 <div className="w-[25%] relative mr-3 rounded-md h-fit">
                     <RecentPosts postId={postId}/>
