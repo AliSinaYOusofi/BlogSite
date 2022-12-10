@@ -46,7 +46,7 @@ export default function Login() {
             toast.dismiss();
 
             if (message === "success") {
-                router.push("/user_home_page")
+                router.push("/user_home_page");
             }
             else if (message === "notyou") toast.error("invalid credentials");
             else if (message === "unreged") toast.dismiss("invalid credentials");

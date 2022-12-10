@@ -14,8 +14,14 @@ export default async function handler(req, res) {
         const {email: inEmail, username: inUsername} = jwt.decode(token);
         console.log(inEmail, inUsername, "********************");
 
-        const queryResult = await UpdateProfileSchema.find({"email": inEmail}, {"profileUrl": 1});
-        const [{profileUrl: inProfile}] = queryResult;
+        const queryResult = await UpdateProfileSchema.findOne({"email": inEmail}, {"profileUrl": 1});
+        
+        console.log(queryResult);
+        
+        let inProfile;
+        if (queryResult) {
+            const [{profileUrl: inProfile = ""}] = queryResult;
+        }
         
         return res.status(200).json({message: "gotIt", logged: [{inEmail, inProfile, inUsername}]});
     }catch(error) {
