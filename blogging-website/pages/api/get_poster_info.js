@@ -20,15 +20,18 @@ export default async function handler(req, res) {
         // now from the username we can get other info
         // below is enough for the data
         let posterData;
+        
+        const queryResult = await updateProfileSchema.find({"email": email});
+        
+        
 
-        const queryResult = await updateProfileSchema.findOne({"email": email});
-        if (queryResult) {
+        if (queryResult.length) {
             let [{place = "", bio = "", profileUrl = "", title = "", date = ""}] = await queryResult;
             posterData = [{
                 username, email, place, bio, profileUrl, title, date
             }];
         } else
-            posterData = [{username, email, place: "", profileUrl: "", title: "", date: ""}];        
+            posterData = [{username: username, email: email, place: "", profileUrl: "", title: "", date: ""}];        
 
         return res.status(200).json({message: "found", posterData})
     } catch (error) {
