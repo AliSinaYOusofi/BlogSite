@@ -38,9 +38,9 @@ export default function page () {
           } catch (error) { console.log(error)}
         }
         getPosts();
-    }, []);
+    }, []); 
     
-    console.log(profile);
+    console.log(posts);
     return (
         <>
         
