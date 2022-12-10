@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
 import { useState } from 'react'
+import DisplayReplay from './DisplayReplay';
 import ReplayComment from './ReplayComment';
 
-export default function UserComments() {
+export default function UserComments({postId}) {
     
     const [commentLikes, setCommentLikes] = useState(0);
     const [reply, setReply] = useState(false); // for showing reply part 
@@ -59,9 +60,11 @@ export default function UserComments() {
                     </div>
                 </div>
             </div>
+
             {
-                reply ? <ReplayComment /> : ""
+                reply ? <div> <DisplayReplay postId={postId}/>  </div> : ""
             }
+            <ReplayComment />
         </div>
     )
 }

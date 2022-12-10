@@ -36,6 +36,14 @@ const commentSchema = new mongoose.Schema( {
                 minLength: 1,
                 maxLength: 70,
             },
+
+            data: {
+                type: String,
+                required: true,
+                minLength: 1,
+                immutable: true,
+            },
+            
             who: {
                 type: String,
                 required: true,
@@ -64,4 +72,4 @@ const commentSchema = new mongoose.Schema( {
 
 // that's it for now
 
-module.exports = mongoose.models.Comment ||  mongoose.model("Comment", commentSchema);
+module.exports = mongoose.models.Commentss ||  mongoose.model("Commentss", commentSchema);

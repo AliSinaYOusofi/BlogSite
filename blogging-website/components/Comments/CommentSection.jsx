@@ -60,7 +60,7 @@ export default function CommentSection({postId}) {
                 </button>
                 
             </div>
-            <UserComments />
+            <UserComments postId={postId}/>
         </>
     );
 }
