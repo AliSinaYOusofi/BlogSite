@@ -19,12 +19,11 @@ export default function UserComments({postId}) {
     // take care of the rest so it should have the same format excpet the reply
     // part
 
-    const handleReply = () => {
-        setReply(!reply);
-    }
+    const handleReply = () => { setReply(!reply); } // display the reply part
 
+    
     return (
-        <div className=" h-fit bg-neutral-200 mt-10 w-[80%] mx-auto ">
+        <div className=" h-fit ">
             
             <div className="flex flex-col items-start justify-between mt-4 w-fit py-3 rounded-lg px-4">
                 <div className="flex items-center">
@@ -64,7 +63,7 @@ export default function UserComments({postId}) {
             {
                 reply ? <div> <DisplayReplay postId={postId}/>  </div> : ""
             }
-            <ReplayComment />
+            
         </div>
     )
 }

@@ -1,13 +1,18 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useSpacexProvider } from '../../context/appContext';
+import ReplayComment from './ReplayComment';
 import UserComments from './UserComments';
 
 
 export default function CommentSection({postId}) {
 
     const [ comment, setComment ] = useState('');
+    const [ postedComments, setPostedComments ] = useState({
+        // what we need from this req who: [profile username posted comment data and date]
+
+    });
     const {token} = useSpacexProvider();
     // so for the token as well need it
 
@@ -40,6 +45,25 @@ export default function CommentSection({postId}) {
             toast.error("failed to post comment");
         }
     }
+
+    // now making a get req for the get_comments and display the comments
+    // with that specific post using the postId
+
+    useEffect( () => {
+        const getComments = async () => {
+            try {
+                const response = await axios.get("/api/get_user_comments", {
+                    params: {
+                        postId   
+                    }
+                });
+                console.log(response.data.message);
+            } catch (error) {
+                console.log("Error! Failed to get Comments: %s", error);
+            }
+        }
+        getComments();
+    }, [])
     return (
         <>
             <div className="mt-10 w-[80%] mx-auto bg-inherit flex flex-col items-start justify-start
@@ -60,7 +84,10 @@ export default function CommentSection({postId}) {
                 </button>
                 
             </div>
-            <UserComments postId={postId}/>
+            <div className="bg-neutral-200 mt-10 w-[80%] mx-auto ">
+                <UserComments postId={postId}/>
+                <ReplayComment />
+            </div>
         </>
     );
 }

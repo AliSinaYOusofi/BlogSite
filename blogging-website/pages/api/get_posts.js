@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import postSchema from '../../db_models/UserPosts';
 import updateProfileSchema from '../../db_models/UpdateProfile';
+import RegisterationSchema from '../../db_models/RegisterationSchema';
+
 export default async function handler(req, res) {
     
     const {token} = req.query;
@@ -15,6 +17,8 @@ export default async function handler(req, res) {
         
         // getting all posts that a user posted 
         const queryResult = await postSchema.find({}, { 'comments': 0}); // all the posts if any
+        
+        console.log(queryResult);
         // since we have not record for that token we get an empty array
         // must enter some valid key before getting the user posts.
 
@@ -23,10 +27,33 @@ export default async function handler(req, res) {
         // now getting the imageURL and the username for that email
         // imageURL and user is inside the profile database
 
-        const [{username, profileUrl, bio, title}] = await updateProfileSchema.find({'email': profileEmail});
+        const dataForuser = await updateProfileSchema.find({'email': profileEmail});
+        
+        let username, profileUrl, bio, title = '';
+        
+        if (dataForuser) {
+            [{username = "", profileUrl = "", bio = "", title = ""}] = await RegisterationSchema.findOne({"email": profileEmail});
+        
+        } else {
+            let regData = await RegisterationSchema.findOne({'email': profileEmail}, {'username': 1});
+
+            if (regData) {
+                [{username = ""}] = await regData;
+                profileUrl, bio, title = '';
+            }
+        }// if user have'nt updated the profile than we must query the regSchema
+        
         
         // now i must compare them and return the resulst that match the email
-        return res.status(200).json({posts: userPostsArray, userData: [{username, profileUrl, profileEmail, bio, title}]});
+        console.log("*******************************");
+        console.log(username, profileUrl, bio, title);
+        console.log("*******************************");
+
+        console.log("*******************************");
+        console.log(userPostsArray);
+        console.log("*******************************");
+
+        return res.status(200).json({posts: [userPostsArray], userData: [{username, profileUrl, bio, title}]});
     } catch (error) {
         console.log(error, 'while fetching posts from cluster');
         return res.status(200).json({message: "queryError"});    
@@ -40,11 +67,18 @@ function getPostsOfTheUser(allPosts, email) {
     let index = 0;
 
     allPosts.forEach( (item) => {
+        
         if (item.poster.length >= 30) {
+            
             const {email: currentPosterEmail} = jwt.decode(item.poster);
-            if (currentPosterEmail === email)
+            console.log(currentPosterEmail, email, '*************');
+
+            if (currentPosterEmail === email) {
                 postsOfTheUser[index++] = item;
+                console.log(postsOfTheUser, '**************************', email, currentPosterEmail);
+            }
         }
+        
     });
     removeImageLinksFromText(postsOfTheUser);
     return postsOfTheUser;
