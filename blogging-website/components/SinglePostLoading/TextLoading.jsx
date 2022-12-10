@@ -14,7 +14,7 @@ export default function TextLoading() {
                 </div>
             </div>
 
-            <div className="mb-4 h-2.5 rounded-full bg-gray-200 mt-14"></div>
+            <div className="mb-4 h-2.5 rounded-full bg-gray-200 mt-2"></div>
             <div className="mb-2.5 h-2 max-w-48 rounded-full bg-gray-200"></div>
             <div className="mb-2.5 h-2 rounded-full bg-gray-200"></div>
             <div className="mb-2.5 h-2 w-full rounded-full bg-gray-200"></div>
