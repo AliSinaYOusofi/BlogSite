@@ -9,10 +9,16 @@ import UserComments from './UserComments';
 export default function CommentSection({postId}) {
 
     const [ comment, setComment ] = useState('');
-    const [ postedComments, setPostedComments ] = useState({
+    const [ postedComments, setPostedComments ] = useState([{
         // what we need from this req who: [profile username posted comment data and date]
+        username: "", profileUrl: "", data: "", date: ""
+    }]);
 
-    });
+    const [ postedReplies, setPostedReplies ] = useState([{
+        // what we need from this req who: [profile username posted comment data and date]
+        username: "", profileUrl: "", data: "", date: "", likes: 0
+    }]);
+
     const {token} = useSpacexProvider();
     // so for the token as well need it
 
@@ -55,15 +61,16 @@ export default function CommentSection({postId}) {
                 const response = await axios.get("/api/get_user_comments", {
                     params: {
                         postId   
-                    }
+                    }   
                 });
-                console.log(response.data.message);
+                setPostedComments(response.data.comments);
+                setPostedReplies(response.data.replies);
             } catch (error) {
                 console.log("Error! Failed to get Comments: %s", error);
             }
         }
         getComments();
-    }, [])
+    }, []);
     return (
         <>
             <div className="mt-10 w-[80%] mx-auto bg-inherit flex flex-col items-start justify-start
@@ -85,8 +92,22 @@ export default function CommentSection({postId}) {
                 
             </div>
             <div className="bg-neutral-200 mt-10 w-[80%] mx-auto ">
-                <UserComments postId={postId}/>
-                <ReplayComment />
+                {
+                    postedComments ? postedComments.map(item => <UserComments
+                        key={postId}
+                        postId={postId} data={item?.data}
+                        date={item?.date} profileUrl={item?.profileUrl}
+                        username={item?.username}
+                    />): ""
+                }
+                {
+                    postedReplies ? postedReplies.map(item => <ReplayComment
+                        key={postId}
+                        postId={postId} data={item?.data}
+                        date={item?.date} profileUrl={item?.profileUrl}
+                        username={item?.username} likes={item?.likes}
+                    />): ""
+                }
             </div>
         </>
     );

@@ -5,7 +5,14 @@ const commentSchema = new mongoose.Schema( {
         type: String,
         required: true,
         minLength: 1,
-    }, 
+    },
+    
+    like: {
+        type: Number,
+        required: false,
+        immutable: true,
+    },
+
     comments: [
         {
             who: {
@@ -63,11 +70,7 @@ const commentSchema = new mongoose.Schema( {
             }
         },
     ],
-    likes: {
-        type: Number,
-        required: false,
-        immutable: true,
-    }
+    
 } );
 
 // that's it for now

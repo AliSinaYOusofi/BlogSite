@@ -4,7 +4,7 @@ import { useState } from 'react'
 import DisplayReplay from './DisplayReplay';
 import ReplayComment from './ReplayComment';
 
-export default function UserComments({postId}) {
+export default function UserComments({postId, profileUrl, username, date, data}) {
     
     const [commentLikes, setCommentLikes] = useState(0);
     const [reply, setReply] = useState(false); // for showing reply part 
@@ -21,24 +21,19 @@ export default function UserComments({postId}) {
 
     const handleReply = () => { setReply(!reply); } // display the reply part
 
-    
+    // the remainging part is the liking: count of likes
     return (
         <div className=" h-fit ">
             
             <div className="flex flex-col items-start justify-between mt-4 w-fit py-3 rounded-lg px-4">
                 <div className="flex items-center">
-                    <img src={"https://stackdiary.com/140x100.png"} alt="Author Photo" className=" object-cover w-10 h-10 mx-4 rounded-full sm:block" /> 
-                    <span className="font-bold text-black/80">username</span>
-                    <span className="ml-3 font-bold text-black/80">2022-10-2</span>
+                    <img src={profileUrl || "https://stackdiary.com/140x100.png"} alt="Author Photo" className=" object-cover w-10 h-10 mx-4 rounded-full sm:block" /> 
+                    <span className="font-bold text-black/80">{username || "username"}</span>
+                    <span className="ml-3 font-bold text-black/80">{date ? date.split("T")[0] : "20xx-xx-xx"}</span>
                 </div>
                 <div className="mt-2 ml-5 rounded-lg">
                     <p>
-                        A couple of things I didn’t know that I’ve picked up over the last year.
-
-                        In some ways OpenAPI is a perfectly fine REST alternative
-                        GraphQL is for larger complex projects with many moving parts, don’t add it to just any project
-                        It works under the hood like a regular API and it’s mainly just an abstraction at the end of the day
-                        JavaScript fetch is all you need to make a query, no libraries required from a client
+                        {data}
                     </p>
                     
                     <div className="flex items-start justif-start mt-2 gap-x-3">
