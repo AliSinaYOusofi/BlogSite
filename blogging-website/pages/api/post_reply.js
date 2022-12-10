@@ -1,4 +1,5 @@
 import commentSchema from '../../db_models/commentSchema';
+import crypto from 'crypto';
 
 export default async function handler(req, res) {
     
@@ -7,24 +8,24 @@ export default async function handler(req, res) {
     // token as the commenter
     // insert to zero likes that's it
 
-    let {token, comment, postId} = req.body;
+    let {token, postId, reply} = req.body;
 
     if (!token) token = "some logged in user";
 
     try {
         
         // schemaLike skeleton
-        const dataToAdd = new commentSchema( {
-            postId,
-            comments: [
+        const randomIdForCommentReply = crypto.randomBytes(64).toString("hex");
+
+        const queryResult = await commentSchema.updateOne({postId}, { $set: {
+            replies: [
                 {
+                    replyId: randomIdForCommentReply,
+                    data: reply,
                     who: token,
-                    data: comment
                 }
             ],
-        } );
-
-        await dataToAdd.save();
+        }});
         
         return res.status(200).json({message: "saved"});
     } catch (error) {

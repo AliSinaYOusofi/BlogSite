@@ -1,5 +1,4 @@
 import crypto from 'crypto';
-import { access } from 'fs';
 import connection from '../../db_connection/mongoose.db.config';
 import postSchema from '../../db_models/UserPosts';
 
