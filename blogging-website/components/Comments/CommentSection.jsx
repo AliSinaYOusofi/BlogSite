@@ -20,6 +20,7 @@ export default function CommentSection({postId}) {
     }]);
 
     const {token} = useSpacexProvider();
+    console.log(token);
     // so for the token as well need it
 
     // first i must reset the postSchema and posts and other things
@@ -63,14 +64,21 @@ export default function CommentSection({postId}) {
                         postId   
                     }   
                 });
-                setPostedComments(response.data.comments);
-                setPostedReplies(response.data.replies);
+                if (response.data.message !== "no comment on this post") {
+                    setPostedComments(response.data.comments);
+                    setPostedReplies(response.data.replies);
+                } else {
+                    setPostedComments([{}]);
+                    setPostedReplies([{}]);
+                }
             } catch (error) {
                 console.log("Error! Failed to get Comments: %s", error);
             }
         }
         getComments();
-    }, []);
+    }, [postId]);
+
+    
     return (
         <>
             <div className="mt-10 w-[80%] mx-auto bg-inherit flex flex-col items-start justify-start
