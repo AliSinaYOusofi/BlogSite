@@ -35,8 +35,7 @@ export default function UserNavbar() {
                        token
                     }
                 });
-            console.log(response.data); 
-            setLoggedInData(response.data.logged);
+                setLoggedInData(response.data.logged);
             } catch (error) {
                 console.log("failed to get posts of the same user, useEffect(): ", error);
             }
@@ -49,7 +48,7 @@ export default function UserNavbar() {
         <nav className="sticky top-3 z-[999]  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  backdrop-blur-lg
         ">
             <div className="container flex flex-wrap items-center justify-between mx-auto text-xl">
-                <Link href="https://flowbite.com/" className="flex items-center">
+                <Link href="#" className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                         width="48" height="48"
                         className="transition-all duration-300 hover:animate-none animate-spin"
@@ -62,10 +61,10 @@ export default function UserNavbar() {
                     {
                         loggedInData
                             ? <img src={loggedInData[0].inProfile} alt="profile image" className="h-10 object-cover w-10 rounded-full"/>
-                            : <svg aria-hidden="true" className="mr-2 w-10 h-10   dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
+                            : <svg aria-hidden="true" className="mr-2 w-10 h-10 cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
 
                     }
-                    <div className="z-50 hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-[#FDF8F5]" id="user-dropdown">
+                    <div className="z-50 rounded-md hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-[#FDF8F5]" id="user-dropdown">
                         <div className="px-4 py-3">
                             <span className="block text-sm text-gray-300">{loggedInData ? loggedInData[0]?.inUsername : "username"}</span>
                             <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">{loggedInData ? loggedInData[0]?.inEmail : "email"}</span>
@@ -73,7 +72,7 @@ export default function UserNavbar() {
                         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                             <li className="mr-2">
                                 <Link href="#" className="inline-flex p-4 rounded-t-lg group transition-all duration-300 hover:translate-x-1">
-                                    <svg aria-hidden="true" className="mr-2 w-5 h-5 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>Profile
+                                    <svg aria-hidden="true" className="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>Profile
                                 </Link>
                             </li>
                             <li className="mr-2">

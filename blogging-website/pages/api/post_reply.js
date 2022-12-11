@@ -17,17 +17,17 @@ export default async function handler(req, res) {
         // schemaLike skeleton 
         const randomIdForCommentReply = crypto.randomBytes(64).toString("hex");
 
-        const saveNewReply = new commentSchema( {
-            postId,
-            replies: [
-                {
-                    replyId: randomIdForCommentReply,
-                    data: reply,
-                    who: token,
+        await commentSchema.update({'postId': postId,}, {
+            $push: {
+                replies:
+                    {
+                        replyId: randomIdForCommentReply,
+                        data: reply,
+                        who: token,
                 }
-            ],
+            }
         });
-        await saveNewReply.save();
+       
         return res.status(200).json({message: "saved"});
     } catch (error) {
         console.log("Error Saving comment: %s", error);

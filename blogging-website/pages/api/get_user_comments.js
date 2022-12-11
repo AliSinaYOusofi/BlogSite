@@ -25,7 +25,8 @@ export default async function handler(req, res) {
         // now we have the comments and replies on sepearate vars
         // for every field of who i must make another query and get
         // the username and profile of that username;
-        let [{comments, replies, likes}] = await commentsOnAPost;
+        let [{comments, replies}] = await commentsOnAPost;
+        
         
         // the structure of the object should be like
         // {image, usernname, date, and content};
@@ -60,8 +61,6 @@ export default async function handler(req, res) {
             freshReplies[i].username = username;
             freshReplies[i].profileUrl = profileUrl;
         }    
-
-        console.log(comments);
         return res.status(200).json({comments: freshComments, replies: freshReplies});
 
     } catch (error) {
