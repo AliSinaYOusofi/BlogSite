@@ -74,7 +74,7 @@ export default function Signup() {
                 visibility
             });
             const {message} = await response.data
-            toast.dismiss();
+            
 
             if (message === "created") {
                 
@@ -82,8 +82,15 @@ export default function Signup() {
                 await sleep(1000);
                 router.push("/login");
             }
-            else if (message === "duplicate") toast.error("email already registred.");
-            else if(message === "server") toast.error("503 internal server error.");
+            else if (message === "duplicate") {
+                toast.dismiss();
+                toast.error("email already registred.");
+
+            }
+            else if(message === "server") {
+                toast.dismiss();
+                toast.error("503 internal server error.");
+            }
         }catch(error) {
             console.log(error);
         }

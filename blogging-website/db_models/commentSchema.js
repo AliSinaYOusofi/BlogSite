@@ -6,12 +6,6 @@ const commentSchema = new mongoose.Schema( {
         required: true,
         minLength: 1,
     },
-    
-    like: {
-        type: Number,
-        required: false,
-        immutable: true,
-    },
 
     comments: [
         {
@@ -32,7 +26,13 @@ const commentSchema = new mongoose.Schema( {
                 default: () => Date.now(),
                 required: false,
                 immutable: false
-            }
+            },
+            
+            likes: {
+                type: Number,
+                required: false,
+                immutable: true,
+            },
         }
     ],
     replies: [
@@ -41,7 +41,6 @@ const commentSchema = new mongoose.Schema( {
                 type: String,
                 required: true,
                 minLength: 1,
-                maxLength: 70,
             },
 
             data: {
@@ -75,4 +74,4 @@ const commentSchema = new mongoose.Schema( {
 
 // that's it for now
 
-module.exports = mongoose.models.Commentss ||  mongoose.model("Commentss", commentSchema);
+module.exports = mongoose.models.Comments ||  mongoose.model("Comments", commentSchema);

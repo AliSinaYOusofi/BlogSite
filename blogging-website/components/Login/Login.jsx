@@ -6,9 +6,7 @@ import React, { useRef, useState } from 'react'
 // changed from react-host-toast to react-toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { sleep } from '../global/sleep';
 import { useSpacexProvider } from '../../context/appContext';
-import { sendToastMessage } from '../global/Toats';
 import { useRouter } from 'next/navigation';
 
 
@@ -21,7 +19,7 @@ export default function Login() {
     // toast to dismiss
     
     // our context provider
-    const {setAccessToken, token} = useSpacexProvider();
+    const {setAccessToken} = useSpacexProvider();
 
     // for delaying 
     const handleLogin = async (e) => {
@@ -42,16 +40,14 @@ export default function Login() {
             const {accessToken, message} = await response.data;
         
             setAccessToken(accessToken); // that's good. access token is set.
-        
             toast.dismiss();
-
             if (message === "success") {
                 router.push("/user_home_page");
             }
-            else if (message === "notyou") toast.error("invalid credentials");
-            else if (message === "unreged") toast.dismiss("invalid credentials");
+            else if (message === "notyou" || message === null) toast.error("invalid credentials");
+            else if (message === "unreged") toast.error("invalid credentials");
         
-        } catch (error) { console.log(error); }
+        } catch (error) { console.log(error, "here is the error"); }
     }
     return (
         <div className="w-full mt-20 mx-auto max-w-sm p-4 my-auto rounded-lg bg-[#d1d3ce] md:py-10">
