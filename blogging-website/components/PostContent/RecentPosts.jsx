@@ -54,6 +54,7 @@ export default function RecentPosts({postId}) {
 
                 {
                     recentPosts ? recentPosts.map( item => <PostsFromSameUser id={item?.id} 
+                        key={item?.date}
                         title={item.content.split("\n")[0]} 
                         content={item.content} 
                         date={item?.date}

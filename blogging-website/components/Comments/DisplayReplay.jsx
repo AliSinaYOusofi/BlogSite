@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useSpacexProvider } from '../../context/appContext';
 
-export default function DisplayReplay({postId}) {
+export default function DisplayReplay({postId, commentId}) {
     
     const {token} = useSpacexProvider();
     const [ comment, setComment ] = useState('');
-    
+
     const submitComment = async () => {
         if (comment.length < 1) return toast.error("can't post an empty comment", {pauseOnHover: true});
 
@@ -15,7 +15,8 @@ export default function DisplayReplay({postId}) {
             const response = await axios.post("/api/post_reply", {
                 reply: comment,
                 token,
-                postId
+                postId,
+                commentId
             });
 
             response.data.message === "saved" ? toast.success("comment posted") : toast.error("failed! try again later");

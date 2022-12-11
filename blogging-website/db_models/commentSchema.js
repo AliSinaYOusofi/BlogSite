@@ -6,9 +6,16 @@ const commentSchema = new mongoose.Schema( {
         required: true,
         minLength: 1,
     },
-
+    // the commnet should have a comment id which then can be used to
+    // set replies according to that
     comments: [
         {
+            commentId: {
+                type: String,
+                required: false,
+                minLength: 1,
+            },
+            
             who: {
                 type: String,
                 required: true,
@@ -29,14 +36,21 @@ const commentSchema = new mongoose.Schema( {
             },
             
             likes: {
-                type: Number,
+                type: "Number",
                 required: false,
-                immutable: true,
+                immutable: false,
             },
         }
     ],
     replies: [
         {
+            commentId: {
+                type: String,
+                required: true,
+                minLength: 1,
+                unique: false
+            },
+
             replyId: { // this id is good for liking a comment. so based on the id increment the number of likes
                 type: String,
                 required: true,
@@ -63,9 +77,9 @@ const commentSchema = new mongoose.Schema( {
                 immutable: false
             },
             likes: {
-                type: Number,
+                type: "Number",
                 required: false,
-                immutable: true,
+                immutable: false,
             }
         },
     ],
@@ -74,4 +88,4 @@ const commentSchema = new mongoose.Schema( {
 
 // that's it for now
 
-module.exports = mongoose.models.Comments ||  mongoose.model("Comments", commentSchema);
+module.exports = mongoose.models.PostComments ||  mongoose.model("PostComments", commentSchema);

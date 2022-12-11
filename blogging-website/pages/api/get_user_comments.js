@@ -17,9 +17,11 @@ export default async function handler(req, res) {
 
     const {postId} = req.query;
 
+    console.log(postId);
+
     try {
         const commentsOnAPost = await commentSchema.find({'postId': postId});
-        
+       
         if (!commentsOnAPost.length) return res.status(200).json({message: "no comment on this post"});
         
         // now we have the comments and replies on sepearate vars
@@ -36,20 +38,8 @@ export default async function handler(req, res) {
         // so you need to just convert to a basic object
         // this result retruns a complex object and includes all the methods
         // so we just want the object thats the answer from stackoverflow.com
-        
-        for (let i = 0; i < comments.length; i++) {
-            
-            const {email = "", username = ""} = jwt.decode(comments[i].who);
-            
-            let profileUrl = await getProfileUrl(email);
-
-            freshComments[i] = comments[i];
-            freshComments[i].username = username;
-            freshComments[i].profileUrl = profileUrl;
-        }    
-        // forgot the likes part of the comment
-
         replies = replies.toObject();
+
         let freshReplies = [];
         for (let i = 0; i < replies.length; i++) {
             
@@ -63,9 +53,54 @@ export default async function handler(req, res) {
             freshReplies[i].username = username;
             freshReplies[i].profileUrl = profileUrl;
         }
-        
+        let forReplyCordination = [];
+        let repplyCordinationCounter = 0;
+
+        for (let i = 0; i < comments.length; i++) {
+            
+            const {email = "", username = ""} = jwt.decode(comments[i].who);
+            
+            let profileUrl = await getProfileUrl(email);
+
+            freshComments[i] = comments[i];
+
+            // then for every comment reply i will go and search for every one of it
+            // if the the replyCommentId === commentId then i will append it to the
+            // add them as object then check the type if type array of objs then
+            // pass that as well to the ReplyComments compoonennts
+
+            for(let index = 0; index < freshReplies.length; index++) {
+              
+                if (freshComments[i].commentId === freshReplies[index].commentId) {
+                    forReplyCordination[repplyCordinationCounter++] = freshReplies[index];
+
+                    
+                    // if there is another comment then push it otherwise create one
+                    if (freshComments[i].reply)
+                        freshComments[i].reply.push(freshReplies[index]);
+                    else
+                        freshComments[i].reply = [freshReplies[index]];
+                    
+                        forReplyCordination = [];
+                    repplyCordinationCounter = 0;
+                }
+            }
+            freshComments[i].username = username;
+            freshComments[i].profileUrl = profileUrl;
+            // if the comment id and reply id match then insert and array of objects
+            // to the freshComments 
+        }    
+        // forgot the likes part of the comment
+
+        // how to add the reply of the commments
+        // i have comment id
+        // query the db with commentId and save it under replies var 
+
+             
         // how to know the specifc comment had replies
         // thats the bug to solve now
+        console.log(freshComments);
+        
         return res.status(200).json({comments: freshComments, replies: freshReplies});
 
     } catch (error) {
@@ -83,3 +118,8 @@ async function getProfileUrl (email) {
     } catch(error) { console.log("Error: getProfielUrl: %s", error);}
     return await profileUrl;
 }
+
+
+/// ok that's it we got the comment and the reply in sthe same order.
+// now we need to send them back to the server.
+// and the reply is sorted so no need for additional sorting.
