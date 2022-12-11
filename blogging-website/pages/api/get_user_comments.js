@@ -36,7 +36,7 @@ export default async function handler(req, res) {
         // so you need to just convert to a basic object
         // this result retruns a complex object and includes all the methods
         // so we just want the object thats the answer from stackoverflow.com
-
+        
         for (let i = 0; i < comments.length; i++) {
             
             const {email = "", username = ""} = jwt.decode(comments[i].who);
@@ -53,6 +53,8 @@ export default async function handler(req, res) {
         let freshReplies = [];
         for (let i = 0; i < replies.length; i++) {
             
+            if (replies[i].who.length <= 30) continue;
+
             const {email = "", username = ""} = jwt.decode(replies[i].who);
             
             let profileUrl = await getProfileUrl(email);
@@ -60,7 +62,10 @@ export default async function handler(req, res) {
             freshReplies[i] = replies[i];
             freshReplies[i].username = username;
             freshReplies[i].profileUrl = profileUrl;
-        }    
+        }
+        
+        // how to know the specifc comment had replies
+        // thats the bug to solve now
         return res.status(200).json({comments: freshComments, replies: freshReplies});
 
     } catch (error) {
@@ -75,7 +80,6 @@ async function getProfileUrl (email) {
     let profileUrl;
     try {
         profileUrl = await UpdateProfileSchema.findOne({"email": email}, {"profileUrl": 1});
-        console.log(profileUrl);
     } catch(error) { console.log("Error: getProfielUrl: %s", error);}
     return await profileUrl;
 }

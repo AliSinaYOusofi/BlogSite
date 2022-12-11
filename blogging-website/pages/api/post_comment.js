@@ -14,17 +14,16 @@ export default async function handler(req, res) {
     try {
         
         // schemaLike skeleton
-        const dataToAdd = new commentSchema( {
-            postId,
-            comments: [
-                {
-                    who: token,
-                    data: comment
-                }
-            ],
+        await commentSchema.update( {'postId': postId}, {
+            $push: {
+                comments: 
+                    {
+                        who: token,
+                        data: comment
+                    }
+                
+            }
         } );
-
-        await dataToAdd.save();
         
         return res.status(200).json({message: "saved"});
     } catch (error) {

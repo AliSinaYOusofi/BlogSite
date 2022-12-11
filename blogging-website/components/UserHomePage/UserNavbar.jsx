@@ -58,12 +58,8 @@ export default function UserNavbar() {
                     <span className="self-center text-xl font-semibold whitespace-nowrap text-white">Bloggy</span>
                 </Link>
                 <div className="flex items-center md:order-2 group relative">
-                    {
-                        loggedInData
-                            ? <img src={loggedInData[0].inProfile} alt="profile image" className="h-10 object-cover w-10 rounded-full"/>
-                            : <svg aria-hidden="true" className="mr-2 w-10 h-10 cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>
-
-                    }
+                    
+                    <img src={loggedInData ? loggedInData[0].inProfile : "https://stackdiary.com/140x100.png"} alt="profile image" className="h-10 object-cover w-10 rounded-full"/>
                     <div className="z-50 rounded-md hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-[#FDF8F5]" id="user-dropdown">
                         <div className="px-4 py-3">
                             <span className="block text-sm text-gray-300">{loggedInData ? loggedInData[0]?.inUsername : "username"}</span>
