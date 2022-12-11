@@ -1,8 +1,13 @@
 import React from 'react'
+import { useEffect } from 'react'
 
-export default function ReplayComment({profileUrl, username, date, data, likes}) {
+export default function ReplayComment({reverse, profileUrl, username, date, data, likes, repId}) {
+    
+    // console.log(profileUrl, username, date, data, likes);
+
+    
     return (
-        <div className="ml-5 flex flex-col items-start justify-between mt-4 w-fit py-3 rounded-lg px-4">
+        <div className="ml-10 flex flex-col items-start justify-between mt-4 w-fit py-3 rounded-lg px-4" id={repId}>
             <div className="flex items-center">
                 <img src={profileUrl || "https://stackdiary.com/140x100.png"} alt="Author Photo" className=" object-cover w-10 h-10 mx-4 rounded-full sm:block" /> 
                 <span className="font-bold text-black/80">{username || "username"}</span>

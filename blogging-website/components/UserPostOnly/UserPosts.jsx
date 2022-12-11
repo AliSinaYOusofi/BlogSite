@@ -8,7 +8,7 @@ export default function SingleUserPosts({content, title, username, profileUrl, d
 
     // in the single_post_view page we get the id. search the database for that
     // id and view all the results in the single_post_view page.
-    console.log(content, title, username, profileUrl, date, id)
+    
     return (
         <div className="max-w-2xl px-8 py-4 mx-auto  rounded-lg shadow-md bg-[#d1d3ce] mt-10" key={id}>
             <div className="flex items-center justify-between">

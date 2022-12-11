@@ -37,7 +37,7 @@ export default function UserCard({postId}) {
     return (
         <address className="flex items-center mb-6 not-italic rounded-md">
             <div className="inline-flex justify-center mt-4  p-4 items-center mr-3 text-sm text-gray-900 dark:text-white">
-                <img className="mr-4 w-16 h-16 rounded-full object-cover" src={profile[0]?.profileUrl ? profile[0]?.profileUrl : "https://stackdiary.com/140x100.png"} alt="User profile picture" />
+                <img className="mr-4 w-16 h-16 rounded-full object-cover" src={profile ? profile[0]?.profileUrl : "https://stackdiary.com/140x100.png"} alt="User profile picture" />
                 <div>
                     <p className="text-xl font-bold text-gray-900 flex flex-row items-center justify-center">{profile ? profile[0]?.username : "username"}
                         <span>

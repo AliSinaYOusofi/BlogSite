@@ -8,7 +8,10 @@ export default async function handler(req, res) {
     // token as the commenter
     // insert to zero likes that's it
 
-    let {token, postId, reply} = req.body;
+
+    // before posting the reply,
+    // get the id of the comment and then addedd to the db.
+    let {token, postId, reply, commentId} = req.body;
 
     if (!token) token = "some logged in user";
 
@@ -17,13 +20,17 @@ export default async function handler(req, res) {
         // schemaLike skeleton 
         const randomIdForCommentReply = crypto.randomBytes(64).toString("hex");
 
+        // how to connect those replies with the comment id for each comment reply.
+        // the replyId should not be unique
+
         await commentSchema.update({'postId': postId,}, {
             $push: {
                 replies:
-                    {
-                        replyId: randomIdForCommentReply,
-                        data: reply,
-                        who: token,
+                {
+                    commentId: commentId,
+                    replyId: randomIdForCommentReply,
+                    data: reply,
+                    who: token,
                 }
             }
         });

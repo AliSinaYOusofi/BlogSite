@@ -11,7 +11,7 @@ export default function CommentSection({postId}) {
     const [ comment, setComment ] = useState('');
     const [ postedComments, setPostedComments ] = useState([{
         // what we need from this req who: [profile username posted comment data and date]
-        username: "", profileUrl: "", data: "", date: ""
+        username: "", profileUrl: "", data: "", date: "", commentId: "", reply: [{}]
     }]);
 
     const [ postedReplies, setPostedReplies ] = useState([{
@@ -58,12 +58,14 @@ export default function CommentSection({postId}) {
 
     useEffect( () => {
         const getComments = async () => {
+
             try {
                 const response = await axios.get("/api/get_user_comments", {
                     params: {
                         postId   
                     }   
                 });
+
                 if (response.data.message !== "no comment on this post") {
                     setPostedComments(response.data.comments);
                     setPostedReplies(response.data.replies);
@@ -77,7 +79,6 @@ export default function CommentSection({postId}) {
         }
         getComments();
     }, [postId]);
-
     
     return (
         <>
@@ -101,20 +102,18 @@ export default function CommentSection({postId}) {
             </div>
             <div className="bg-neutral-200 mt-10 w-[80%] mx-auto ">
                 {
-                    postedComments ? postedComments.map(item => <UserComments
-                        key={postId}
-                        postId={postId} data={item?.data}
-                        date={item?.date} profileUrl={item?.profileUrl}
-                        username={item?.username}
-                    />): ""
-                }
-                {
-                    postedReplies ? postedReplies.map(item => <ReplayComment
-                        key={postId}
-                        postId={postId} data={item?.data}
-                        date={item?.date} profileUrl={item?.profileUrl}
-                        username={item?.username} likes={item?.likes}
-                    />): ""
+                    postedComments ?  postedComments.map(item => {
+                        return (
+                            <UserComments
+                                key={item?.commentId}
+                                commentId={item?.commentId}
+                                postId={postId} data={item?.data}
+                                date={item?.date} profileUrl={item?.profileUrl}
+                                username={item?.username}
+                                rep={item?.reply}
+                            />
+                        )
+                    }): ""
                 }
             </div>
         </>
@@ -125,4 +124,7 @@ export default function CommentSection({postId}) {
 // where to show the replies of the comments.
 // make a new one or just make use of this compoenent
 // i think make another component and pass data as props to it.
-// and the other comp just shows the data
+// and the other comp just shows the data => done
+
+
+// now how to disply the data in the order they are sent

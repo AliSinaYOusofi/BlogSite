@@ -38,13 +38,11 @@ export default function UserPosts () {
             setDataEmail(response.data.profileEmail);
             setDataBio(response.data.bio || "NA Bio");
             setDataTitle(response.data.title || "NA Title");
-            console.log(response.data, '************page userhomepage');
           } catch (error) { console.log(error)}
         }
         getPosts();
     }, []);
 
-    console.log("*************************************")
     return (
         <>
             
