@@ -25,8 +25,8 @@ export default function DisplayReplay({postId}) {
         }
     }
     return (
-        <div className="mt-10 w-[80%] mx-auto transition-all duration-300 flex flex-col items-start justify-start
-            gap-y-4">
+        <div className="mt-2 w-[80%] mx-auto transition-all duration-300 flex flex-col items-start justify-start
+            gap-y-4 py-3">
 
             <textarea id="message" 
                 onChange={(e) => setComment(e.target.value)} 

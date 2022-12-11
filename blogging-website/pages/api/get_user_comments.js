@@ -61,6 +61,7 @@ export default async function handler(req, res) {
             freshReplies[i].profileUrl = profileUrl;
         }    
 
+        console.log(comments);
         return res.status(200).json({comments: freshComments, replies: freshReplies});
 
     } catch (error) {

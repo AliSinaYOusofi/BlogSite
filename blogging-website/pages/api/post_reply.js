@@ -14,10 +14,11 @@ export default async function handler(req, res) {
 
     try {
         
-        // schemaLike skeleton
+        // schemaLike skeleton 
         const randomIdForCommentReply = crypto.randomBytes(64).toString("hex");
 
-        const queryResult = await commentSchema.updateOne({postId}, { $set: {
+        const saveNewReply = new commentSchema( {
+            postId,
             replies: [
                 {
                     replyId: randomIdForCommentReply,
@@ -25,8 +26,8 @@ export default async function handler(req, res) {
                     who: token,
                 }
             ],
-        }});
-        
+        });
+        await saveNewReply.save();
         return res.status(200).json({message: "saved"});
     } catch (error) {
         console.log("Error Saving comment: %s", error);
