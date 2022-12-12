@@ -7,13 +7,19 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSpacexProvider } from '../../context/appContext';
 
 export default function PostIneraction({postId}) {
 
     const [likes, setLikes] = useState(false);
     const [postLikes, setPostLikes] = useState(0);
-
-    
+    const[updateLikes, setUpdateLikes] = useState(false);
+    // for saving to account a post
+    const {token} = useSpacexProvider();
+    // should i add the comments count or not
+    const [commentCount, setCommentCount] = useState(0);
+    // saving icon change
+    const [save, setSave] = useState(false);
     // how to handle the
     const likesRef = useRef(null);
     // first the schema for the post must change and 
@@ -54,6 +60,7 @@ export default function PostIneraction({postId}) {
             // since react-toast is not good for production
             console.log(response.data);
         }catch(error) { console.log("Error! liking an image", error);}
+        setUpdateLikes(!updateLikes);
     }
     
     useEffect( () => {
@@ -68,9 +75,38 @@ export default function PostIneraction({postId}) {
             }catch(error) { console.log("Error! liking an image", error);}
         }
         getPostLikes();
-    }, [likes, postLikes]);
+    }, [updateLikes]);
 
-    console.log(postLikes);
+    useEffect( () => {
+        const getCommentCounts = async() => {
+            try {
+                const response = await axios.get("/api/get_comment_count", {
+                    params: {
+                        postId
+                    }
+                });
+                setCommentCount(response.data.commentCount);
+            }catch(error) { console.log("Error! liking an image", error);}
+        }
+        getCommentCounts();
+    }, []);
+
+    // now saving the post to the user account. just make an array of comments
+    const savePostToAccount = async () => {
+        
+        setSave(prev => !prev)
+
+        try {
+            const response = await axios.get("/api/save_post_to_account", {
+                params: {
+                    postId,
+                    token,
+                    saved: save ? 1 : 0
+                }
+            });
+            console.log(response.data);
+        }catch(error) { console.log("Error! liking an image", error);}
+    }
     return (
         <div className="w-[5%] text-white absolute top-[10rem] flex flex-col items-center justify-start
          gap-y-10 md:sticky md:top-0  h-full mt-10 md:ml-0 ml-4 z-[999]">
@@ -90,14 +126,23 @@ export default function PostIneraction({postId}) {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
                     </svg>
                 </div>
-                <p className="mx-auto text-black">0</p>
+                <p className="mx-auto text-black">{commentCount}</p>
             </div>
             
            
-            <div className="cursor-pointer bg-white text-black rounded-full p-3 transition-all duration-300 hover:-translate-y-[1px] shadow-current shadow-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-                </svg>
+            <div className="cursor-pointer bg-white text-black rounded-full p-3 transition-all duration-300 hover:-translate-y-[1px] shadow-current shadow-sm" onClick={savePostToAccount}>
+                {
+                    !save
+                    ?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 transition-all duration-300">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                        </svg>
+                    :
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 transition-all duration-300">
+                            <path fillRule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clipRule="evenodd" />
+                            <path fillRule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zm9.586 4.594a.75.75 0 00-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.116-.062l3-3.75z" clipRule="evenodd" />
+                        </svg>
+                }
             </div>
             
             <div onClick={copyToClipboard} className="cursor-pointer bg-white text-black rounded-full p-3 transition-all duration-300 hover:-translate-y-[1px] shadow-current shadow-sm">
