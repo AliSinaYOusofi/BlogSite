@@ -19,7 +19,7 @@ export default function page() {
         <>
             <div className="w-[100%] mx-auto  mt-10 py-4
                 flex md:flex-row flex-col justify-center relative overflow-hidden">
-                <PostIneraction />
+                <PostIneraction postId={postId}/>
                 <div className="md:w-[70%] w-full h-fit pb-4 overflow-x-hidden blogText shadow-current bg-[whitesmoke] rounded-lg">
                     <UserCard postId={postId}/>
                     <PostContent postId={postId}/>
