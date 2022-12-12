@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         // how to connect those replies with the comment id for each comment reply.
         // the replyId should not be unique
 
-        await commentSchema.update({'postId': postId,}, {
+        await commentSchema.updateOne({'postId': postId,}, {
             $push: {
                 replies:
                 {

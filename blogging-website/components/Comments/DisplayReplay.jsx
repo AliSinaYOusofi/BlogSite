@@ -2,11 +2,13 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useSpacexProvider } from '../../context/appContext';
+import {useRouter} from 'next/navigation'
 
 export default function DisplayReplay({postId, commentId}) {
     
-    const {token} = useSpacexProvider();
+    const {token, setRefresh} = useSpacexProvider();
     const [ comment, setComment ] = useState('');
+    
 
     const submitComment = async () => {
         if (comment.length < 1) return toast.error("can't post an empty comment", {pauseOnHover: true});
@@ -18,12 +20,13 @@ export default function DisplayReplay({postId, commentId}) {
                 postId,
                 commentId
             });
-
             response.data.message === "saved" ? toast.success("comment posted") : toast.error("failed! try again later");
+            setRefresh("refreshing" + Math.random() * 100)
         } catch (error) {
             console.log("Error! posting comment: %s", error);
             toast.error("failed to post comment");
         }
+        
     }
     return (
         <div className="mt-2 w-[80%] mx-auto transition-all duration-300 flex flex-col items-start justify-start

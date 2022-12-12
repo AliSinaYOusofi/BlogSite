@@ -81,7 +81,7 @@ export default function UserComments({postId, profileUrl, username, date, data, 
             </div>
 
             {
-                reply ? <div> <DisplayReplay postId={postId} commentId={commentId}/>  </div> : ""
+                reply ? <div> <DisplayReplay key={commentId} postId={postId} commentId={commentId}/>  </div> : ""
             }
             
         </div>

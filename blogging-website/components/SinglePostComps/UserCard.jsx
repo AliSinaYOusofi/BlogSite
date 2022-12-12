@@ -47,7 +47,7 @@ export default function UserCard({postId}) {
                         </span>
                     </p>
                     <p className="text-base font-light text-gray-900">{profile ? profile[0]?.email : "email@domain.com"}</p>
-                    <p className="text-base font-light text-gray-900"><time pubdate datetime="2022-02-08" title="February 8th, 2022"> posted on {profile ? profile[0]?.date.split("T")[0] : "NA"}</time></p>
+                    <p className="text-base font-light text-gray-900"><time pubdate dateTime="2022-02-08" title="February 8th, 2022"> posted on {profile ? profile[0]?.date.split("T")[0] : "NA"}</time></p>
                 </div>
             </div>
         </address>

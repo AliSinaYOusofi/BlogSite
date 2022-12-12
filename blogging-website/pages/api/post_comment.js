@@ -39,7 +39,7 @@ export default async function handler(req, res) {
 
         // otherwise update the db
         
-        await commentSchema.update({ 'postId': postId},{
+        await commentSchema.updateOne({ 'postId': postId},{
                
             $push: {
                 comments: {
