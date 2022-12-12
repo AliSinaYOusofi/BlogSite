@@ -1,14 +1,19 @@
 "use client";
 
+import axios from 'axios';
 import React from 'react'
 import { useRef } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function PostIneraction() {
+export default function PostIneraction({postId}) {
 
-    const [likes, setLikes] = useState(0);
+    const [likes, setLikes] = useState(false);
+    const [postLikes, setPostLikes] = useState(0);
+
+    
     // how to handle the
     const likesRef = useRef(null);
     // first the schema for the post must change and 
@@ -22,31 +27,61 @@ export default function PostIneraction() {
         toast.success("link copied");
     };
     
-    const handleLike = () => {
+    const handleLike = async () => {
         // how to handle likes
         //  1: make backgroud red
         //  2: wait for some seconds before sending to back-end the like addition with id of post
         //  3: that might be it
-        if(likesRef.current && likesRef.current.style.backgroundColor === "red") {
+        if (likesRef.current && likesRef.current.style.backgroundColor === "red") {
             likesRef.current.style.backgroundColor = "white"
-            setLikes(likes - 1);
+            setLikes(!likes);
         } else {
             likesRef.current.style.backgroundColor = "red"
-            setLikes(likes + 1);
-        } 
+            setLikes(!likes);
+        }
+        
+        // liking the post given the postID
+        // how to like is done
+        // but how to unlike is another way, another bug.
+        try {
+            const response = await axios.get("/api/update_post_likes", {
+                params: {
+                    postId,
+                    color:  !likes ? 1 : -1
+                }
+            });
+            // no more toast messages i will replace it with self-made toast messages
+            // since react-toast is not good for production
+            console.log(response.data);
+        }catch(error) { console.log("Error! liking an image", error);}
     }
     
+    useEffect( () => {
+        const getPostLikes = async () => {
+            try {
+                const response = await axios.get("/api/get_post_likes", {
+                    params: {
+                        postId
+                    }
+                });
+                setPostLikes(response.data.likes);
+            }catch(error) { console.log("Error! liking an image", error);}
+        }
+        getPostLikes();
+    }, [likes, postLikes]);
+
+    console.log(postLikes);
     return (
         <div className="w-[5%] text-white absolute top-[10rem] flex flex-col items-center justify-start
          gap-y-10 md:sticky md:top-0  h-full mt-10 md:ml-0 ml-4 z-[999]">
             
-            <div onClick={handleLike} className="flex flex-col items-center " >
+            <div onClick={handleLike} className="flex flex-col items-center ">
                 <div ref={likesRef} className="mt-24 w-fit cursor-pointer bg-white text-black rounded-full p-3 transition-all duration-300 hover:-translate-y-[1px] shadow-current shadow-sm">
                     <svg  className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                     </svg>
                 </div>
-                <p className="mx-auto text-black">{likes}</p>
+                <p className="mx-auto text-black">{postLikes}</p>
             </div>
 
             <div className="flex flex-col items-center ">
