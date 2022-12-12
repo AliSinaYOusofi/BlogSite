@@ -18,16 +18,16 @@ export default function page() {
     return (
         <>
             <div className="w-[100%] mx-auto  mt-10 py-4
-                flex flex-row justify-center relative">
+                flex md:flex-row flex-col justify-center relative overflow-hidden">
                 <PostIneraction />
-                <div className="w-[70%] h-fit pb-4 blogText shadow-current bg-[whitesmoke] rounded-lg">
+                <div className="md:w-[70%] w-full h-fit pb-4 overflow-x-hidden blogText shadow-current bg-[whitesmoke] rounded-lg">
                     <UserCard postId={postId}/>
                     <PostContent postId={postId}/>
                     <hr className="mt-10"/>
                     <h1 className="text-3xl ml-20 mt-10 text-black font-extrabold tracking-wide"> Comments</h1>
                     <CommentSection postId={postId}/>
                 </div>
-                <div className="w-[25%] relative mr-3 rounded-md h-fit">
+                <div className="md:w-[25%] w-full relative md:mr-3 rounded-md h-fit">
                     <RecentPosts postId={postId}/>
                 </div>
             </div>

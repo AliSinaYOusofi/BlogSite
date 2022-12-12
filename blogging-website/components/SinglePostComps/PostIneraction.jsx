@@ -37,8 +37,8 @@ export default function PostIneraction() {
     }
     
     return (
-        <div className="w-[5%] text-white flex flex-col items-center justify-start
-         gap-y-10 sticky top-0 h-full mt-10">
+        <div className="w-[5%] text-white absolute top-[10rem] flex flex-col items-center justify-start
+         gap-y-10 md:sticky md:top-0  h-full mt-10 md:ml-0 ml-4 z-[999]">
             
             <div onClick={handleLike} className="flex flex-col items-center " >
                 <div ref={likesRef} className="mt-24 w-fit cursor-pointer bg-white text-black rounded-full p-3 transition-all duration-300 hover:-translate-y-[1px] shadow-current shadow-sm">
