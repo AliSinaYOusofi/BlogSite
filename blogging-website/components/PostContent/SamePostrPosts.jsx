@@ -44,7 +44,7 @@ export default function SamePostrPosts({postId}) {
             {
                 sameUserPosts ? sameUserPosts.map( item => {
                     return (
-                        <div className="w-fit p-4 bg-[#f5f5f5] rounded-lg ml-2 mt-2 " key={item?.id}>
+                        <div className="md:w-fit w-[95%] mx-auto p-4 bg-[#f5f5f5] rounded-lg md:ml-2  mt-2 " key={item?.id}>
                             <div className="flex items-start justify-between">
                                 <span className="text-sm font-light text-black">{item?.date.split("T")[0] || "2022-12-4"}</span>
                                 <span className="text-sm font-light text-black"> {item?.username || ""} </span> 
