@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     const alreadyLiked = await postLikes.exists({"postId": postId});
 
-    console.log(color);
+    
     try {
         if (alreadyLiked) {
             // then update the doc value
