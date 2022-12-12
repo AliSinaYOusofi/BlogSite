@@ -71,7 +71,7 @@ export default async function handler(req, res) {
 
             for(let index = 0; index < freshReplies.length; index++) {
               
-                if (freshComments[i].commentId === freshReplies[index].commentId) {
+                if (freshComments[i]?.commentId === freshReplies[index]?.commentId) {
                     forReplyCordination[repplyCordinationCounter++] = freshReplies[index];
 
                     
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
                     else
                         freshComments[i].reply = [freshReplies[index]];
                     
-                        forReplyCordination = [];
+                    forReplyCordination = [];
                     repplyCordinationCounter = 0;
                 }
             }
@@ -99,8 +99,8 @@ export default async function handler(req, res) {
              
         // how to know the specifc comment had replies
         // thats the bug to solve now
-        console.log(freshComments);
         
+
         return res.status(200).json({comments: freshComments, replies: freshReplies});
 
     } catch (error) {
