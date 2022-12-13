@@ -41,8 +41,8 @@ export default function UserComments({postId, profileUrl, username, date, data, 
             <div className="flex flex-col items-start justify-between mt-4 w-fit py-3 rounded-lg px-4">
                 <div className="flex items-center">
                     <img src={profileUrl || "https://stackdiary.com/140x100.png"} alt="Author Photo" className=" object-cover w-10 h-10 mx-4 rounded-full sm:block" /> 
-                    <span className="font-bold text-black/80">{username || "username"}</span>
-                    <span className="ml-3 font-bold text-black/80">{date ? date.split("T")[0] : "20xx-xx-xx"}</span>
+                    <span className="font-bold text-black/80">{username || ""}</span>
+                    <span className="ml-3 font-bold text-black/80">{date ? date.split("T")[0] : ""}</span>
                 </div>
                 <div className="mt-2 ml-5 rounded-lg">
                     <p>

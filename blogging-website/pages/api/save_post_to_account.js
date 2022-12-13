@@ -10,28 +10,40 @@ export default async function handler(req, res) {
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 
     if (!token) token = "ali's account"
-    const alreadySaved = await savedPosts.find({"account": token, "savedPosts" : {"postId": postId}});
     
-    console.log(alreadySaved);
-   
-    // how to know when a user saves or delets from the account.
+    let alreadySaved = await savedPosts.find({"account": token, "postId": postId});
+
     try {
         if(!Number(saved)) {
 
-            if (alreadySaved) {
-                // then update the doc value
-                await savedPosts.updateOne({"account": token}, { $push: {"savedPosts": {'postId': postId}}});
-                return res.status(200).json({message: "saved"});
+            if (alreadySaved.length && alreadySaved[0].savedPosts.includes(postId)) {
+                // if already saved then delete it
+                await savedPosts.updateOne({"account": token}, { $pull: {"savedPosts": {'postId': postId}}});
+                return res.status(200).json({message: "delete"});
+            }
+
+            // then if the account exists
+            else {
+                
+                if (alreadySaved.length && !alreadySaved[0].savedPosts.includes(postId)) {
+
+                    await savedPosts.updateOne({"account": token}, { $push: {"savedPosts": {'postId': postId}}});
+                    return res.status(200).json({message: "update"});
+                }
+                 
+                await savedPosts.insertMany({"account": token, "savedPosts": {"postId": postId}});
+                
+                return res.status(200).json({message: "inserted"});
             }
             
-            let dataToInsert = new savedPosts({"account": token, "savedPosts": {"postId": postId}});
-            await dataToInsert.save();
-            return res.status(200).json({message: "saved"});
             
         }
+        // if clicked twice then again it is to be deleted
+        let deleteResult = await savedPosts.updateOne({"account": token}, { $pull: {"savedPosts": {'postId': postId}}});
+        console.log(deleteResult);
+        return res.status(200).json({message: "second delete"});
 
-        await savedPosts.updateOne({"account": token}, { $pull: {"savedPosts": {'postId': postId}}});
-        return res.status(200).json({message: "delete"});
+        
     } catch (error) {
         console.log("Error! Getting Likes from dod saveToaccountRoute: %s", error);
         res.status(200).json({message: "got you"});

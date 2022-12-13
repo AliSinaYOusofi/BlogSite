@@ -18,4 +18,4 @@ const savedPosts = new mongoose.Schema( {
     ]
 } );
 
-module.exports = mongoose.models.saveP ||  mongoose.model("saveP", savedPosts);
+module.exports = mongoose.models.mysavedposts||  mongoose.model("mysavedposts", savedPosts);
