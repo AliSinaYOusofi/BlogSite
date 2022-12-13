@@ -9,10 +9,11 @@ export default async function handler(req, res) {
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 
-    if (!token) token = "missing"
-    const alreadySaved = await savedPosts.exists({"account": token});
-
-    console.log(typeof saved);
+    if (!token) token = "ali's account"
+    const alreadySaved = await savedPosts.find({"account": token, "savedPosts" : {"postId": postId}});
+    
+    console.log(alreadySaved);
+   
     // how to know when a user saves or delets from the account.
     try {
         if(!Number(saved)) {
@@ -22,10 +23,11 @@ export default async function handler(req, res) {
                 await savedPosts.updateOne({"account": token}, { $push: {"savedPosts": {'postId': postId}}});
                 return res.status(200).json({message: "saved"});
             }
-    
-            let dataToInsert = new savedPosts({"account": token, "savedPosts": {postId}});
+            
+            let dataToInsert = new savedPosts({"account": token, "savedPosts": {"postId": postId}});
             await dataToInsert.save();
             return res.status(200).json({message: "saved"});
+            
         }
 
         await savedPosts.updateOne({"account": token}, { $pull: {"savedPosts": {'postId': postId}}});

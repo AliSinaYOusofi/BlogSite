@@ -14,6 +14,8 @@ export default function PostIneraction({postId}) {
     const [likes, setLikes] = useState(false);
     const [postLikes, setPostLikes] = useState(0);
     const[updateLikes, setUpdateLikes] = useState(false);
+    // for nunmber of people saved to their accounts
+    const [countSaved, setCountSaved] = useState(0);
     // for saving to account a post
     const {token} = useSpacexProvider();
     // should i add the comments count or not
@@ -75,7 +77,7 @@ export default function PostIneraction({postId}) {
             }catch(error) { console.log("Error! liking an image", error);}
         }
         getPostLikes();
-    }, [updateLikes]);
+    }, [updateLikes, postId]);
 
     useEffect( () => {
         const getCommentCounts = async() => {
@@ -88,8 +90,20 @@ export default function PostIneraction({postId}) {
                 setCommentCount(response.data.commentCount);
             }catch(error) { console.log("Error! liking an image", error);}
         }
+
+        const getSavedToAccountsCount = async() => {
+            try {
+                const response = await axios.get("/api/get_saved_count", {
+                    params: {
+                        postId
+                    }
+                });
+                setCountSaved(response.data.savedToAccounts);
+            }catch(error) { console.log("Error! liking an image", error);}
+        }
         getCommentCounts();
-    }, []);
+        getSavedToAccountsCount();
+    }, [save, postId]);
 
     // now saving the post to the user account. just make an array of comments
     const savePostToAccount = async () => {
@@ -104,7 +118,6 @@ export default function PostIneraction({postId}) {
                     saved: save ? 1 : 0
                 }
             });
-            console.log(response.data);
         }catch(error) { console.log("Error! liking an image", error);}
     }
     return (
@@ -130,19 +143,24 @@ export default function PostIneraction({postId}) {
             </div>
             
            
-            <div className="cursor-pointer bg-white text-black rounded-full p-3 transition-all duration-300 hover:-translate-y-[1px] shadow-current shadow-sm" onClick={savePostToAccount}>
-                {
-                    !save
-                    ?
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 transition-all duration-300">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-                        </svg>
-                    :
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 transition-all duration-300">
-                            <path fillRule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clipRule="evenodd" />
-                            <path fillRule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zm9.586 4.594a.75.75 0 00-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.116-.062l3-3.75z" clipRule="evenodd" />
-                        </svg>
-                }
+            <div className="flex flex-col items-center ">
+                <div className="cursor-pointer bg-white text-black rounded-full p-3 transition-all duration-300 hover:-translate-y-[1px] shadow-current shadow-sm" onClick={savePostToAccount}>
+                    {
+                        !save
+                        ?
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 transition-all duration-300">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                                
+                            </svg>
+                        :
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 transition-all duration-300">
+                                <path fillRule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clipRule="evenodd" />
+                                <path fillRule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zm9.586 4.594a.75.75 0 00-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.116-.062l3-3.75z" clipRule="evenodd" />
+                                {countSaved}
+                            </svg>
+                    }
+                </div>
+                <p className="mx-auto text-black"> {countSaved}</p>
             </div>
             
             <div onClick={copyToClipboard} className="cursor-pointer bg-white text-black rounded-full p-3 transition-all duration-300 hover:-translate-y-[1px] shadow-current shadow-sm">
