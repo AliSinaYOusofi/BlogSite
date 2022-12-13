@@ -118,6 +118,7 @@ export default function PostIneraction({postId}) {
                     saved: save ? 1 : 0
                 }
             });
+            console.log(response.data);
         }catch(error) { console.log("Error! liking an image", error);}
     }
     return (

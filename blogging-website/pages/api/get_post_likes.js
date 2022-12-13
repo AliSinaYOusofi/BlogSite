@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     try {
         const likeCounts = await postLikes.findOne({"postId": postId}, {"loves": 1});
         
-        return res.status(200).json({message: "loved", likes: likeCounts.loves || 0});
+        return res.status(200).json({message: "loved", likes: likeCounts?.loves || 0});
 
     } catch (error) {
         console.log("Error! Getting Likes from dod postLikes: %s", error);
