@@ -43,7 +43,7 @@ export default function PosterCard({postId}) { // from the postId we can get pos
     
     return (
         <div className="rounded-lg md:w-full w-[95%] mx-auto text-white  bg-[#f5f5f5] ml-2 py-4 flex items-between justify-center md:mt-0 mt-5">
-            <div className="flex flex-row  justify-around gap-x-4  items-center">
+            <div className="flex flex-row  justify-between  gap-x-4  items-center">
                 <img className="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" src={posterData[0]?.profileUrl ? posterData[0]?.profileUrl : "https://stackdiary.com/140x100.png"} alt="profile"/>
                 <div className="flex flex-col items-center justify-center">
                     <p className="mb-1 text-xl font-medium text-gray-900 flex items-center justify-center">{posterData ? posterData[0]?.username: "NA"} <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="ml-1 w-4 h-4 mt-2 text-blue-500">
