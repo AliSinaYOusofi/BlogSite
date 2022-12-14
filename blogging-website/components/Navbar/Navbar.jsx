@@ -13,7 +13,7 @@ export default  function Navbar() {
     
     return ( 
         <nav className="sticky mx-auto top-0  px-2 sm:px-4 py-2.5" >
-            <div className="container bg-black/20 flex flex-wrap items-center justify-between mx-auto backdrop-blur-[2px] p-2 rounded-md">
+            <div className="container bg-white/20 flex flex-wrap items-center justify-between mx-auto backdrop-blur-[2px] p-2 rounded-md">
                 <a href="" className="flex items-center gap-x-1">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -35,22 +35,22 @@ export default  function Navbar() {
                 <div className="items-center  justify-between hidden  w-full md:flex md:w-auto md:order-1" id="navbar-cta">
                     <ul className="flex divide-dotted flex-col p-4 mt-4  rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                         <li className="">
-                            <Link href="/login" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-200  rounded-md" aria-current="page">Sign In</Link>
+                            <Link href="/login" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md text-" aria-current="page">Sign In</Link>
                         </li>
                         <li>
-                            <a href="#" className="block text py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-200  rounded-md">Our Story</a>
+                            <a href="#" className="block text py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md">Our Story</a>
                         </li>
                         <li>
-                            <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-200  rounded-md">Write</a>
+                            <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md">Write</a>
                         </li>
                         <li>
-                            <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-200  rounded-md">For Extra</a>
+                            <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md">For Extra</a>
                         </li>
                     </ul>
                 </div>
                 {
                     dropdown ? <div className="items-center justify-between  w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-                    <ul className="flex flex-col p-4 mt-4 text-black  rounded-lg bg-gray-300 md:flex-row gap-y-4">
+                    <ul className="flex flex-col p-4 mt-4 text-black  rounded-lg  md:flex-row gap-y-4">
                         <li className="">
                             <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-white rounded-md " aria-current="page">Home</a>
                         </li>

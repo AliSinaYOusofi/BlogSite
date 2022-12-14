@@ -58,6 +58,8 @@ export default async function handler(req, res) {
 
         for (let i = 0; i < comments.length; i++) {
             
+            if (comments[i].who.length <= 30) continue
+            
             const {email = "", username = ""} = jwt.decode(comments[i].who);
             
             let profileUrl = await getProfileUrl(email);

@@ -45,7 +45,7 @@ export default function UserNavbar() {
     
     return (
         
-        <nav className="sticky top-3 z-[999]  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  backdrop-blur-sm
+        <nav className="sticky top-3 z-[999] bg-white/40  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  backdrop-blur-sm
         ">
             <div className="container flex flex-wrap items-center justify-between mx-auto text-xl">
                 <Link href="#" className="flex items-center">
@@ -100,21 +100,21 @@ export default function UserNavbar() {
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
                     <ul className="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 text-sm md:font-medium">
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md" aria-current="page">
+                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md" aria-current="page">
                             Home
                         </Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md">About</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md">About</Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md">Services</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md">Services</Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md">Pricing</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md">Pricing</Link>
                     </li>
                     <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4  text-gray-800 transition-all duration-300 hover:bg-gray-200  rounded-md">Contact</Link>
+                        <Link href="#" className="block py-2 pl-3 pr-4  text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md">Contact</Link>
                     </li>
                     </ul>
                 </div>

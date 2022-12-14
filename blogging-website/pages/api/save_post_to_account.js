@@ -9,17 +9,17 @@ export default async function handler(req, res) {
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 
-    if (!token) token = "ali's account"
+    if (!token) token = "ali's account"; // should be removed after testing
     
     let alreadySaved = await savedPosts.find({"account": token, "postId": postId});
-    console.log(getCountOfSpecificPost(alreadySaved, postId, '******************'))
+
     try {
         if(!Number(saved)) {
 
             if (alreadySaved.length && getCountOfSpecificPost(alreadySaved, postId)) {
                 // if already saved then delete it
-                const result = await savedPosts.findOneAndUpdate({"account": token}, { $pull: {"savedPosts": {'postId': postId}}}).exec();
-                console.log(result);
+                await savedPosts.findOneAndUpdate({"account": token}, { $pull: {"savedPosts": {'postId': postId}}}).exec();
+                
                 return res.status(200).json({message: "delete"});
             }
 
@@ -40,8 +40,8 @@ export default async function handler(req, res) {
             
         }
         // if clicked twice then again it is to be deleted
-        let deleteResult = await savedPosts.updateOne({"account": token}, { $pull: {"savedPosts": {'postId': postId}}});
-        console.log(deleteResult);
+        await savedPosts.updateOne({"account": token}, { $pull: {"savedPosts": {'postId': postId}}});
+     
         return res.status(200).json({message: "second delete"});
 
         
