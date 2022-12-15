@@ -1,6 +1,9 @@
-import React, { useRef, useState } from 'react'
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react'
+import { useSpacexProvider } from '../../context/appContext';
+import {cache} from 'react';
 
-export default function ReplayComment({ profileUrl, username, date, data, likes, repId}) {
+export default function ReplayComment({ profileUrl, username, date, data, likes, repId, postId}) {
     
     // console.log(profileUrl, username, date, data, likes);
     const [commentReplyLikes, setCommentReplyLikes] = useState(0);
@@ -8,39 +11,44 @@ export default function ReplayComment({ profileUrl, username, date, data, likes,
     const [updateLoves, setUpdateLoves] = useState(false);
     const likesRef = useRef(null);
 
+    const {token} = useSpacexProvider();
+
     useEffect( () => {
-        const getReplyCommentsLikes = async () => {
+        const getReplyCommentsLikes = cache (async () => {
             try {
-                const response = await axios.get("/api/get_comment_likes", {
+                const response = await axios.get("/api/get_reply_likes", {
                     params: {
-                        commentId,
+                        replyId: repId,
                         token
                     }
                 });
                 setCommentReplyLikes(response.data.loves);
-                setHearted(response.data.userLoves);
+                setReplyHearted(response.data.userLoves);
+
+                console.log(response.data);
 
             }catch(error) { console.log("Error! liking an image", error);}
-        }
+        });
+        
         getReplyCommentsLikes();
     }, [postId, updateLoves]);
  
-    const likeAReplyComment = async () => {
+    const likeAReplyComment = cache (async () => {
+        
         setReplyHearted(!replyHearted);
-
+        
         try {
-            const response = await axios.get("/api/like_a_reply_comment", {
-                params: {
-                    commentId,
-                    token
-                }
+            const response = await axios.post("/api/like_a_reply", {
+                replyId: repId,
+                token
             });
             console.log(response.data);
         } catch (error) {
             console.log(error, 'while getting likes for a comment');
         }
         setUpdateLoves(!updateLoves)
-    }
+    });
+
     return (
         <div className="ml-10 flex flex-col items-start justify-between mt-4 w-fit py-3 rounded-lg px-4 transition-all duration-[10000]" id={repId}>
             <div className="flex items-center">

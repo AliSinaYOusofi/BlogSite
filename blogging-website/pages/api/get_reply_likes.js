@@ -1,23 +1,23 @@
-import commentLikes from '../../db_models/commentLikes';
+import commentReplyLikes from '../../db_models/replyCommentsLike';
 
 export default async function handler(req, res) {
 
-    let {commentId, token} = req.query;
+    let {replyId, token} = req.query;
     
-    if (!commentId) return res.status(200).json({message: "invalid commentID"});
+    if (!replyId) return res.status(200).json({message: "invalid ReplyId"});
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 
     // if a user has already liked the comment then send a flag that the background
     // of the svg should change to red.
 
-    
+    if (!token) token = "rep one";
+
     try {
-        let userAlreadyLiked = await commentLikes.findOne({"who": token, "commentId": commentId, "loves": {$eq: 1}});
+        let userAlreadyLiked = await commentReplyLikes.findOne({"who": token, "replyId": replyId, "loves": {$eq: 1}});
+        const replyOfCommentsLiked = await commentReplyLikes.find({"replyId": replyId}, {"loves": 1});
        
-        const commentLikesCount = await commentLikes.find({"commentId": commentId}, {"loves": 1});
-       
-        return res.status(200).json({userLoves: userAlreadyLiked?.loves, loves: addLoves(commentLikesCount)});
+        return res.status(200).json({userLoves: userAlreadyLiked?.loves, loves: addLoves(replyOfCommentsLiked)});
 
     } catch (error) {
         console.log("Error! Getting Likes from dod postLikes: %s", error);
