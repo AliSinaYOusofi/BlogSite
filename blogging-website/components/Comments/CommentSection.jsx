@@ -2,25 +2,23 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useSpacexProvider } from '../../context/appContext';
-import ReplayComment from './ReplayComment';
+import Success from '../Toasts/Success';
+
 import UserComments from './UserComments';
 
 
 export default function CommentSection({postId}) {
 
     const [ comment, setComment ] = useState('');
+    const [successIcon, setSuccessIcon] = useState(true);
+    const [showError, setShowError] = useState(false);
+
     const [ postedComments, setPostedComments ] = useState([{
         // what we need from this req who: [profile username posted comment data and date]
         username: "", profileUrl: "", data: "", date: "", commentId: "", reply: [{}]
     }]);
 
-    const [ postedReplies, setPostedReplies ] = useState([{
-        // what we need from this req who: [profile username posted comment data and date]
-        username: "", profileUrl: "", data: "", date: "", likes: 0
-    }]);
-
     const {token, refresh} = useSpacexProvider();
-    console.log(token);
     // so for the token as well need it
 
     // first i must reset the postSchema and posts and other things
@@ -46,7 +44,9 @@ export default function CommentSection({postId}) {
                 postId
             });
 
-            response.data.message === "saved" ? toast.success("comment posted") : toast.error("failed! try again later");
+            if (response.data.message === "saved") {
+                setTimeout( () => setSuccessIcon(!successIcon), 2000);
+            } else setShowError(true);
         } catch (error) {
             console.log("Error! posting comment: %s", error);
             toast.error("failed to post comment");
@@ -68,10 +68,8 @@ export default function CommentSection({postId}) {
 
                 if (response.data.message !== "no comment on this post") {
                     setPostedComments(response.data.comments);
-                    setPostedReplies(response.data.replies);
                 } else {
                     setPostedComments([{}]);
-                    setPostedReplies([{}]);
                 }
             } catch (error) {
                 console.log("Error! Failed to get Comments: %s", error);
@@ -83,8 +81,8 @@ export default function CommentSection({postId}) {
     return (
         <>
             <div className="mt-10 w-[80%] mx-auto bg-inherit flex flex-col items-start justify-start
-            gap-y-4">
-
+            gap-y-4 relative">
+               
                 <textarea id="message" 
                     onChange={(e) => setComment(e.target.value)} 
                     rows="4" className="bg-neutral-200 border-none outline-none p-2.5 w-full text-xl text-gray-900 rounded-md" 
@@ -92,14 +90,23 @@ export default function CommentSection({postId}) {
                 </textarea>
                         
                 <button onClick={submitComment} className="bg-neutral-200 px-6 py-3  hover:text-white hover:shadow-[inset_13rem_0_0_0] rounded-md hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow]
-                flex items-center justify-center">
+                flex items-center justify-center relative">
                     Comment
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                    </svg>
+                    {
+                        successIcon
+                        ?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                        </svg>
+                        :
+                        <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    }
                 </button>
             </div>
-            <div className="bg-neutral-50 shadow-black/20 shadow-sm rounded-lg mt-10 w-[80%] mx-auto ">
+            <div className="bg-neutral-50 relative shadow-black/20 shadow-sm rounded-lg mt-10 w-[80%] mx-auto ">
+                {
+                        showError ? <Success timeoutInMs={2000} message={"failed to post a comment"}/> : null
+                }
                 {
                     postedComments.length ?  postedComments.map(item => {
                         return (
@@ -114,6 +121,7 @@ export default function CommentSection({postId}) {
                         )
                     }): ""
                 }
+            
             </div>
         </>
     );

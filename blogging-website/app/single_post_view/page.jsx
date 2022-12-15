@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { useSearchParams } from 'next/navigation';
 
 import UserCard from '../../components/SinglePostComps/UserCard';
@@ -10,6 +10,7 @@ import PostIneraction from '../../components/SinglePostComps/PostIneraction';
 import PostContent from '../../components/PostContent/PostContent';
 import RecentPosts from '../../components/PostContent/RecentPosts';
 import CommentSection from '../../components/Comments/CommentSection';
+
     
 export default function page() {
     

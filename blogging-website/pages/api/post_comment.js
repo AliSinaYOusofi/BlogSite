@@ -10,6 +10,8 @@ export default async function handler(req, res) {
 
     let {token, comment, postId} = req.body;
 
+    return res.status(200).json({message: "failed"});
+
     if (!token) token = "some logged in user";
 
     try {
