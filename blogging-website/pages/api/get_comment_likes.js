@@ -8,8 +8,6 @@ export default async function handler(req, res) {
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 
-    if (!token) token = "four"
-
     // if a user has already liked the comment then send a flag that the background
     // of the svg should change to red.
 
@@ -17,7 +15,7 @@ export default async function handler(req, res) {
     try {
         let userAlreadyLiked = await commentLikes.findOne({"who": token, "commentId": commentId, "loves": {$eq: 1}});
         console.log(userAlreadyLiked, 'already liked or not');
-        const commentLikesCount = await commentLikes.find({"commentId": commentId}, {"loves": 1})
+        const commentLikesCount = await commentLikes.find({"commentId": commentId}, {"loves": 1});
        
         return res.status(200).json({userLoves: userAlreadyLiked?.loves, loves: addLoves(commentLikesCount)});
 

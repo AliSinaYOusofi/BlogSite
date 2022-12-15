@@ -59,7 +59,7 @@ export default function UserComments({postId, profileUrl, username, date, data, 
         setUpdateLoves(!updateLoves)
     }
 
-    // useEffecti() for taking the likes
+    // useEffecti() for taking the likes 
 
     useEffect( () => {
         const getCommentLikes = async () => {
