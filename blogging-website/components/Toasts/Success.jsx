@@ -1,12 +1,34 @@
+"use client";
+
+import { useRef, useEffect } from 'react'
 import React from 'react'
 
-export default function Success({message}) {
+export default function Success({message, timeoutInMs = 2000}) {
+
+    let toastRef = useRef(null);
+
+    
+
+    useEffect( () => {
+        
+        const hideToastMessage = () => {
+            if (toastRef.current) {
+                if ( toastRef.current.style.display === "none") {
+                    toastRef.current.style.display = "block";
+                }
+                else  toastRef.current.style.display = "none";
+            }
+        }
+        
+        setTimeout(hideToastMessage, timeoutInMs);
+    }, []);
+
     return (
-        <div id="toast-simple" className="w-[20rem] absolute  top-0 left-[10%] flex items-center p-4 space-x-4 max-w-xs text-gray-500 bg-white rounded-lg divide-x divide-gray-200 shadow dark:text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-green-600">
-                <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
+        <div ref={toastRef}  className="w-[20rem] transition-all duration-300 left-[0%];  text-black absolute  top-[3%] flex items-center p-4 space-x-4 max-w-xs text-gray-500 bg-[#1B1B1B] rounded-lg shadow-white/90 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 text-[red]`}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
             </svg>
-            <div className="pl-4 text-sm font-normal">{message}</div>
+           <span className="text-white ml-10"> {message}</span>
         </div>
     )
 }
