@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     
     try {
         let userAlreadyLiked = await commentLikes.findOne({"who": token, "commentId": commentId, "loves": {$eq: 1}});
-        console.log(userAlreadyLiked, 'already liked or not');
+       
         const commentLikesCount = await commentLikes.find({"commentId": commentId}, {"loves": 1});
        
         return res.status(200).json({userLoves: userAlreadyLiked?.loves, loves: addLoves(commentLikesCount)});

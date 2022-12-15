@@ -55,12 +55,12 @@ export default function PostIneraction({postId}) {
             const response = await axios.get("/api/update_post_likes", {
                 params: {
                     postId,
-                    color:  !likes ? 1 : -1
+                    token
                 }
             });
             // no more toast messages i will replace it with self-made toast messages
-            // since react-toast is not good for production
-            console.log(response.data);
+            // since react-toast is not good for pro
+            
         }catch(error) { console.log("Error! liking an image", error);}
         setUpdateLikes(!updateLikes);
     }
@@ -70,10 +70,12 @@ export default function PostIneraction({postId}) {
             try {
                 const response = await axios.get("/api/get_post_likes", {
                     params: {
-                        postId
+                        postId,
+                        token
                     }
                 });
                 setPostLikes(response.data.likes);
+                if (response.data.userLoves)  likesRef.current.style.backgroundColor = "red";
             }catch(error) { console.log("Error! liking an image", error);}
         }
         getPostLikes();

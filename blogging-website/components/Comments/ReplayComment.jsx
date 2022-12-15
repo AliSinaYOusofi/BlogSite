@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { useSpacexProvider } from '../../context/appContext';
+import {cache} from 'react';
 
 export default function ReplayComment({ profileUrl, username, date, data, likes, repId, postId}) {
     
@@ -13,7 +14,7 @@ export default function ReplayComment({ profileUrl, username, date, data, likes,
     const {token} = useSpacexProvider();
 
     useEffect( () => {
-        const getReplyCommentsLikes = async () => {
+        const getReplyCommentsLikes = cache (async () => {
             try {
                 const response = await axios.get("/api/get_reply_likes", {
                     params: {
@@ -27,11 +28,12 @@ export default function ReplayComment({ profileUrl, username, date, data, likes,
                 console.log(response.data);
 
             }catch(error) { console.log("Error! liking an image", error);}
-        }
+        });
+        
         getReplyCommentsLikes();
     }, [postId, updateLoves]);
  
-    const likeAReplyComment = async () => {
+    const likeAReplyComment = cache (async () => {
         
         setReplyHearted(!replyHearted);
         
@@ -45,7 +47,8 @@ export default function ReplayComment({ profileUrl, username, date, data, likes,
             console.log(error, 'while getting likes for a comment');
         }
         setUpdateLoves(!updateLoves)
-    }
+    });
+
     return (
         <div className="ml-10 flex flex-col items-start justify-between mt-4 w-fit py-3 rounded-lg px-4 transition-all duration-[10000]" id={repId}>
             <div className="flex items-center">
