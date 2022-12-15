@@ -162,7 +162,7 @@ export default function UserComments({postId, profileUrl, username, date, data, 
                 {
                     eye ? (
 
-                        rep ? rep.map(item => <ReplayComment reverse={reverse} username={item?.username} key={item?.replyId} data={item?.data} date={item?.date} profileUrl={item?.profileUrl} repId={item?.replyId}/>): ""
+                        rep ? rep.map(item => <ReplayComment postId={postId} reverse={reverse} username={item?.username} key={item?.replyId} data={item?.data} date={item?.date} profileUrl={item?.profileUrl} repId={item?.replyId}/>): ""
                     )
                     : ""
                 }
