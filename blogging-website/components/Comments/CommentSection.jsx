@@ -11,7 +11,6 @@ export default function CommentSection({postId}) {
 
     const [ comment, setComment ] = useState('');
     const [successIcon, setSuccessIcon] = useState(true);
-    const [showError, setShowError] = useState(false);
 
     const [ postedComments, setPostedComments ] = useState([{
         // what we need from this req who: [profile username posted comment data and date]
@@ -46,7 +45,7 @@ export default function CommentSection({postId}) {
 
             if (response.data.message === "saved") {
                 setTimeout( () => setSuccessIcon(!successIcon), 2000);
-            } else setShowError(true);
+            } else toast.error("failed to comment! try again")
         } catch (error) {
             console.log("Error! posting comment: %s", error);
             toast.error("failed to post comment");
@@ -104,9 +103,6 @@ export default function CommentSection({postId}) {
                 </button>
             </div>
             <div className="bg-neutral-50 relative shadow-black/20 shadow-sm rounded-lg mt-10 w-[80%] mx-auto ">
-                {
-                        showError ? <Success timeoutInMs={2000} message={"failed to post a comment"}/> : null
-                }
                 {
                     postedComments.length ?  postedComments.map(item => {
                         return (
