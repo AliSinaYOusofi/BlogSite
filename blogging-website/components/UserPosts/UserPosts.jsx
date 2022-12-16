@@ -50,7 +50,7 @@ export default function UserPosts () {
             flex items-center flex-col
             w-[100%] mx-auto bg-slate-400">
             {
-            posts.map( item => <SingleUserPosts date={item.date} 
+             posts.map( item => <SingleUserPosts date={item.date} 
                 username={dataUsername} profileUrl={dataProfileUrl}
                 content={item.content} title={item.content?.split("\n")[0]}
                 key={item?.id} id={item?.id}

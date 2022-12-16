@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import postSchema from '../../db_models/UserPosts';
 import updateProfileSchema from '../../db_models/UpdateProfile';
-import RegisterationSchema from '../../db_models/RegisterationSchema';
 
 export default async function handler(req, res) {
     
