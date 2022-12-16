@@ -31,6 +31,7 @@ export default function ViewUserPosts({}) {
         getPosts();
     }, [userEmail]);
 
+    
     return (
         <div className="flex flex-col mt-10 gap-y-3">
             {

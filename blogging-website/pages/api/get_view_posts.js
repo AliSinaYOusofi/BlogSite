@@ -1,5 +1,6 @@
 import postSchema from '../../db_models/UserPosts';
 import updateProfileSchema from '../../db_models/UpdateProfile';
+import RegisterationSchema from '../../db_models/RegisterationSchema'
 import jwt from 'jsonwebtoken';
 
 
@@ -22,9 +23,12 @@ export default async function handler(req, res) {
         // imageURL and user is inside the profile database     
 
         const dataFromProfileSchema = await updateProfileSchema.find({'email': email});
-        
-        if (dataFromProfileSchema) {
+        console.log(dataFromProfileSchema, '*******************************');
+        if (dataFromProfileSchema.length) {
             [{username: proUsername = "", profileUrl: proProfileUrl = "", bio: proBio = "", title: proTitle = ""}] = await dataFromProfileSchema;
+        } else {
+            let regData = await RegisterationSchema.find({"email": email});
+            [{username: proUsername = "",  bio: proBio = "", title: proTitle = ""}] = regData;
         }
 
         return res.status(200).json({posts: userPostsArray, userData: [{username: proUsername , profileUrl: proProfileUrl, bio: proBio, title: proTitle}]});
