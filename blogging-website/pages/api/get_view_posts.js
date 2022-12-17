@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 
 export default async function handler(req, res) {
-    
+     
     let {email} = req.body;
 
     if (!email) return res.status(200).json({message: "invali email"});

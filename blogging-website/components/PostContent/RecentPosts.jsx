@@ -39,7 +39,7 @@ export default function RecentPosts({postId}) {
                     
                 so posts from the same user is working fine
                 */}
-                <PosterCard postId={postId}/>
+               
                 <h1 className="text-xl font-bold text-center text-gray-700 mt-5"> Some Posts from the same user</h1>
                 <SamePostrPosts postId={postId}/>
                 

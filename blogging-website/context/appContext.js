@@ -5,6 +5,8 @@ export const blogContext = createContext({});
 export const Spacex = ({children}) => {
     const [token, setToken] = useState("");
     const [refresh, setRefresh] = useState(""); // love this solution for running useEffect() when there is
+    const [saved, setSaved] = useState(""); // love this solution for running useEffect() when there is
+    
     // a new comment posted
     // for the navbar details
     const setAccessToken = (token) => {setToken(token)}
@@ -17,7 +19,8 @@ export const Spacex = ({children}) => {
         <blogContext.Provider value={{
             token, setAccessToken, 
             refresh, setRefresh,
-            viewUserData, setViewDataUser
+            viewUserData, setViewDataUser,
+            saved, setSaved
             }}>
             {children}
         </blogContext.Provider>
