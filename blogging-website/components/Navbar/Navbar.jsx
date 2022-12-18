@@ -38,13 +38,10 @@ export default  function Navbar() {
                             <Link href="/login" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md text-" aria-current="page">Sign In</Link>
                         </li>
                         <li>
-                            <a href="#" className="block text py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md">Our Story</a>
+                            <Link href="#" className="block text py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md">Read</Link>
                         </li>
                         <li>
-                            <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md">Write</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md">For Extra</a>
+                            <Link href="/login" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-gray-100  rounded-md">Write</Link>
                         </li>
                     </ul>
                 </div>

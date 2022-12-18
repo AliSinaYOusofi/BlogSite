@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useSpacexProvider } from '../../context/appContext';
 import axios from 'axios';
+import {useRouter} from 'next/navigation';
 
 export default function UserNavbar() {
 
@@ -12,6 +13,7 @@ export default function UserNavbar() {
         inEmail : "",
         inProfile: ""
     }]);
+    const router = useRouter();
     // todo: 1: get the token
     // send to to backend
     // the backend will send all posts a user posted 
@@ -22,7 +24,7 @@ export default function UserNavbar() {
     // show the username email and picture of the logged in user
     // passing them from the layout page.
 
-    const {token} = useSpacexProvider();
+    const {token, setAccessToken} = useSpacexProvider();
 
     // make a req using jwt token
     // and decode it and send it back to here and show it
@@ -43,6 +45,10 @@ export default function UserNavbar() {
         getProfile();
     }, [])
     
+    const handleSignout = () => {
+        setAccessToken("");
+        router.push("/");
+    }
     return (
         
         <nav className="sticky top-3 z-[999] bg-white/40  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  backdrop-blur-sm
@@ -58,7 +64,6 @@ export default function UserNavbar() {
                     <span className="self-center text-xl font-semibold whitespace-nowrap text-white">Bloggy</span>
                 </Link>
                 <div className="flex items-center md:order-2 group relative">
-                    
                     <img src={loggedInData ? loggedInData[0].inProfile : "https://stackdiary.com/140x100.png"} alt="profile image" className="h-10 object-cover w-10 rounded-full"/>
                     <div className="z-50 rounded-md hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-[#FDF8F5]" id="user-dropdown">
                         <div className="px-4 py-3">
@@ -67,7 +72,7 @@ export default function UserNavbar() {
                         </div>
                         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                             <li className="mr-2">
-                                <Link href="#" className="inline-flex p-4 rounded-t-lg group transition-all duration-300 hover:translate-x-1">
+                                <Link href="/user_home_page" className="inline-flex p-4 rounded-t-lg group transition-all duration-300 hover:translate-x-1">
                                     <svg aria-hidden="true" className="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path></svg>Profile
                                 </Link>
                             </li>
@@ -86,11 +91,11 @@ export default function UserNavbar() {
                                     <svg aria-hidden="true" className="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd"></path></svg>Contacts
                                 </Link>
                             </li>
-                            <li className="mr-2">
-                                <Link href="#" className="inline-flex p-4 rounded-t-lg  group transition-all duration-300 hover:translate-x-1">
+                            <li onClick={handleSignout} className="mr-2 cursor-pointer">
+                                <p className="inline-flex p-4 rounded-t-lg  group transition-all duration-300 hover:translate-x-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-log-out mr-2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                                Sing out
-                                </Link>
+                                Sign out
+                                </p>
                             </li>
                         
                         </ul>

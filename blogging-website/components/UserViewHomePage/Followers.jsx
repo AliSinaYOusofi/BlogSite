@@ -35,13 +35,13 @@ export default function Followers() {
                 <h5 className="text-xl font-bold leading-none text-gray-900">FOLLOWING {following?.length}</h5>
             </div>
             <div className="flow-root">
-                <ul role="list" className="divide-y divide-gray-900">
+                <ul role="list" className="divide-y divide-gray-300">
                     {
                         following.map(item => (
                             <li key={""} className="py-3 sm:py-4">
                                 <div className="flex items-center space-x-4">
                                     <div className="flex-shrink-0">
-                                        <img className="w-12 h-12 rounded-full object-cover" src={`${item?.profileImageUrl}`} alt="Neil image" />
+                                        <img className="w-12 h-12 rounded-full object-cover" src={`${item?.profileImageUrl}`} alt="avatar" />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-medium text-gray-900 truncate">
