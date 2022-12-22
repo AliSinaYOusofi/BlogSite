@@ -2,20 +2,21 @@
 
 import React, { useEffect } from 'react'
 import axios from 'axios';
-import PostsFromSameUser from "../../components/UserPosts/UserPosts";
 import { useState } from 'react';
+import AllPostsCard from '../../components/AllPostsCard/AllPosts';
+import SearchAndResult from '../../components/SearchInput/SearchAndResult';
 
 
 export default  function page() {
     // make the search part and if something on input then search and return the results
-   const [posts, setPosts] = useState([{
+    let [posts, setPosts] = useState([{
         id: "",
         title: "",
         date: "",
         content: "",
         username: "",
-   }]);
-
+    }]);
+    let [reverse, setReverse] = useState(false);
     // for getting all posts here and showing in here without using hooks
 
     useEffect( () => {
@@ -31,20 +32,36 @@ export default  function page() {
         getRecentPosts();
     }, []);
 
+    useEffect( () => {
+        const makeRepliesReverse = () => {
+            posts = posts.reverse()
+        }
+        makeRepliesReverse();
+    }, [reverse]);
+
     return (
-        <>
+        <div className="md:w-[40%] w-full  mx-auto rounded-lg px-10 py-5 mt-10">
+            <SearchAndResult />
+            <div className="mt-10">
+                <p className="flex items-center gap-x-1 hover:cursor-pointer group relative text-xs p-3 bg-white rounded-full w-fit" onClick={() => setReverse(!reverse)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                    </svg>                      
+                </p>
+            </div>
+
             {
-                    posts ? posts.map( item => 
-                        <PostsFromSameUser
-                            id={item?.id} 
-                            key={item?.date} 
-                            content={item?.content}
-                            title={item?.content.split("\n")[0]} 
-                            date={item?.date}
-                            username={item?.poster} 
-                        />
-                    ): ""
+                posts ? posts.map( item => 
+                <AllPostsCard
+                    id={item?.id} 
+                    key={item?.date} 
+                    content={item?.content}
+                    title={item?.content.split("\n")[0]} 
+                    date={item?.date}
+                    username={item?.poster} 
+                />
+                ): null
             }
-        </>
+        </div>
     )
 }
