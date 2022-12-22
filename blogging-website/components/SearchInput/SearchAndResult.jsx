@@ -2,14 +2,21 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { sleep } from '../global/sleep';
+import AllPostsCard from '../../components/AllPostsCard/AllPosts';
 
 export default function SearchAndResult() {
 
-    let [search, setSearch] = useState("");
-    let [userOrPosts, setUserOrPost] = useState("Posts");
+    const [search, setSearch] = useState("");
+    const [userOrPosts, setUserOrPost] = useState("Posts");
     // for search results
-    let [users, setUsers] = useState([{}]);
-    let [posts, ,setPosts] = useState([{}]);
+    const [users, setUsers] = useState([{}]);
+    const [posts, setPosts] = useState([{
+        id: "",
+        title: "",
+        date: "",
+        content: "",
+        username: "",
+    }]);
 
     // now searching based on those values
 
@@ -29,12 +36,13 @@ export default function SearchAndResult() {
 
     const searchPosts = async () => {
         try {
-            const response = await axios.get("/api/search_by_posts",{
+            const response = await axios.get("/api/search/search_by_posts",{
                 params: {
                    search
                 }
             });
-            setPosts(response.data.search_result);
+            console.log(response.data);
+            setPosts(response.data.search_results);
         } catch (error) {
             console.log("search by posts: %s", error);
         }
@@ -73,7 +81,19 @@ export default function SearchAndResult() {
                     <option value="Posts">Posts</option>
                     <option value="Users">Users</option>
                 </select>
-            </div>  
+            </div>
+            {
+                posts ? posts.map( item => 
+                    <AllPostsCard
+                        id={item?.id} 
+                        key={item?.date} 
+                        content={item?.content}
+                        title={item?.content.split("\n")[0]} 
+                        date={item?.date}
+                        username={item?.poster} 
+                    />
+                ): null
+            }  
         </>
     )
 }
