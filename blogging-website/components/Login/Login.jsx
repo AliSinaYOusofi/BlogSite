@@ -42,7 +42,7 @@ export default function Login() {
             setAccessToken(accessToken); // that's good. access token is set.
             toast.dismiss();
             if (message === "success") {
-                router.push("/user_home_page");
+                router.push("/make_post");
             }
             else if (message === "notyou" || message === null) toast.error("invalid credentials");
             else if (message === "unreged") toast.error("invalid credentials");
