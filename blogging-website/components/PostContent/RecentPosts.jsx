@@ -1,13 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import PosterCard from '../SinglePostComps/PosterCard';
 import PostsFromSameUser from '../SinglePostComps/PostsFromSameUser';
 import SamePostrPosts from './SamePostrPosts';
 
 export default function RecentPosts({postId}) {
 
-    
-    
     const [recentPosts, setRecentPosts] = useState([{
         id: "",
         title: "",
@@ -31,6 +28,7 @@ export default function RecentPosts({postId}) {
         }
         getRecentPosts();
     }, [postId]);
+    
     return (
         <>
             {/* posts from the same user should come after this 
@@ -53,9 +51,9 @@ export default function RecentPosts({postId}) {
 
                 {
                     recentPosts ? recentPosts.map( item => <PostsFromSameUser id={item?.id} 
-                        key={item?.date}
-                        title={item.content.split("\n")[0]} 
-                        content={item.content} 
+                        key={item?.date} 
+                        content={item?.content}
+                        title={item?.content.split("\n")[0]} 
                         date={item?.date}
                         username={item?.poster} 
                         />
