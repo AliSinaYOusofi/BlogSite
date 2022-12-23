@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import { useEffect } from 'react';
 import { sleep } from '../global/sleep';
 import AllPostsCard from '../../components/AllPostsCard/AllPosts';
+import Spinner from '../Spinner/Spinner';
 
 export default function SearchAndResult() {
 
@@ -48,30 +49,29 @@ export default function SearchAndResult() {
         }
     }
 
-    useEffect( () => {
-        const searchBy = async () => {
-            if (search) {
-                if (userOrPosts  === "Posts") {
-                    await sleep(3000);
-                    searchPosts();
-                }
-                else if (userOrPosts === "Users") {
-                    await sleep(3000);
-                    searchUsers();
-                }
+    const getSearchResults = async () => {
+        if (search) {
+            if (userOrPosts  === "Posts") {
+                await sleep(3000);
+                searchPosts();
+            }
+            else if (userOrPosts === "Users") {
+                await sleep(3000);
+                searchUsers();
             }
         }
-        searchBy();  
-    }, [search])
+    }
     
     return (
         <>
+        
             <div className="w-full rounded-full bg-white py-2 px-4 flex items-between justify-center">
                 <input 
                     type="search" 
                     placeholder="search posts, users ... " 
                     className="outline-none border-none w-full rounded-full"
                     onChange={(e) => setSearch(e.target.value)}
+                    onKeyUp={getSearchResults}
                 />
                 {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                     <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
@@ -82,18 +82,20 @@ export default function SearchAndResult() {
                     <option value="Users">Users</option>
                 </select>
             </div>
-            {
-                posts ? posts.map( item => 
-                    <AllPostsCard
-                        id={item?.id} 
-                        key={item?.date} 
-                        content={item?.content}
-                        title={item?.content.split("\n")[0]} 
-                        date={item?.date}
-                        username={item?.poster} 
-                    />
-                ): null
-            }  
+            <Suspense fallback={<Spinner />}>
+                {
+                    posts ? posts.map( item => 
+                        <AllPostsCard
+                            id={item?.id} 
+                            key={item?.date} 
+                            content={item?.content}
+                            title={item?.content.split("\n")[0]} 
+                            date={item?.date}
+                            username={item?.poster} 
+                        />
+                    ): null
+                }  
+            </Suspense>
         </>
     )
 }
