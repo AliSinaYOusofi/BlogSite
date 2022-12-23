@@ -14,9 +14,12 @@ let data = [
   },
 ];
 
+let search = "through it";
+let reverse = search.split(" ").reverse().join(" ");
+
 data.forEach(item => {
-  if (item?.reply) {
-    console.log("df")
+  if (item.content.toLocaleLowerCase().includes("Hello world from the parallel".toLowerCase())) {
+    console.log("includes")
   }
 })
 // NAfNAusteHj7ppc
