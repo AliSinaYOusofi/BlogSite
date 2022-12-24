@@ -39,7 +39,8 @@ export default async function handler(req, res) {
           });
         
         queryResult = queryResult.reverse();
-        queryResult.length = 5;
+        if (queryResult.length >= 6)
+            queryResult.length = 5;
 
         return res.status(200).json({message: 'done', latestPosts: queryResult}); // thats a good boy      
     

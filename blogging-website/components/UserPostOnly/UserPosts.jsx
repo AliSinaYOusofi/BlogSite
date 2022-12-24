@@ -19,9 +19,14 @@ export default function SingleUserPosts({content, title, username, profileUrl, d
                 <p className="line-clamp-4 overflow-ellipsis mt-2 text-black/90">{content}</p>
             </div> 
             <div className="flex items-center justify-between mt-4">
-                <Link href={{ pathname:"/single_post_view", query: {post: id} }} className="text-gray-700 transition-all duration-300 hover:underline" id={id}>Read more ⟶</Link> 
+                <Link href={{ pathname:"/single_post_view", query: {post: id} }} className="text-gray-700 transition-all duration-300 hover:underline" id={id}>{date ? "Read more ⟶" : null}</Link> 
                 <div className="flex items-center">
-                    <img src={profileUrl || "https://stackdiary.com/140x100.png"} alt="Author Photo" className=" object-cover w-10 h-10 mx-4 rounded-full sm:block" /> 
+                    {
+                        date
+                        ?
+                        <img src={profileUrl && date ? profileUrl : "https://stackdiary.com/140x100.png"} alt="Author Photo" className=" object-cover w-10 h-10 mx-4 rounded-full sm:block" /> 
+                        : null
+                    }
                     <span className="font-bold text-black/80">{username}</span>
                 </div>
             </div>

@@ -17,7 +17,6 @@ export default function Loading() {
                 <TextLoading />
             </div>
             <div className="w-[25%] relative flex flex-col px-2 py-4 items-center justify-center ml-2 ">
-                <ColumnCardLoading />
                 <SingleLoading />
                 <SingleLoading />
                 <SingleLoading />

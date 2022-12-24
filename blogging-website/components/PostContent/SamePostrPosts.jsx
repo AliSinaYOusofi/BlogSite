@@ -46,7 +46,7 @@ export default function SamePostrPosts({postId}) {
                     return (
                         <div className="md:w-fit w-[95%] mx-auto p-4 bg-[#f5f5f5] rounded-lg md:ml-2  mt-2 " key={item?.id}>
                             <div className="flex items-start justify-between">
-                                <span className="text-sm font-light text-black">{item?.date.split("T")[0] || "2022-12-4"}</span>
+                                <span className="text-sm font-light text-black">{item?.date.split("T")[0] || ""}</span>
                                 <span className="text-sm font-light text-black"> {item?.username || ""} </span> 
                             </div> 
                             <div className="mt-2">
@@ -54,7 +54,7 @@ export default function SamePostrPosts({postId}) {
                                 <p className="line-clamp-3 overflow-ellipsis mt-2 text-black/80 text-sm mb-4">{item?.content || ""}</p>
                             </div> 
                         
-                            <Link onClick={moveToTopOfDocument} href={{ pathname:"/single_post_view", query: {post: item?.id} }} className="text-black/70 transition-all duration-300 hover:underline text-sm " id={item?.id}>Read more ⟶</Link> 
+                            <Link onClick={moveToTopOfDocument} href={{ pathname:"/single_post_view", query: {post: item?.id} }} className="text-black/70 transition-all duration-300 hover:underline text-sm " id={item?.id}>{item?.username ? "Read more ⟶" : null}</Link> 
                         </div>
                     )
                 }) : ""

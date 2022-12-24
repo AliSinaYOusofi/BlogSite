@@ -40,6 +40,8 @@ export default function UserMainPage() {
     // now show the posts that are created by the user aftter the profile section
     // solv then code
 
+    const scrollToViewEditPage = () => document.getElementById("edit_page").scrollIntoView({behavior: 'smooth'});
+
     return (
         <>
         <main className="mt-[22rem] ">
@@ -53,21 +55,7 @@ export default function UserMainPage() {
                                     <UserImage profileUrl={ profile ? profile[0]?.profileUrl : ""}/>    
                                 </div>
 
-                                <div className="w-full -mt-2">
-                                    <div className="flex justify-center">
-                                        <div className="mr-4 p-3 text-center">
-                                            <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">22</span><span className="text-sm text-gray-800">Friends</span>
-                                        </div>
-                                        <div className="mr-4 p-3 text-center">
-                                            <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">10</span><span className="text-sm text-gray-800">Photos</span>
-                                        </div>
-                                        <div className="lg:mr-4 p-3 text-center">
-                                            <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">89</span><span className="text-sm text-gray-800">Comments</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="mt-3">
+                                <div onClick={scrollToViewEditPage}  className="mt-3">
                                     <button type="button" className="text-white transition-all duration-300 hover:-translate-y-1 bg-[#29B6F6] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Edit Profile</button>
                                 </div>
 
@@ -89,7 +77,7 @@ export default function UserMainPage() {
                                     University: <i className="fas fa-university mr-2 text-lg text-gray-900"></i>{profile ? profile[0]?.university : ""}
                                 </div>
                             </div>
-                            <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+                            <div  className="mt-10 py-10 border-t border-blueGray-200 text-center">
                                 <div className="flex flex-wrap justify-center">
                                     <div className="w-full lg:w-9/12 px-4">
                                         <p className="mb-4 text-lg leading-relaxed text-gray-900">
@@ -103,7 +91,9 @@ export default function UserMainPage() {
                 </div>
             </section>
         </main>
-        <ReRegister />
+        <section id="edit_page">
+            <ReRegister />
+        </section>
         </>
     );
 }

@@ -51,17 +51,17 @@ export default function UserNavbar() {
     }
     return (
         
-        <nav className="sticky top-3 z-[999] bg-white/40  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  backdrop-blur-sm
+        <nav className="sticky top-3 z-[999] md:w-[36%] bg-white/40  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  backdrop-blur-sm
         ">
             <div className="container flex flex-wrap items-center justify-between mx-auto text-xl">
                 <Link href="#" className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                         width="48" height="48"
-                        className="transition-all duration-300 hover:animate-none animate-spin"
+                       
                         viewBox="0 0 48 48">
                         <path fill="#29b6f6" fillRule="evenodd" d="M24,4C12.96,4,4.01,12.954,4.01,24	c0,10.141,7.545,18.519,17.325,19.823v-4.03c0-1.136-0.716-2.158-1.793-2.519c-5.643-1.897-9.68-7.293-9.531-13.611	c0.181-7.692,6.444-13.74,14.133-13.662c7.662,0.078,13.849,6.316,13.849,14c0,0.72-0.056,1.44-0.164,2.151	c-1.713,11.291-16.412,17.637-16.492,17.672C22.208,43.939,23.097,44,24,44c11.04,0,19.99-8.954,19.99-20S35.04,4,24,4" clipRule="evenodd"></path>
                     </svg>
-                    <span className="self-center text-xl font-semibold whitespace-nowrap text-white">Bloggy</span>
+                    <span className="self-center text-xl font-semibold whitespace-nowrap text-black">Bloggy</span>
                 </Link>
                 <div className="flex items-center md:order-2 group relative">
                     <img src={loggedInData ? loggedInData[0].inProfile : "https://stackdiary.com/140x100.png"} alt="image" className="h-10 object-cover w-10 rounded-full"/>
@@ -77,25 +77,27 @@ export default function UserNavbar() {
                                 </Link>
                             </li>
                             <li className="mr-2">
-                                <Link href="#" className="inline-flex p-4 transition-all duration-300 hover:translate-x-1 rounded-t-lg  group" aria-current="page">
-                                    <svg aria-hidden="true" className="mr-2 w-5 h-5 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>Dashboard
+                                <Link href="/all_posts" className="inline-flex p-4 transition-all duration-300 hover:translate-x-1 rounded-t-lg  group" aria-current="page">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                                    </svg>
+                                    <span className="ml-1">Posts</span>
                                 </Link>
                             </li>
                             <li className="mr-2">
-                                <Link href="#" className="inline-flex p-4 rounded-t-lg group transition-all duration-300 hover:translate-x-1">
-                                    <svg aria-hidden="true" className="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path></svg>Settings
+                                <Link href="/make_post" className="inline-flex p-4 rounded-t-lg group transition-all duration-300 hover:translate-x-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                                    </svg>
+                                    <span className="ml-1">Write</span>
                                 </Link>
                             </li>
-                            <li className="mr-2">
-                                <Link href="#" className="inline-flex p-4 rounded-t-lg  group transition-all duration-300 hover:translate-x-1">
-                                    <svg aria-hidden="true" className="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd"></path></svg>Contacts
-                                </Link>
-                            </li>
-                            <li onClick={handleSignout} className="mr-2 cursor-pointer">
-                                <p className="inline-flex p-4 rounded-t-lg  group transition-all duration-300 hover:translate-x-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-log-out mr-2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                            
+                            <li onClick={handleSignout} className="mr-2 flex cursor-pointer">
+                                <span className="inline-flex p-4 rounded-t-lg  group transition-all duration-300 hover:translate-x-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className=""><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                 Sign out
-                                </p>
+                                </span>
                             </li>
                         
                         </ul>
@@ -103,25 +105,7 @@ export default function UserNavbar() {
                 </div>
                 
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-                    <ul className="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 text-sm md:font-medium">
-                    <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md" aria-current="page">
-                            Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md">About</Link>
-                    </li>
-                    <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md">Services</Link>
-                    </li>
-                    <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4 text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md">Pricing</Link>
-                    </li>
-                    <li>
-                        <Link href="#" className="block py-2 pl-3 pr-4  text-gray-800 transition-all duration-300 hover:bg-gray-100  rounded-md">Contact</Link>
-                    </li>
-                    </ul>
+                   
                 </div>
             </div>
         </nav>
