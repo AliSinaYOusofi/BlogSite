@@ -10,8 +10,6 @@ export default async function handler(req, res) {
 
     let {token, comment, postId} = req.body;
 
-    if (!token) token = "some logged in user"; // to be delted
-
     try {
         
         // schemaLike skeleton

@@ -5,13 +5,11 @@ export default async function handler(req, res) {
     
     let {email, token} = req.body;
     
-    console.log(email, token);
    
     if (!email) return res.status(200).json({message: "invalid postId"});
 
     if (req.method !== "POST") return res.status(200).json({message: "invalid requests"});
 
-    if (!token) token = "ali's account"; // should be removed after testing
     
     let alreadySaved = await followingUsers.find({"account": token,"following": {$elemMatch: {"follower": email}}});
    

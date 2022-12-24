@@ -22,8 +22,6 @@ export default async function handler(req, res) {
         let posterData;
         
         const queryResult = await updateProfileSchema.find({"email": email});
-        
-        
 
         if (queryResult.length) {
             let [{place = "", bio = "", profileUrl = "", title = "", date = ""}] = await queryResult;

@@ -11,8 +11,6 @@ export default async function handler(req, res) {
     // if a user has already liked the comment then send a flag that the background
     // of the svg should change to red.
 
-    if (!token) token = "rep one";
-
     try {
         let userAlreadyLiked = await commentReplyLikes.findOne({"who": token, "replyId": replyId, "loves": {$eq: 1}});
         const replyOfCommentsLiked = await commentReplyLikes.find({"replyId": replyId}, {"loves": 1});

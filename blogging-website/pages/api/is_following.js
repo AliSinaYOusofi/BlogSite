@@ -8,8 +8,6 @@ export default async function handler(req, res) {
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 
-    if (!token) token = "ali's account";
-
     try {
         let alreadySaved = await followingUsers.find({"account": token,"following": {$elemMatch: {"follower": email}}});
         return res.status(200).json({message: alreadySaved.length});

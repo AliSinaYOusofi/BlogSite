@@ -17,8 +17,6 @@ export default async function handler(req, res) {
 
     const {postId} = req.query;
 
-    console.log(postId);
-
     try {
         const commentsOnAPost = await commentSchema.find({'postId': postId});
        

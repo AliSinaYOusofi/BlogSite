@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     
     const {email: profileEmail} = jwt.decode(token);
     
-    if(!profileEmail) return res.status(200).json({message: "invalid key"});
+    if(!profileEmail) return res.status(200).json({message: "invalid email"});
 
     
     try {

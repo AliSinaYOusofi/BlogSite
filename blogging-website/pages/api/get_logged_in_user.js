@@ -12,11 +12,9 @@ export default async function handler(req, res) {
         // query the registeration schema for username and email
         // and for profileurl query the postSchema
         const {email: inEmail, username: inUsername} = jwt.decode(token);
-        console.log(inEmail, inUsername, "********************");
+       
 
         const queryResult = await UpdateProfileSchema.findOne({"email": inEmail}, {"profileUrl": 1});
-        
-        console.log(queryResult);
         
         let inProfile;
         if (queryResult) {

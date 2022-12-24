@@ -29,7 +29,6 @@ async function findEmailDuplicates(field) {
     try {
         exists = await UpdateProfileSchema.exists({email: field});
     } catch (error) { console.log(error, "error on findEmailDups function()")}
-    console.log(exists, "fucking exists or not");
     return await exists;
 }
 
@@ -49,7 +48,7 @@ export default async function handler(req, res) {
     } = req.body.dataToSend; // got the data
     
     await connection();
-    console.log("fucking not working", password);
+  
     // verify the key, take the email part, request the preiouse database.
     // now according to the token search database from the previous database
     // get all creds from that database, and for the values that are null
@@ -77,8 +76,6 @@ export default async function handler(req, res) {
     password = password ? bcrypt.hashSync(password, genSaltSync(10)) : previousPassword;
     visibility = visibility !== null ? visibility : previousPublic;
     
-    console.log("new password: %s", password)
-    console.log("old password: %s", previousPassword)
     // the data to be inserted
     
     let dataToBeInserted = new UpdateProfileSchema({

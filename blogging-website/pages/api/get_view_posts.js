@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         // imageURL and user is inside the profile database     
 
         const dataFromProfileSchema = await updateProfileSchema.find({'email': email});
-        console.log(dataFromProfileSchema, '*******************************');
+        
         if (dataFromProfileSchema.length) {
             [{username: proUsername = "", profileUrl: proProfileUrl = "", bio: proBio = "", title: proTitle = ""}] = await dataFromProfileSchema;
         } else {

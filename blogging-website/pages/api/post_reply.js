@@ -13,8 +13,6 @@ export default async function handler(req, res) {
     // get the id of the comment and then addedd to the db.
     let {token, postId, reply, commentId} = req.body;
 
-    if (!token) token = "some logged in user";
-
     try {
         
         // schemaLike skeleton 
