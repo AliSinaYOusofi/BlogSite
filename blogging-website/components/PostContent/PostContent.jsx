@@ -29,12 +29,13 @@ export default function PostContent({postId}) {
         getPostGivenId();
     }, [postId])
 
+    const random = () => Math.floor(Math.random() * 100)
 
     return (
         <>
             <h1 className="mb-4 ml-6 text-xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-2xl">{posts && posts[0]?.content ? posts[0]?.content.split("\n")[0] : ""}</h1>
             {
-                posts ? posts[0].content.split("\n").map( line => line.startsWith("![]") ? <PostImages   postImageUrl={line} /> : <PostText text={line}/>) : ""
+                posts ? posts[0].content.split("\n").map( (line, index) => line.startsWith("![]") ? <PostImages key={index * random}   postImageUrl={line} /> : <PostText key={index * random}  text={line}/>) : ""
             }
         </>
     )

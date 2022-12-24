@@ -20,10 +20,7 @@ export default function Followers() {
             if (response.data.message === "data")
                 setFollowing(response.data?.following || []);
             else
-                setFollowing([]);
-
-
-            console.log(response.data.following, '***********');
+                setFollowing([])
         }
         isFollowing();
     }, []);
