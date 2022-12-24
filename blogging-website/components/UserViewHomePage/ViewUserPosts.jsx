@@ -38,12 +38,13 @@ export default function ViewUserPosts({}) {
         setMiniMenu(!miniMenu);
 
     }
+
     return (
         <div className="flex flex-col mt-12 gap-y-3">
             {
-                posts ? posts.map( item => {
+                Object.keys(posts[0]).length ? posts.map( item => {
                     return (
-                        <div className="md:w-fit w-[95%] mx-auto px-7 py-10 bg-[#f5f5f5] rounded-lg md:ml-2  mt-2 " key={item?.id}>
+                        <div className="md:w-fit w-[95%] mx-auto px-7 py-10 bg-[#f5f5f5] rounded-lg md:ml-2  mt-2 " key={item?.id || item?._id}>
                             <div className="flex items-start justify-between relative">
                                 <span className="text-sm font-light text-black">{item?.date.split("T")[0] || "2022-12-4"}</span>
                                 <span onClick={showMinMenu} className="text-sm font-light text-black cursor-pointer"> <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg></span> 

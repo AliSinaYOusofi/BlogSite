@@ -10,7 +10,7 @@ export default function SingleUserPosts({content, title, username, profileUrl, d
     // id and view all the results in the single_post_view page.
     
     return (
-        <div className="max-w-2xl px-8 py-4 mx-auto  rounded-lg shadow-md bg-[#d1d3ce] mt-10" key={id}>
+        <div className="max-w-2xl px-8 py-4 mx-auto  rounded-lg shadow-md bg-[#d1d3ce] mt-10" id={id}>
             <div className="flex items-center justify-between">
                 <span className="text-sm font-light text-black">{date ? date.split("T")[0] : ""}</span> 
             </div> 
