@@ -8,8 +8,6 @@ export default async function handler(req, res) {
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 
-    if (!token) token = "ali's account";
-
     try {
 
         let currentlyFollowing = await followingUsers.findOne({"account": token});

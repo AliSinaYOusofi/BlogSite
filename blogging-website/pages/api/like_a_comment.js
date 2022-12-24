@@ -11,8 +11,7 @@ export default async function handler(req, res) {
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 
     // if there already exists a person who already liked then we decrement the value other wise inc
-    if (!token) token = "four";
-
+  
     const alreadyLiked = await commentLikes.findOne({"who": token, "commentId": commentId}, {"loves": 1}); // if loves is one then he/she like
     let insertedLikes = 0;
     

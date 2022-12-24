@@ -2,9 +2,6 @@ import postSchema from "../../db_models/UserPosts";
 import connection from '../../db_connection/mongoose.db.config';
 import jwt from 'jsonwebtoken'
 export default async function handler(req, res) {
-
-    const allPosts = req.body;
-    console.log(allPosts, '**********************************');
     // this function will take the postId from params and return 3x posts
     // from the same user;
 

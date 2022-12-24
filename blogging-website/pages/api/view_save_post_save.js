@@ -8,8 +8,6 @@ export default async function handler(req, res) {
     if (!postId) return res.status(200).json({message: "invalid postId"});
 
     if (req.method !== "POST") return res.status(200).json({message: "invalid requests"});
-
-    if (!token) token = "ali's account"; // should be removed after testing
     
     let alreadySaved = await savedPosts.find({"account": token,"savedPosts": {$elemMatch: {"postId": postId}}});
     let accountRegistered = await savedPosts.find({"account": token});

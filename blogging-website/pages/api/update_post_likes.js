@@ -7,9 +7,7 @@ export default async function handler(req, res) {
     if (!postId) return res.status(200).json({message: "invalid postId"});
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
- 
-    if (!token) token = "some token";
-    
+     
     const alreadyLiked = await postLikes.findOne({"who": token, "postId": postId}, {"loves": 1});
     let insertedLikes = 0;
 
