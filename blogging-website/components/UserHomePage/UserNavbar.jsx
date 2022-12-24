@@ -64,7 +64,7 @@ export default function UserNavbar() {
                     <span className="self-center text-xl font-semibold whitespace-nowrap text-white">Bloggy</span>
                 </Link>
                 <div className="flex items-center md:order-2 group relative">
-                    <img src={loggedInData ? loggedInData[0].inProfile : "https://stackdiary.com/140x100.png"} alt="profile image" className="h-10 object-cover w-10 rounded-full"/>
+                    <img src={loggedInData ? loggedInData[0].inProfile : "https://stackdiary.com/140x100.png"} alt="image" className="h-10 object-cover w-10 rounded-full"/>
                     <div className="z-50 rounded-md hidden right-6 top-6 absolute group-hover:block  my-4 text-base list-none bg-[#FDF8F5]" id="user-dropdown">
                         <div className="px-4 py-3">
                             <span className="block text-sm text-gray-300">{loggedInData ? loggedInData[0]?.inUsername : "username"}</span>

@@ -4,13 +4,19 @@ import { useEffect } from 'react';
 import { sleep } from '../global/sleep';
 import AllPostsCard from '../../components/AllPostsCard/AllPosts';
 import Spinner from '../Spinner/Spinner';
+import UsersList from '../UsersList/UsersList';
 
 export default function SearchAndResult() {
 
     const [search, setSearch] = useState("");
     const [userOrPosts, setUserOrPost] = useState("Posts");
     // for search results
-    const [users, setUsers] = useState([{}]);
+    const [users, setUsers] = useState([{
+        username: "",
+        email: "",
+        profileUrl: "",
+        date: ""
+    }]);
     const [posts, setPosts] = useState([{
         id: "",
         title: "",
@@ -23,12 +29,13 @@ export default function SearchAndResult() {
 
     const searchUsers = async () => {
         try {
-            const response = await axios.get("/api/search_by_users",{
+            const response = await axios.get("/api/search/search_by_users",{
                 params: {
                    search
                 }
             });
-            setUsers(response.data.search_result);
+            console.log(response.data.search_results)
+            setUsers(response.data.search_results);
         } 
         catch (error) {
             console.log("search by user: %s", error);
@@ -42,7 +49,6 @@ export default function SearchAndResult() {
                    search
                 }
             });
-            console.log(response.data);
             setPosts(response.data.search_results);
         } catch (error) {
             console.log("search by posts: %s", error);
@@ -53,15 +59,22 @@ export default function SearchAndResult() {
         if (search) {
             if (userOrPosts  === "Posts") {
                 await sleep(3000);
+                setPosts([{}])
                 searchPosts();
             }
             else if (userOrPosts === "Users") {
                 await sleep(3000);
+                setUsers([{}])
                 searchUsers();
             }
         }
     }
     
+    const changeSearchSettings = (e) => {
+        if (userOrPosts === "Posts") setPosts([{}]);
+        else setUsers([{}])
+        setUserOrPost(e.target.value);
+    }
     return (
         <>
         
@@ -77,25 +90,41 @@ export default function SearchAndResult() {
                     <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
                 </svg> */}
 
-                <select onChange={(e) => setUserOrPost(e.target.value)} className="p-3 rounded-full " name="opts" id="opts">
+                <select onChange={changeSearchSettings} className="p-3 rounded-full " name="opts" id="opts">
                     <option value="Posts">Posts</option>
                     <option value="Users">Users</option>
                 </select>
             </div>
-            <Suspense fallback={<Spinner />}>
-                {
-                    posts ? posts.map( item => 
-                        <AllPostsCard
-                            id={item?.id} 
-                            key={item?.date} 
-                            content={item?.content}
-                            title={item?.content.split("\n")[0]} 
-                            date={item?.date}
-                            username={item?.poster} 
-                        />
-                    ): null
-                }  
-            </Suspense>
+           
+            {
+                Object.keys(posts[0]).length && search ? posts.map( item => 
+                    <AllPostsCard
+                        id={item?.id} 
+                        key={item?.date} 
+                        content={item?.content}
+                        title={item?.content.split("\n")[0]} 
+                        date={item?.date}
+                        username={item?.poster} 
+                    />
+                ): null
+            }
+            
+            {
+                users && search ? users.map( item => 
+                    <UsersList
+                        profileUsername={item?.username}
+                        profileEmail={item?.email}
+                        profileImageUrl={item?.profileUrl}
+                        profileJoinDate={item?.date}
+                    />
+                ): null
+            }
+
+            {
+                
+            }
+
+
         </>
     )
 }
