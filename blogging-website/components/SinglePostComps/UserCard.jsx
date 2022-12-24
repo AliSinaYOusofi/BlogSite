@@ -47,7 +47,7 @@ export default function UserCard({postId}) {
                             </svg>
                         </span>
                     </p>
-                    <Link href={{ pathname:"/view_user", query: {email: profile ? profile[0]?.email : ""} }} className="text-base font-light text-gray-900">{profile ? profile[0]?.email : "email@domain.com"}</Link>
+                    <Link href={{ pathname:"/view_user", query: {email: profile ? profile[0]?.email : ""} }} className="text-base font-light text-blue-900 hover:underline">{profile ? profile[0]?.email : "NA"}</Link>
                     <p className="text-base font-light text-gray-900"><time pubdate dateTime="2022-02-08" title="February 8th, 2022"> posted on {profile ? profile[0]?.date.split("T")[0] : "NA"}</time></p>
                 </div>
             </div>

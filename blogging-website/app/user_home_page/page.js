@@ -40,7 +40,6 @@ export default function page () {
         getPosts();
     }, []); 
     
-    console.log(posts);
     return (
         <>
         

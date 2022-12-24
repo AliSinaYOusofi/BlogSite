@@ -104,7 +104,7 @@ export default function CommentSection({postId}) {
             </div>
             <div className="bg-neutral-50 relative shadow-black/20 shadow-sm rounded-lg mt-10 w-[80%] mx-auto ">
                 {
-                    postedComments.length ?  postedComments.map(item => {
+                    Object.keys(postedComments[0]).length ?  postedComments.map(item => {
                         return (
                             <UserComments
                                 key={item?.commentId}
