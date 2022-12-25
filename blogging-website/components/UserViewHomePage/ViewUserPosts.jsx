@@ -46,10 +46,10 @@ export default function ViewUserPosts({}) {
                     return (
                         <div className="md:w-fit w-[95%] mx-auto px-7 py-10 bg-[#f5f5f5] rounded-lg md:ml-2  mt-2 " key={item?.id || item?._id}>
                             <div className="flex items-start justify-between relative">
-                                <span className="text-sm font-light text-black">{item?.date.split("T")[0] || "2022-12-4"}</span>
+                                <span className="text-sm font-light text-black">{item?.date.split("T")[0] || ""}</span>
                                 <span onClick={showMinMenu} className="text-sm font-light text-black cursor-pointer"> <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg></span> 
                                 {
-                                    miniMenu ? <MiniMenu postId={item?.id}/> : ""
+                                    miniMenu && item?.id ? <MiniMenu postId={item?.id}/> : ""
                                 }
                             </div> 
                             <div className="mt-4">
@@ -57,7 +57,7 @@ export default function ViewUserPosts({}) {
                                 <p className="line-clamp-4 overflow-ellipsis mt-2 text-black/80 text-sm mb-4">{item?.content || ""}</p>
                             </div> 
                         
-                            <Link onClick={moveToTopOfDocument} href={{ pathname:"/single_post_view", query: {post: item?.id} }} className="text-black/70 transition-all duration-300 hover:underline text-sm " id={item?.id}>Read more ⟶</Link> 
+                            <Link onClick={moveToTopOfDocument} href={{ pathname:"/single_post_view", query: {post: item?.id} }} className="text-black/70 transition-all duration-300 hover:underline text-sm " id={item?.id}>{item?.id ? "Read more ⟶" : null}</Link> 
                         </div>
                     )
                 }) : ""

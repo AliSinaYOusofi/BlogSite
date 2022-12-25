@@ -28,8 +28,17 @@ export default  function Navbar() {
                     <Link href="/signup">
                         <button type="button" className="text-white bg-[#29B6F6] font-medium rounded-md text-sm px-5 py-3 text-center mr-3 md:mr-0">Sign Up</button>
                     </Link>
-                    <button onClick={() => setDropdown(previouse => ! previouse)} data-collapse-toggle="navbar-cta" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
-                        <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
+                    <button onClick={() => setDropdown(previouse => ! previouse)} data-collapse-toggle="navbar-cta" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden" aria-controls="navbar-cta" aria-expanded="false">
+                        {
+                            !dropdown
+                            ?
+                            <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
+                            :
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+
+                        }
                     </button>
                 </div>
                 <div className="items-center  justify-between hidden  w-full md:flex md:w-auto md:order-1" id="navbar-cta">
@@ -46,19 +55,17 @@ export default  function Navbar() {
                     </ul>
                 </div>
                 {
-                    dropdown ? <div className="items-center justify-between  w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+                    dropdown ? <div className="items-center justify-between  w-full md:w-auto md:order-1 md:hidden" id="navbar-cta">
                     <ul className="flex flex-col p-4 mt-4 text-black  rounded-lg  md:flex-row gap-y-4">
+
                         <li className="">
-                            <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-white rounded-md " aria-current="page">Home</a>
+                            <Link href="/login" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-white rounded-md " aria-current="page">Log In</Link>
+                        </li>
+                        <li className="">
+                            <Link href="/all_posts" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-white rounded-md " aria-current="page">Read</Link>
                         </li>
                         <li>
-                            <a href="#" className="block text py-2 pl-3 pr-4 transition-all duration-300 hover:bg-white rounded-md ">About</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-white rounded-md ">Services</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 pl-3 pr-4 transition-all duration-300 hover:bg-white rounded-md ">Contact</a>
+                            <Link href="/login" className="block text py-2 pl-3 pr-4 transition-all duration-300 hover:bg-white rounded-md ">Write</Link>
                         </li>
                     </ul>
                 </div>
