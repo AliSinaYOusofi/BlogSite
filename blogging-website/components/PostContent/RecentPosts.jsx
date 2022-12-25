@@ -21,6 +21,7 @@ export default function RecentPosts({postId}) {
         const getRecentPosts = async () => {
             try {
                 const response = await axios.get("/api/get_recent_posts" );
+                console.log(response.data);
                 setRecentPosts(response.data.latestPosts);
             } catch (error) {
                 console.log("failed to get posts of the same user, useEffect(): ", error);

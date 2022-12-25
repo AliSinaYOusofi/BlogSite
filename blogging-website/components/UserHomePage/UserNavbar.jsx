@@ -54,7 +54,7 @@ export default function UserNavbar() {
         <nav className="sticky translate-x-2 top-3 z-[999] md:w-[35%] bg-white/40  px-2 sm:px-4 py-1  rounded-lg w-[92%] mx-auto  backdrop-blur-sm
         ">
             <div className="container flex flex-wrap items-center justify-between mx-auto text-xl">
-                <Link href="#" className="flex items-center">
+                <Link href="/" className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                         width="48" height="48"
                        
