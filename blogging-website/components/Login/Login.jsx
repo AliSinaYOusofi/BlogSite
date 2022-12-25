@@ -61,10 +61,7 @@ export default function Login() {
                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-800">Your password</label>
                     <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg border-none outline-none block w-full p-2.5" />
                 </div>
-                <div className="flex items-end">
-                    
-                    <a href="#" className="mr-auto text-sm">Lost Password?</a>
-                </div>
+                
                 <button type="submit" className="w-full text-white bg-[#29B6F6] font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login to your account</button>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                     Not registered? <Link href="/signup" className="text-blue-700 hover:underline dark:text-blue-500">Create account</Link>
