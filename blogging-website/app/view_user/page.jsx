@@ -3,10 +3,18 @@
 import Followers from '../../components/UserViewHomePage/Followers';
 import ViewUserCard from '../../components/UserViewHomePage/ViewUserCard';
 import ViewUserPosts from '../../components/UserViewHomePage/ViewUserPosts';
-
+import { useSpacexProvider } from '../../context/appContext';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function page () {
     // from the email we can get other information
+    const {token} = useSpacexProvider();
+    const router = useRouter();
+
+    useEffect( () => {
+        if (!token) router.push("/login");
+    }, []);
 
     return (
         <>

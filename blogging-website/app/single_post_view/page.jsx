@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation';
 
 import UserCard from '../../components/SinglePostComps/UserCard';
@@ -10,11 +10,18 @@ import PostIneraction from '../../components/SinglePostComps/PostIneraction';
 import PostContent from '../../components/PostContent/PostContent';
 import RecentPosts from '../../components/PostContent/RecentPosts';
 import CommentSection from '../../components/Comments/CommentSection';
-
+import { useSpacexProvider } from '../../context/appContext';
+import { useRouter } from 'next/navigation';
     
 export default function page() {
     
     const postId = useSearchParams().get("post");
+    const {token} = useSpacexProvider();
+    const router = useRouter();
+
+    useEffect( () => {
+        if (!token) router.push("/login");
+    }, []);
     
     return (
         <>

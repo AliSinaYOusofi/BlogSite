@@ -5,10 +5,12 @@ import axios from 'axios';
 import { useState } from 'react';
 import AllPostsCard from '../../components/AllPostsCard/AllPosts';
 import SearchAndResult from '../../components/SearchInput/SearchAndResult';
-
+import { useSpacexProvider } from '../../context/appContext';
+import { useRouter } from 'next/navigation';
 
 export default  function page() {
     // make the search part and if something on input then search and return the results
+    const {token} = useSpacexProvider();
     let [posts, setPosts] = useState([{
         id: "",
         title: "",
@@ -17,9 +19,12 @@ export default  function page() {
         username: "",
     }]);
     let [reverse, setReverse] = useState(false);
+    const router = useRouter();
     // for getting all posts here and showing in here without using hooks
 
     useEffect( () => {
+        
+        if (!token) router.push("/login");
 
         const getRecentPosts = async () => {
             try {

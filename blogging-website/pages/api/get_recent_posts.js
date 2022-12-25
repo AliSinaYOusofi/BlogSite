@@ -23,21 +23,17 @@ export default async function handler(req, res) {
 
         // getting posts from 2-weeks before now
         let twoWeeksBefore = new Date();
-        twoWeeksBefore.setDate(twoWeeksBefore.getDate() - 14);
+        twoWeeksBefore.setDate(twoWeeksBefore.getDate() - 14)
         
         // my cluster is not working. IDK why it is down.
-        let queryResult = await postSchema.find({'date': { $gte: new Date(twoWeeksBefore) } });
+        let queryResult = await postSchema.find().sort({"date": -1}).limit(5);
         
         queryResult.map( item => {
             if (item.poster.length >= 40) {
                 const {email} = jwt.decode(item.poster);
                 item.poster = email;
             }
-          });
-        
-        queryResult = queryResult.reverse();
-        if (queryResult.length >= 6)
-            queryResult.length = 5;
+        });
 
         return res.status(200).json({message: 'done', latestPosts: queryResult}); // thats a good boy      
     

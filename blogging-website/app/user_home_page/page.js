@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react'
 import UserPosts from '../../components/UserPostOnly/UserPosts'
 import { useSpacexProvider } from '../../context/appContext'
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 
 export default function page () {
     const {token} = useSpacexProvider();
-
+    const router = useRouter();
     const [posts, setPosts] = useState([{
         title: "",
         content: "",
@@ -24,20 +26,22 @@ export default function page () {
 
 
     useEffect( () => {
-    
-        const getPosts = async () => {
-          try { 
-            const response = await axios.get("/api/get_posts", {
-              params: { 
-                token
-              }    
-            });
-            // this should do it.
-            setPosts(response.data.posts || [{}]);
-            setProfile(response.data.userData);
-          } catch (error) { console.log(error)}
-        }
-        getPosts();
+        
+      if (!token) router.push("/login");
+      
+      const getPosts = async () => {
+        try { 
+          const response = await axios.get("/api/get_posts", {
+            params: { 
+              token
+            }    
+          });
+          // this should do it.
+          setPosts(response.data.posts || [{}]);
+          setProfile(response.data.userData);
+        } catch (error) { console.log(error)}
+      }
+      getPosts();
     }, []); 
     
     return (
