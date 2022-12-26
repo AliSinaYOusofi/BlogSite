@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     let {commentId, token} = req.query;
     
     
-    if (!commentId || token) return res.status(200).json({message: "invalid token or comment id"});
+    if (!commentId || !token) return res.status(200).json({message: "invalid token or comment id"});
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 

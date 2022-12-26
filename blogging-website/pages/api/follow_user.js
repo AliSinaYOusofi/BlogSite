@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     let {email, token} = req.body;
     
    
-    if (!email) return res.status(200).json({message: "invalid postId"});
+    if (!email) return res.status(200).json({message: "invalid email"});
 
     if (req.method !== "POST") return res.status(200).json({message: "invalid requests"});
 
