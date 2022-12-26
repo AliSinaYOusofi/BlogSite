@@ -22,23 +22,60 @@ export default async function handler(req, res) {
         
         console.log(search, 'user')
         if (search.includes("@")){
-            queryResult = await updateProfileSchema.find({"email": search}, noThisData);
+            queryResult = await updateProfileSchema.find({
+                $or: [
+                    {"email": {$regex: /^{search}/, $options: "i"}},
+                    {"email": {$regex: /{search}$/, $options: "i"}},
+                    {"email": {$regex: /^{search}$/, $options: "i"}},
+                    {"email": {$regex: /{search}/, $options: "i"}},
+                    {"email": search},
+                ]
+            }, noThisData);
         }
         else {
-            queryResult = await updateProfileSchema.find({"username": search}, noThisData);
+            queryResult = await updateProfileSchema.find({
+                $or: [
+                    {"username": {$regex: /^{search}/, $options: "i"}},
+                    {"username": {$regex: /{search}$/, $options: "i"}},
+                    {"username": {$regex: /^{search}$/, $options: "i"}},
+                    {"username": {$regex: /{search}/, $options: "i"}},
+                    {"username": search},
+                ]
+            }, noThisData);
         }
 
         if (queryResult.length === 0 && search.includes("@")) {
-            queryResult = await RegisterationSchema.find({"email": {$eq: search}});
+            queryResult = await RegisterationSchema.find({
+                $or: [
+                    {"email": {$regex: /^{search}/, $options: "i"}},
+                    {"email": {$regex: /{search}$/, $options: "i"}},
+                    {"email": {$regex: /^{search}$/, $options: "i"}},
+                    {"email": {$regex: /{search}/, $options: "i"}},
+                    {"email": search},
+                ]
+            }, {"password": 0, "public": 0});
+            console.log(queryResult, 'rege schema email');
         }
 
-        else if (queryResult.length === 0) queryResult = await RegisterationSchema.find({"username": search})
+        else if (queryResult.length === 0) {
+            queryResult = await RegisterationSchema.find({
+                $or: [
+                    {"username": {$regex: /^{search}/, $options: "i"}},
+                    {"username": {$regex: /{search}$/, $options: "i"}},
+                    {"username": {$regex: /^{search}$/, $options: "i"}},
+                    {"username": {$regex: /{search}/, $options: "i"}},
+                    {"username": search},
+                ]
+            }, {"password": 0, "public": 0})
+            console.log(queryResult, 'rege schema username');
+        }
         
+        if (!queryResult) queryResult = [{}];
         return res.status(200).json({message: "got", search_results: queryResult});
 
     } catch (error) {
         console.log("error searching for users. search term: %s and error: %s", search, error);
-        return res.status(200).json({message: "got", search_results: queryResult});
+        return res.status(200).json({message: "got"});
     }
     
 }
