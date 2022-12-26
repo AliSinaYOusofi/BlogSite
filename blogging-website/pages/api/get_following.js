@@ -19,17 +19,14 @@ export default async function handler(req, res) {
         let thisFollowsLists = getTokenFromEmail(currentlyFollowing, email);
         
         
-        
-        
-        
-
+        let followerData = await getFollowersInfo(thisFollowsLists[0]);
         
         if (thisFollowsLists?.length) { // is following
             // TODO:
             // now for every current follower user followes i have to get the details of the one's he's
             // following from the updatprofile schmea and for each of it check if there is his data in 
             // update profile schema if not then RegeSchema be queried. thats a todo TOD
-            return res.status(200).json({message: "data", following: [thisFollowsLists]});
+            return res.status(200).json({message: "data", following: followerData});
         }
         return res.status(200).json({message: "0"});
 
@@ -52,7 +49,7 @@ function getTokenFromEmail(allFollowing, email) {
             const {email: currentPosterEmail} = jwt.decode(item.account);
         
             if (currentPosterEmail === email) {
-                postsOfTheUser[index] = item.following;
+                postsOfTheUser[index] = item.following
                 return;
             }
         }
@@ -67,7 +64,7 @@ async function getFollowersInfo(followers) {
     
     let followersData = [];
     let index = 0;
-    let profileEmail, profileImageUrl, profileUsername;
+    let profileEmail, profileUsername, profileImageUrl = "https://stackdiary.com/140x100.png";
 
     await Promise.all( followers.map( async (item) => {
         

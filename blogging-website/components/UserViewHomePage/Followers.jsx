@@ -17,9 +17,10 @@ export default function Followers() {
         const isFollowing = async () => {
             const response = await axios.get("/api/get_following", {
                 params: {
-                    email: userEmail
+                    email: userEmail 
                 }
             });
+            console.log(response.data);
             if (response.data.message === "data")
                 setFollowing(response.data?.following || []);
             else

@@ -42,7 +42,7 @@ export default function ViewUserCard() {
         <div className="w-full mt-14 ml-10 max-w-sm bg-[#F5F5F5] border-gray-200 rounded-lg shadow-md">
            
             <div className="flex flex-col items-center pb-4 pt-4">
-                <img className="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" src={ viewUserData ? viewUserData[0]?.profileUrl : "https://stackdiary.com/140x100.png"} alt="profile"/>
+                <img className="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" src={ viewUserData[0]?.profileUrl ? viewUserData[0]?.profileUrl : "https://stackdiary.com/140x100.png"} alt="profile"/>
                 <h5 className="mb-1 text-xl font-medium text-gray-900 ">{viewUserData ? viewUserData[0]?.username : ""}</h5>
                 <span className="text-sm text-gray-800">{viewUserData ? viewUserData[0]?.title : ""}</span>
                 <h5 className="text-sm px-3 mt-3 text-gray-800">{viewUserData ? viewUserData[0]?.bio : ""}</h5>

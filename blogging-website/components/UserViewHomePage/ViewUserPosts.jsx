@@ -42,7 +42,7 @@ export default function ViewUserPosts({}) {
     return (
         <div className="flex flex-col mt-12 gap-y-3">
             {
-                Object.keys(posts[0]).length ? posts.map( item => {
+                posts ? posts.map( item => {
                     return (
                         <div className="md:w-fit w-[95%] mx-auto px-7 py-10 bg-[#f5f5f5] rounded-lg md:ml-2  mt-2 " key={item?.id || item?._id}>
                             <div className="flex items-start justify-between relative">

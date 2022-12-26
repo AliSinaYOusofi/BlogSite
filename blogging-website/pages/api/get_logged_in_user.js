@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         
         let inProfile;
         if (queryResult) {
-            const [{profileUrl: inProfile = ""}] = queryResult;
+            [{profileUrl: inProfile = "https://stackdiary.com/140x100.png"}] = queryResult;
         }
         
         return res.status(200).json({message: "gotIt", logged: [{inEmail, inProfile, inUsername}]});
