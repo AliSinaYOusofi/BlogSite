@@ -3,18 +3,21 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useSpacexProvider } from '../../context/appContext';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+
 
 
 export default function Followers() {
 
     const [following, setFollowing] = useState([]);
     const {token} = useSpacexProvider();
+    const userEmail = useSearchParams().get("email");
     
     useEffect( () => {
         const isFollowing = async () => {
             const response = await axios.get("/api/get_following", {
                 params: {
-                    token
+                    email: userEmail
                 }
             });
             if (response.data.message === "data")

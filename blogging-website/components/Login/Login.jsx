@@ -41,8 +41,6 @@ export default function Login() {
         
             setAccessToken(accessToken); // that's good. access token is set.
             toast.dismiss();
-
-            console.log(response.data.message);
             
             if (message === "success") {
                 router.push("/make_post"); // TODOif user has a post id then redirect to that post TODO

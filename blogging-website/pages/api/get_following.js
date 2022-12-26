@@ -1,27 +1,35 @@
 import followingUsers from "../../db_models/FollowingSchema";
 import RegisterationSchema from '../../db_models/RegisterationSchema';
 import UpdateProfileSchema from '../../db_models/UpdateProfile';
+import jwt from 'jsonwebtoken';
 
 export default async function handler(req, res) {
 
-    let {token} = req.query;
+    // this should not be the token since it's from the person currently logged in
+    // i should get the email and from the email i should get the following list.
+
+    let {email} = req.query;
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
 
     try {
 
-        let currentlyFollowing = await followingUsers.findOne({"account": token});
+        let currentlyFollowing = await followingUsers.find({});
+        
+        let thisFollowsLists = getTokenFromEmail(currentlyFollowing, email);
+        
+        
+        
+        
+        
 
-
-        if (currentlyFollowing?.following?.length) { // is following
+        
+        if (thisFollowsLists?.length) { // is following
             // TODO:
             // now for every current follower user followes i have to get the details of the one's he's
             // following from the updatprofile schmea and for each of it check if there is his data in 
-            // update profile schema if not then RegeSchema be queried. thats a todo TODO
-            let followers = await currentlyFollowing?.following;
-            const followingList = await getFollowersInfo(followers);
-    
-            return res.status(200).json({message: "data", following: followingList});
+            // update profile schema if not then RegeSchema be queried. thats a todo TOD
+            return res.status(200).json({message: "data", following: [thisFollowsLists]});
         }
         return res.status(200).json({message: "0"});
 
@@ -29,6 +37,29 @@ export default async function handler(req, res) {
         console.log("error is_following: %s", error);
         return res.status(200).json({message: "error"});
     }
+}
+
+function getTokenFromEmail(allFollowing, email) {
+    // this function will decode the jwt and return the same emails
+    
+    let postsOfTheUser = [];
+    let index = 0;
+
+    allFollowing.forEach( (item) => {
+        
+        if (item.account?.length >= 30) {
+            
+            const {email: currentPosterEmail} = jwt.decode(item.account);
+        
+            if (currentPosterEmail === email) {
+                postsOfTheUser[index] = item.following;
+                return;
+            }
+        }
+        
+    });
+    
+    return postsOfTheUser;
 }
 
 
