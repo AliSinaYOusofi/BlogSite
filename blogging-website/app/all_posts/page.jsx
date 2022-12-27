@@ -24,12 +24,13 @@ export default  function page() {
     // for getting all posts here and showing in here without using hooks
 
     useEffect( () => {
-        
-        if (!token) router.push("/login");
-
         const getRecentPosts = async () => {
             try {
-                const response = await axios.get("/api/get_all_posts");
+                const response = await axios.get("/api/get_all_posts", {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
                 setPosts(response.data.latestPosts);
             } catch (error) {
                 console.log("failed to get posts of the same user, useEffect(): ", error);

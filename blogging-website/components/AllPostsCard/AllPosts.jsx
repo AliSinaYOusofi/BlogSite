@@ -12,6 +12,7 @@ export default function AllPostsCard({id, date, content, title, username}) { // 
     // the posterToken and after that make another search will all the posts equal to that
     // token
 
+    //
     return (
         <div className="w-full mx-auto p-4 bg-[#f5f5f5] rounded-md ml-2 mt-4" key={id}>
             <div className="flex items-start justify-between">
