@@ -15,7 +15,6 @@ export default function UserComments({postId, profileUrl, username, date, data, 
     const {token} = useSpacexProvider();
     
     const [reply, setReply] = useState(false); // for showing reply part 
-    const [reverse, setReverse] = useState(true);
     const [eye, setEye] = useState(false);
 
     const likesRef = useRef(null);
@@ -31,13 +30,10 @@ export default function UserComments({postId, profileUrl, username, date, data, 
 
     // the remainging part is the liking: count of likes
 
-    useEffect( () => {
-        const makeRepliesReverse = () => {
-            if (rep)
-                rep = rep.reverse();
-        }
-        makeRepliesReverse();
-    }, [reverse]);
+    const makeRepliesReverse = () => {
+        if (rep)
+            rep = rep.reverse();
+    }
 
     const likeAComment = async () => {
         setHearted(!hearted)
@@ -121,14 +117,14 @@ export default function UserComments({postId, profileUrl, username, date, data, 
                         {
                             rep ? (
                                 rep.length >= 2 ?
-                                <span className="flex items-center gap-x-1 hover:cursor-pointer group relative text-xs" onClick={() => setReverse(!reverse)}>
+                                <span className="flex items-center gap-x-1 hover:cursor-pointer group relative text-xs" onClick={makeRepliesReverse}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                                     </svg>
                                     Sort
                                     
                                 </span>
-                                : ""
+                                : null
                             )
                         : ""
                         }
@@ -158,15 +154,14 @@ export default function UserComments({postId, profileUrl, username, date, data, 
             
         </div>
         
-            <div>   
-                {
-                    eye ? (
+        <div className={`${eye ? "flex" : "hidden"} flex-col`}>   
+            {
+                
 
-                        rep ? rep.map(item => <ReplayComment postId={postId} reverse={reverse} username={item?.username} key={item?.replyId} data={item?.data} date={item?.date} profileUrl={item?.profileUrl} repId={item?.replyId}/>): ""
-                    )
-                    : null
-                }
-            </div>
+                rep ? rep.map(item => <ReplayComment postId={postId}  username={item?.username} key={item?.replyId} data={item?.data} date={item?.date} profileUrl={item?.profileUrl} repId={item?.replyId}/>): ""
+                
+            }
+        </div>
 
         
         </>

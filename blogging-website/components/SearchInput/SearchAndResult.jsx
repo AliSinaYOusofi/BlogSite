@@ -8,6 +8,7 @@ import UsersList from '../UsersList/UsersList';
 
 export default function SearchAndResult() {
 
+    const [onKeyup, setOnKeyup] = useState(false);
     const [search, setSearch] = useState("");
     const [userOrPosts, setUserOrPost] = useState("Posts");
     // for search results
@@ -62,21 +63,23 @@ export default function SearchAndResult() {
             if (search) {
                 if (userOrPosts  === "Posts") {
                     setUsers([{}])
+                    await sleep(2000);
                     searchPosts();
                 }
                 else if (userOrPosts === "Users") {
                     setPosts([{}])
+                    await sleep(2000);
                     searchUsers();
                 }
             }
         }
         getSearchResults();
-    }, [search])
+    }, [onKeyup])
     
     const changeSearchSettings = (e) => {
         if (userOrPosts === "Posts") setPosts([{}]);
         else setUsers([{}])
-        setUserOrPost(e.target.value);
+        setUserOrPost(String(e.target.value));
     }
     return (
         <>
@@ -87,6 +90,7 @@ export default function SearchAndResult() {
                     placeholder="search posts, users ... " 
                     className="outline-none border-none w-full rounded-full"
                     onChange={(e) => setSearch(e.target.value)}
+                    onKeyUp={() => setOnKeyup(previous => !previous)}
                 />
                 {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                     <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
@@ -99,7 +103,7 @@ export default function SearchAndResult() {
             </div>
            
             {
-                posts && search ? posts.map( item => 
+                posts && search && userOrPosts === "Posts"? posts.map( item => 
                     <AllPostsCard
                         id={item?.id} 
                         key={item?.date} 
@@ -112,14 +116,14 @@ export default function SearchAndResult() {
             }
             
             {
-                users && search ? users.map( item => 
+                users && search && userOrPosts === "Users" ? users.map( item => 
                     <UsersList
                         profileUsername={item?.username}
                         profileEmail={item?.email}
                         profileImageUrl={item?.profileUrl}
                         profileJoinDate={item?.date}
                     />
-                ): null
+                ): <span></span>
             }
 
             {
