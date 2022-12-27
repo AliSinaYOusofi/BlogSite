@@ -1,4 +1,5 @@
 import commentReplyLikes from '../../db_models/replyCommentsLike';
+import jwt from 'jsonwebtoken'
 
 export default async function handler(req, res) {
 
@@ -11,8 +12,10 @@ export default async function handler(req, res) {
     // if a user has already liked the comment then send a flag that the background
     // of the svg should change to red.
 
+    let {email: emailOfLiker} = jwt.decode(token);
+
     try {
-        let userAlreadyLiked = await commentReplyLikes.findOne({"who": token, "replyId": replyId, "loves": {$eq: 1}});
+        let userAlreadyLiked = await commentReplyLikes.findOne({"who": emailOfLiker, "replyId": replyId, "loves": {$eq: 1}});
         const replyOfCommentsLiked = await commentReplyLikes.find({"replyId": replyId}, {"loves": 1});
        
         return res.status(200).json({userLoves: userAlreadyLiked?.loves, loves: addLoves(replyOfCommentsLiked)});

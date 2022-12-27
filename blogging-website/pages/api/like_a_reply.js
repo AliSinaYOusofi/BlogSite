@@ -1,5 +1,6 @@
 // this will like the parent component of comment not the replies
 import commentReplyLikes from '../../db_models/replyCommentsLike';
+import jwt from 'jsonwebtoken';
 
 export default async function handler(req, res) {
     
@@ -10,8 +11,10 @@ export default async function handler(req, res) {
     if (req.method !== "POST") return res.status(200).json({message: "invalid requests"});
 
     // if there already exists a person who already liked then we decrement the value other wise inc
-    
-    const alreadyLiked = await commentReplyLikes.findOne({"who": token, "replyId": replyId}, {"loves": 1}); // if loves is one then he/she like
+    let {email: emailOfLiker} = jwt.decode(token);
+
+    const alreadyLiked = await commentReplyLikes.findOne({"who": emailOfLiker, "replyId": replyId}, {"loves": 1}); // if loves is one then he/she like
+    // since the jwt token keeps changing i should first decode the jwt and if exists then update, insert otherwise
     let insertedLikes = 0;
     
     try {
@@ -20,11 +23,11 @@ export default async function handler(req, res) {
             else if ( alreadyLiked?.loves === 1) insertedLikes = -1;
             else if( alreadyLiked?.loves <= -1) insertedLikes = 0;
             // then update the doc value
-            await commentReplyLikes.updateOne({"who": token, "replyId": replyId}, { $inc: {"loves": insertedLikes}});
+            await commentReplyLikes.updateOne({"who": emailOfLiker, "replyId": replyId}, { $inc: {"loves": insertedLikes}});
             return res.status(200).json({message: "reply loved updated"});
         }
 
-        await commentReplyLikes.insertMany([{"who": token, "replyId": replyId, "loves": 1}]);
+        await commentReplyLikes.insertMany([{"who": emailOfLiker, "replyId": replyId, "loves": 1}]);
         return res.status(200).json({message: "reply inserted loved"});
 
     } catch (error) {
