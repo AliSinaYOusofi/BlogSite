@@ -1,4 +1,5 @@
 import postLikes from "../../db_models/postLikes";
+import jwt from 'jsonwebtoken'
 
 export default async function handler(req, res) {
 
@@ -11,7 +12,8 @@ export default async function handler(req, res) {
     try {
         const likeCounts = await postLikes.findOne({"postId": postId}, {"loves": 1});
         // if the user already liked the post then make the background red;
-        let userAlreadyLiked = await postLikes.findOne({"who": token, "postId": postId, "loves": {$eq: 1}});
+        let {email: emailOfLiker} = jwt.decode(token);
+        let userAlreadyLiked = await postLikes.findOne({"who": emailOfLiker, "postId": postId, "loves": {$eq: 1}});
 
         
         return res.status(200).json({userLoves: userAlreadyLiked?.loves, likes: likeCounts?.loves || 0});

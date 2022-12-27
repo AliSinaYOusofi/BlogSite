@@ -1,4 +1,5 @@
 import savedPosts from "../../db_models/savedPosts";
+import jwt from 'jsonwebtoken';
 
 export default async function handler(req, res) {
 
@@ -9,14 +10,15 @@ export default async function handler(req, res) {
 
     if (req.method !== "GET") return res.status(200).json({message: "invalid requests"});
     
-    let alreadySaved = await savedPosts.find({"account": token, "postId": postId});
+    let {email: emailOfLiker} = jwt.decode(token);
+    let alreadySaved = await savedPosts.find({"account": emailOfLiker, "postId": postId});
 
-    try {
+    try {  
         if(!Number(saved)) {
 
             if (alreadySaved.length && getCountOfSpecificPost(alreadySaved, postId)) {
                 // if already saved then delete it
-                await savedPosts.findOneAndUpdate({"account": token}, { $pull: {"savedPosts": {'postId': postId}}}).exec();
+                await savedPosts.findOneAndUpdate({"account": emailOfLiker}, { $pull: {"savedPosts": {'postId': postId}}}).exec();
                 
                 return res.status(200).json({message: "delete"});
             }
@@ -26,11 +28,11 @@ export default async function handler(req, res) {
                 
                 if (alreadySaved.length && !getCountOfSpecificPost(alreadySaved, postId)) {
 
-                    await savedPosts.findOneAndUpdate({"account": token}, { $push: {"savedPosts": {'postId': postId}}}).exec();
+                    await savedPosts.findOneAndUpdate({"account": emailOfLiker}, { $push: {"savedPosts": {'postId': postId}}}).exec();
                     return res.status(200).json({message: "update"});
                 }
                  
-                await savedPosts.insertMany({"account": token, "savedPosts": {"postId": postId}});
+                await savedPosts.insertMany({"account": emailOfLiker, "savedPosts": {"postId": postId}});
                 
                 return res.status(200).json({message: "inserted"});
             }

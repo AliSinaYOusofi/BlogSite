@@ -40,7 +40,7 @@ export default function UserNavbar() {
                 console.log(response.data)  
                 setLoggedInData(response.data.logged);
             } catch (error) {
-                console.log("failed to get posts of the same user, useEffect(): ", error);
+                console.log("failed to get logged in user: ", error);
             }
         }
         getProfile();
