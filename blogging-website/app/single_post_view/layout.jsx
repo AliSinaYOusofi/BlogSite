@@ -2,6 +2,8 @@
 import React from 'react'
 import UserNavbar from '../../components/UserHomePage/UserNavbar'
 import Footer from '../../components/Footer/Footer';
+import { useRouter } from 'next/navigation';
+import { useSpacexProvider } from '../../context/appContext';
 
 export default function Layout({children}) {
 
@@ -20,11 +22,21 @@ export default function Layout({children}) {
     // IMPORTANT NOTE //
     // MAKE THESE COMPOENNET FOR EVERY POST
     // NO NEED TO MAKE THESE COMPONENT FOR ANOTHER USER
+
+    const {token} = useSpacexProvider();
+    const router = useRouter();
     return (
         <>
-            <UserNavbar />
-            {children}
-            <Footer />
+            {
+                token
+                ?
+                <div>
+                    <UserNavbar />
+                    {children}
+                    <Footer />
+                </div>
+                : router.push("/login")
+            }
         </>
     ) // testing the component with an image
 }

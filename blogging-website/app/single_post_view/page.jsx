@@ -16,13 +16,7 @@ import { useRouter } from 'next/navigation';
 export default function page() {
     
     const postId = useSearchParams().get("post");
-    const {token} = useSpacexProvider();
-    const router = useRouter();
 
-    useEffect( () => {
-        if (!token) router.push("/login");
-    }, []);
-    
     return (
         <>
             <div className="w-[100%] mx-auto  mt-10 py-4
