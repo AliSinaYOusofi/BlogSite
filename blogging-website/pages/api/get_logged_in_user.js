@@ -21,6 +21,8 @@ export default async function handler(req, res) {
             [{profileUrl: inProfile = "https://stackdiary.com/140x100.png"}] = queryResult;
         }
         
+        if (!inProfile) inProfile = "https://stackdiary.com/140x100.png"
+        
         return res.status(200).json({message: "gotIt", logged: [{inEmail, inProfile, inUsername}]});
     }catch(error) {
         console.log("Error in get_logged_in_user: %s", error);
