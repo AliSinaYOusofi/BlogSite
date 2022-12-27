@@ -80,7 +80,7 @@ export default function CommentSection({postId}) {
     return (
         <>
             <div className="mt-10 w-[80%] mx-auto bg-inherit flex flex-col items-start justify-start
-            gap-y-4 relative">
+            gap-y-4 relative" id={"comment"}>
                
                 <textarea id="message" 
                     onChange={(e) => setComment(e.target.value)} 
