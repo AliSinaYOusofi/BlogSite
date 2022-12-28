@@ -6,6 +6,7 @@ export default async function handler(req, res) {
     const token = req.query.token;
 
     if (req.method !== "GET") return res.status(200).json({message: "only get requests"});
+    
     else if(!token) return res.status(200).json({message: "invalid token"});
 
     try {
@@ -14,7 +15,7 @@ export default async function handler(req, res) {
         const {email: inEmail, username: inUsername} = jwt.decode(token);
        
 
-        const queryResult = await UpdateProfileSchema.findOne({"email": inEmail}, {"profileUrl": 1});
+        const queryResult = await UpdateProfileSchema.find({"email": inEmail}, {"profileUrl": 1});
         
         let inProfile;
         if (queryResult) {

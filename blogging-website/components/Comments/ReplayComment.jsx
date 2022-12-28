@@ -24,9 +24,6 @@ export default function ReplayComment({ profileUrl, username, date, data, likes,
                 });
                 setCommentReplyLikes(response.data.loves);
                 setReplyHearted(response.data.userLoves);
-
-                console.log(response.data);
-
             }catch(error) { console.log("Error! liking an image", error);}
         });
         
