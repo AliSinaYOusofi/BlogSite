@@ -66,6 +66,7 @@ export default function UserComments({postId, profileUrl, username, date, data, 
                         token
                     }
                 });
+                console.log(response.data);
                 setCommentLikes(response.data.loves);
                 setHearted(response.data.userLoves);
 

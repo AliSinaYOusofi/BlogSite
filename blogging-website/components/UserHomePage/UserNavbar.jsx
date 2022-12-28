@@ -36,8 +36,7 @@ export default function UserNavbar() {
                     params: {
                        token
                     }
-                });
-                console.log(response.data)  
+                });  
                 setLoggedInData(response.data.logged);
             } catch (error) {
                 console.log("failed to get logged in user: ", error);
